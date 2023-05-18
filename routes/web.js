@@ -18,13 +18,22 @@ web.get("/topclg", controller.topclgPage);
 web.get("/view", controller.viewPage);
 
 // admin page
-web.get("/admin",(req,res) => {
-    res.render("admin/admin", { title: "selectmycollege Admin" });
-})
+web.get("/admin", controller.adminPage)
 
 // add colleges
-web.get("/addColleges",(req,res) =>{
-    res.render("admin/addCollege",{title: "selectmycollege Add College"})
-})
+web.get("/addColleges",controller.addCollegesPage)
+
+// all colleges
+web.get("/allColleges",controller.allCollegesPage)
+
+// add courses
+web.get("/addCourses",controller.addCoursesPage)
+
+// view Courses
+web.get("/viewCourses",controller.viewCoursesPage)
+
+// leads
+web.get("/leads",controller.leadsPage)
+
 
 module.exports = web;

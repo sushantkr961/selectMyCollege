@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-// Define the CollegeDetails schema
-const collegeDetailsSchema = new mongoose.Schema({
+// Define the College schema
+const collegeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -10,26 +10,42 @@ const collegeDetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  establishedYear: {
-    type: Number,
+  courseType: {
+    type: String,
     required: true,
   },
-  courses: [
+  facilities: [
     {
-      name: String,
-      duration: Number,
+      type: String,
     },
   ],
-  facilities: [String],
-  departments: [
+  alumniReviews: [
     {
-      name: String,
-      hod: String,
+      name: {
+        type: String,
+        required: true,
+      },
+      review: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        required: true,
+      },
+    },
+  ],
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
     },
   ],
 });
 
-// Create the CollegeDetails model
-const CollegeDetails = mongoose.model("CollegeDetails", collegeDetailsSchema);
+// Create the College model
+const College = mongoose.model("College", collegeSchema);
 
-module.exports = CollegeDetails;
+module.exports = College;
