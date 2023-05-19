@@ -1,39 +1,25 @@
-const exprss = require("express");
-const controller = require("../controller/collegeController");
-const web = exprss.Router();
+const express = require("express");
+const web = express();
 
-// Home page
-web.get("/", controller.homePage);
+const courseRoutes = require("./courseRoutes");
+const leadsRoutes = require("./leadsRoutes");
+const collegeRoutes = require("./collegeRoutes");
+const blogRoutes = require("./blogRoutes")
+const alumniRoutes = require("./alumniRoutes")
 
-// Blogs page
-web.get("/blogs", controller.blogsPage);
+// college page
+web.use("/", collegeRoutes);
 
-// Blogs Detail page
-web.get("/blogsDetail", controller.blogsDetailPage);
+// courses page
+web.use("/", courseRoutes);
 
-// topclg page
-web.get("/topclg", controller.topclgPage);
+// blogs page
+web.use("/",blogRoutes)
 
-// view college page
-web.get("/view", controller.viewPage);
-
-// admin page
-web.get("/admin", controller.adminPage)
-
-// add colleges
-web.get("/addColleges",controller.addCollegesPage)
-
-// all colleges
-web.get("/allColleges",controller.allCollegesPage)
-
-// add courses
-web.get("/addCourses",controller.addCoursesPage)
-
-// view Courses
-web.get("/viewCourses",controller.viewCoursesPage)
+// alumni page
+web.use("/",alumniRoutes)
 
 // leads
-web.get("/leads",controller.leadsPage)
-
+web.use("/",leadsRoutes)
 
 module.exports = web;

@@ -1,16 +1,24 @@
 const mongoose = require("mongoose");
 
 // Define the College schema
-const collegeSchema = new mongoose.Schema({
+const collegeSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  location: {
+  address: {
     type: String,
     required: true,
   },
-  courseType: {
+  state: {
+    type: String,
+    required: true,
+  },
+  pinCode: {
+    type: Number,
+    required: true,
+  },
+  city: {
     type: String,
     required: true,
   },
@@ -43,9 +51,19 @@ const collegeSchema = new mongoose.Schema({
       ref: "Course",
     },
   ],
+  logo: {
+    type: String,
+    // required: true,
+  },
+  images: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // Create the College model
-const College = mongoose.model("College", collegeSchema);
+const College =
+  mongoose.models.College || mongoose.model("College", collegeSchema);
 
 module.exports = College;

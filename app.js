@@ -5,12 +5,14 @@ const web = require("./routes/web");
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // MongoDB Connection
 require("./database/db");
 
 // accessing public directory
 app.use(express.static("public"));
-
 
 // implementing view using ejs
 app.set("view engine", "ejs");
