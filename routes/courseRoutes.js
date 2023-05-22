@@ -8,4 +8,7 @@ router.get("/addCourses", controller.addCoursesPage);
 // view Courses
 router.get("/viewCourses", controller.viewCoursesPage);
 
+// edit course
+router.get("/editCourse", controller.editCourse)
+
 module.exports = router;

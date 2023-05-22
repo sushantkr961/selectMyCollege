@@ -162,6 +162,10 @@ const updateCollege = async (req, res) => {
 
     await college.save();
 
+    req.session.message = {
+      type: "success",
+      message: "College updated successfully!",
+    };
     res.status(200).json({ message: "College updated successfully", college });
   } catch (error) {
     console.error("Error updating college:", error);
