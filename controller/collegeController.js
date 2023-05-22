@@ -1,5 +1,6 @@
 const fs = require("fs");
 const College = require("../model/collegeModel");
+const { error } = require("console");
 
 // index page
 const homePage = async (req, res) => {
@@ -130,48 +131,102 @@ const updateCollegeView = async (req, res) => {
 
 // Controller for updating a college
 const updateCollege = async (req, res) => {
-  try {
-    const {
-      name,
-      address,
-      state,
-      pinCode,
-      city,
-      url,
-      description,
-      facilities,
-      clgLogo,
-      // images,
-    } = req.body;
-
-    const college = await College.findById(req.params.id);
-    if (!college) {
-      return res.status(404).json({ error: "College not found" });
+  const id = req.params.id;
+  let new_logo = "";
+  if (req.file) {
+    new_logo = req.file.filename;
+    try {
+      fs.unlinkSync("uploads/" + req.body.old_image);
+    } catch (error) {
+      console.log(error);
     }
+  } else {
+    new_logo = req.body.old_image;
+  }
 
-    college.name = name;
-    college.address = address;
-    college.state = state;
-    college.city = city;
-    college.url = url;
-    college.facilities = facilities;
-    college.clgLogo = clgLogo;
-    college.pinCode = pinCode;
-    college.description = description;
-    // college.images = images;
+  try {
+    const updatedCollege = await College.findByIdAndUpdate(
+      id,
+      {
+        name: req.body.name,
+        address: req.body.address,
+        state: req.body.state,
+        pinCode: req.body.pinCode,
+        city: req.body.city,
+        url: req.body.url,
+        description: req.body.description,
+        facilities: req.body.facilities,
+        clgLogo: new_logo,
+      },
+      { new: true }
+    );
 
-    await college.save();
+    if (!updatedCollege) {
+      req.session.message = {
+        type: "danger",
+        message: "College not found",
+      };
+      return res.redirect("/allColleges");
+    }
 
     req.session.message = {
       type: "success",
-      message: "College updated successfully!",
+      message: "College Updated Successfully!",
     };
-    res.status(200).json({ message: "College updated successfully", college });
+    res.redirect("/allColleges");
   } catch (error) {
     console.error("Error updating college:", error);
-    res.status(500).json({ error: "Error updating college" });
+    req.session.message = {
+      type: "danger",
+      message: "Error updating college",
+    };
+    res.redirect("/allColleges");
   }
 };
+
+// const updateCollege = async (req, res) => {
+//   try {
+//     const {
+//       name,
+//       address,
+//       state,
+//       pinCode,
+//       city,
+//       url,
+//       description,
+//       facilities,
+//       clgLogo,
+//       // images,
+//     } = req.body;
+
+//     const college = await College.findById(req.params.id);
+//     if (!college) {
+//       return res.status(404).json({ error: "College not found" });
+//     }
+
+//     college.name = name;
+//     college.address = address;
+//     college.state = state;
+//     college.city = city;
+//     college.url = url;
+//     college.facilities = facilities;
+//     college.clgLogo = clgLogo;
+//     college.pinCode = pinCode;
+//     college.description = description;
+//     // college.images = images;
+
+//     await college.save();
+
+//     req.session.message = {
+//       type: "success",
+//       message: "College updated successfully!",
+//     };
+//     res.status(200).json({ message: "College updated successfully", college });
+//   } catch (error) {
+//     console.error("Error updating college:", error);
+//     res.status(500).json({ error: "Error updating college" });
+//   }
+// };
 
 /** DELETE COLLEGE START HERE */
 // Controller for DELETE college

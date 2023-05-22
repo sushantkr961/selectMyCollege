@@ -32,7 +32,7 @@ router.post("/addColleges", upload, controller.createCollege);
 router.get("/addColleges", controller.createCollegeView);
 router.delete('/colleges/:id',controller.deleteCollege)
 router.get('/updateCollege/:id', controller.updateCollegeView);
-router.put('/updateCollege/:id', controller.updateCollege);
+router.post('/updateCollege/:id', controller.updateCollege);
 
 // all colleges
 router.get("/allColleges", controller.getAllColleges);
