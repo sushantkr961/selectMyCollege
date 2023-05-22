@@ -1,6 +1,19 @@
 const exprss = require("express");
 const controller = require("../controller/collegeController");
 const router = exprss.Router();
+const multer = require("multer");
+
+// logo image upload Multer configuration for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage }).single("clgLogo");
 
 // Home page
 router.get("/", controller.homePage);
@@ -15,8 +28,11 @@ router.get("/view", controller.viewPage);
 router.get("/admin", controller.adminPage);
 
 // add colleges
-// router.get("/addColleges", controller.createCollege);
-router.post("/addColleges",controller.createCollege)
+router.post("/addColleges", upload, controller.createCollege);
+router.get("/addColleges", controller.createCollegeView);
+router.delete('/colleges/:id',controller.deleteCollege)
+router.get('/updateCollege/:id', controller.updateCollegeView);
+router.post('/updateCollege/:id', controller.updateCollege);
 
 // all colleges
 router.get("/allColleges", controller.getAllColleges);

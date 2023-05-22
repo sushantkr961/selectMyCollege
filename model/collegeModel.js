@@ -15,12 +15,18 @@ const collegeSchema = mongoose.Schema({
     required: true,
   },
   pinCode: {
-    type: Number,
+    type: String,
     required: true,
   },
   city: {
     type: String,
     required: true,
+  },
+  url: {
+    type: String,
+  },
+  description: {
+    type: String,
   },
   facilities: [
     {
@@ -51,9 +57,9 @@ const collegeSchema = mongoose.Schema({
       ref: "Course",
     },
   ],
-  logo: {
+  clgLogo: {
     type: String,
-    // required: true,
+    default: "../public/image/defaultlogo.png",
   },
   images: [
     {
