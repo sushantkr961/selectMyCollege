@@ -1,4 +1,5 @@
 const fs = require("fs");
+const mongoose = require("mongoose");
 const College = require("../model/collegeModel");
 
 // index page
@@ -96,7 +97,8 @@ const createCollege = async (req, res) => {
       message: "College created successfully",
     };
     // res.status(201).json({ message: "College created successfully", college });
-    res.redirect("/allColleges");
+    // res.redirect("/allColleges");
+    res.redirect(`/addColleges/next?collegeId=${college._id}`);
   } catch (error) {
     console.error("Error creating college:", error);
     req.session.message = "Error creating college";
@@ -104,6 +106,41 @@ const createCollege = async (req, res) => {
   }
 };
 /** CREATE COLLEGE ENDS HERE */
+
+const createCollegeTwoView = (req, res) => {
+  const { collegeId } = req.query;
+  const objectIdCollegeId = new mongoose.Types.ObjectId(collegeId);
+
+  College.findById(objectIdCollegeId)
+    .then((college) => {
+      res.render("admin/addCollegeTwo", { college, title: "next" });
+    })
+    .catch((error) => {
+      console.error("Error retrieving college:", error);
+      req.session.message = "Error retrieving college";
+      res.status(500).json({ error: "Error retrieving college" });
+    });
+};
+
+const createCollegeTwo = async (req, res) => {
+  const { description, url, facilities } = req.body;
+
+  try {
+    const college = new College({
+      description,
+      url,
+      facilities,
+    });
+
+    const savedCollege = await college.save();
+
+    res.redirect("/allColleges");
+  } catch (error) {
+    console.error("Error saving college:", error);
+    req.session.message = "Error saving college";
+    res.status(500).json({ error: "Error saving college", savedCollege });
+  }
+};
 
 /** GET ALL COLLEGES STARTS HERE */
 const getAllColleges = async (req, res) => {
@@ -242,4 +279,6 @@ module.exports = {
   updateCollegeView,
   deleteCollege,
   getCollegeById,
+  createCollegeTwo,
+  createCollegeTwoView,
 };

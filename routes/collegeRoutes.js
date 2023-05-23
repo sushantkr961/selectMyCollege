@@ -33,12 +33,17 @@ router
   .route("/addColleges")
   .get(controller.createCollegeView)
   .post(upload, controller.createCollege);
+// add colleges part two
+router.get("/addColleges/next", controller.createCollegeTwoView);
+router.post("/addColleges/next", controller.createCollegeTwo);
 
+// update colleges
 router
   .route("/updateCollege/:id")
   .get(controller.updateCollegeView)
   .put(upload, controller.updateCollege);
 
+//delete colleges
 router.delete("/colleges/:id", controller.deleteCollege);
 
 // all colleges
