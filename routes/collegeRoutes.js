@@ -23,16 +23,23 @@ router.get("/topclg", controller.topclgPage);
 
 // view college page
 router.get("/view", controller.viewPage);
+router.get("/colleges/:id", controller.getCollegeById);
 
 // admin page
 router.get("/admin", controller.adminPage);
 
 // add colleges
-router.post("/addColleges", upload, controller.createCollege);
-router.get("/addColleges", controller.createCollegeView);
+router
+  .route("/addColleges")
+  .get(controller.createCollegeView)
+  .post(upload, controller.createCollege);
+
+router
+  .route("/updateCollege/:id")
+  .get(controller.updateCollegeView)
+  .put(upload, controller.updateCollege);
+
 router.delete("/colleges/:id", controller.deleteCollege);
-router.get("/updateCollege/:id", controller.updateCollegeView);
-router.put("/updateCollege/:id", upload, controller.updateCollege);
 
 // all colleges
 router.get("/allColleges", controller.getAllColleges);

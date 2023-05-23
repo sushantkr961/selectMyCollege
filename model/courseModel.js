@@ -10,14 +10,7 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  courseFee : {
-    type: Number,
-    required: true,
-  },
-  college: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "College",
-  },
+  attrs: [{ key: { type: String }, value: [{ type: String }] }],
 });
 
 // Create the Course model

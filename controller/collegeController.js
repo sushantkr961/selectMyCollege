@@ -1,6 +1,5 @@
 const fs = require("fs");
 const College = require("../model/collegeModel");
-const { error } = require("console");
 
 // index page
 const homePage = async (req, res) => {
@@ -11,8 +10,28 @@ const topclgPage = async (req, res) => {
   res.render("topclg", { title: "selectmycollege" });
 };
 
+// Controller for getting a specific college by ID
 const viewPage = async (req, res) => {
   res.render("view", { title: "selectmycollege" });
+};
+const getCollegeById = async (req, res) => {
+  try {
+    const college = await College.findById(req.params.id);
+
+    if (!college) {
+      return res.status(404).json({ error: "College not found" });
+    }
+
+    // Render the EJS template
+    // res.render("view", {
+    //   college,
+    //   title: "College Details",
+    // });
+    res.status(200).json({ college });
+  } catch (error) {
+    console.error("Error getting college:", error);
+    res.status(500).json({ error: "Error getting college" });
+  }
 };
 
 const adminPage = async (req, res) => {
@@ -23,12 +42,20 @@ const adminPage = async (req, res) => {
 const createCollegeView = async (req, res) => {
   res.render("admin/addCollege", { title: "selectmycollege Admin" });
 };
-
 // Controller for creating a college
 const createCollege = async (req, res) => {
   try {
-    const { name, address, state, pinCode, city, facilities, clgLogo, images } =
-      req.body;
+    const {
+      name,
+      address,
+      state,
+      pinCode,
+      city,
+      facilities,
+      clgLogo,
+      images,
+      description,
+    } = req.body;
 
     // Check if all required inputs are present
     if (!(name && address && state && pinCode && city)) {
@@ -62,6 +89,7 @@ const createCollege = async (req, res) => {
       facilities,
       clgLogo: req.file.filename,
       images,
+      description,
     });
     req.session.message = {
       type: "success",
@@ -95,20 +123,7 @@ const getAllColleges = async (req, res) => {
 };
 /** GET ALL COLLEGES ENDS HERE */
 
-// Controller for getting a specific college by ID
-// const getCollegeById = async (req, res) => {
-//   try {
-//     const college = await College.findById(req.params.id);
-//     if (!college) {
-//       return res.status(404).json({ error: "College not found" });
-//     }
-//     res.status(200).json({ college });
-//   } catch (error) {
-//     console.error("Error getting college:", error);
-//     res.status(500).json({ error: "Error getting college" });
-//   }
-// };
-
+/** UPDATE COLLEGES STARTS HERE */
 const updateCollegeView = async (req, res) => {
   try {
     const college = await College.findById(req.params.id);
@@ -125,7 +140,6 @@ const updateCollegeView = async (req, res) => {
     res.status(500).json({ error: "Error getting college" });
   }
 };
-
 // Controller for updating a college
 const updateCollege = async (req, res) => {
   try {
@@ -183,9 +197,9 @@ const updateCollege = async (req, res) => {
     res.status(500).json({ error: "Error updating college" });
   }
 };
+/** UPDATE COLLEGES ENDS HERE */
 
 /** DELETE COLLEGE START HERE */
-// Controller for DELETE college
 const deleteCollege = async (req, res) => {
   try {
     const { id } = req.params;
@@ -214,7 +228,7 @@ const deleteCollege = async (req, res) => {
     res.status(500).json({ error: "Error deleting college" });
   }
 };
-/** CREATE COLLEGE ENDS HERE */
+/** DELETE COLLEGE ENDS HERE */
 
 module.exports = {
   homePage,
@@ -227,4 +241,5 @@ module.exports = {
   updateCollege,
   updateCollegeView,
   deleteCollege,
+  getCollegeById,
 };
