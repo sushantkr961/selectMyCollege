@@ -59,7 +59,6 @@ const collegeSchema = mongoose.Schema({
   ],
   clgLogo: {
     type: String,
-    default: "../public/image/defaultlogo.png",
   },
   images: [
     {

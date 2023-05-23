@@ -130,59 +130,60 @@ const updateCollegeView = async (req, res) => {
 };
 
 // Controller for updating a college
-const updateCollege = async (req, res) => {
-  const id = req.params.id;
-  let new_logo = "";
-  if (req.file) {
-    new_logo = req.file.filename;
-    try {
-      fs.unlinkSync("uploads/" + req.body.old_image);
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    new_logo = req.body.old_image;
-  }
+// const updateCollege = async (req, res) => {
+//   console.log(req.body );
+//   const { id } = req.params.id;
+//   let new_logo = "";
+//   if (req.file) {
+//     new_logo = req.file.filename;
+//     try {
+//       fs.unlinkSync("uploads/" + req.body.old_clgLogo);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   } else {
+//     new_logo = req.body.old_clgLogo;
+//   }
 
-  try {
-    const updatedCollege = await College.findByIdAndUpdate(
-      id,
-      {
-        name: req.body.name,
-        address: req.body.address,
-        state: req.body.state,
-        pinCode: req.body.pinCode,
-        city: req.body.city,
-        url: req.body.url,
-        description: req.body.description,
-        facilities: req.body.facilities,
-        clgLogo: new_logo,
-      },
-      { new: true }
-    );
+//   try {
+//     const updatedCollege = await College.findByIdAndUpdate(
+//       id,
+//       {
+//         name: req.body.name,
+//         address: req.body.address,
+//         state: req.body.state,
+//         pinCode: req.body.pinCode,
+//         city: req.body.city,
+//         url: req.body.url,
+//         description: req.body.description,
+//         facilities: req.body.facilities,
+//         clgLogo: new_logo,
+//       },
+//       { new: true }
+//     );
 
-    if (!updatedCollege) {
-      req.session.message = {
-        type: "danger",
-        message: "College not found",
-      };
-      return res.redirect("/allColleges");
-    }
+//     if (!updatedCollege) {
+//       req.session.message = {
+//         type: "danger",
+//         message: "College not found",
+//       };
+//       return res.redirect("/allColleges");
+//     }
 
-    req.session.message = {
-      type: "success",
-      message: "College Updated Successfully!",
-    };
-    res.redirect("/allColleges");
-  } catch (error) {
-    console.error("Error updating college:", error);
-    req.session.message = {
-      type: "danger",
-      message: "Error updating college",
-    };
-    res.redirect("/allColleges");
-  }
-};
+//     req.session.message = {
+//       type: "success",
+//       message: "College Updated Successfully!",
+//     };
+//     res.redirect("/allColleges");
+//   } catch (error) {
+//     console.error("Error updating college:", error);
+//     req.session.message = {
+//       type: "danger",
+//       message: "Error updating college",
+//     };
+//     res.redirect("/allColleges");
+//   }
+// };
 
 // const updateCollege = async (req, res) => {
 //   try {
@@ -221,12 +222,70 @@ const updateCollege = async (req, res) => {
 //       type: "success",
 //       message: "College updated successfully!",
 //     };
-//     res.status(200).json({ message: "College updated successfully", college });
+//     res.redirect("/allColleges");
+//     // res.status(200).json({ message: "College updated successfully", college });
 //   } catch (error) {
 //     console.error("Error updating college:", error);
 //     res.status(500).json({ error: "Error updating college" });
 //   }
 // };
+
+const updateCollege = async (req, res) => {
+  try {
+    const {
+      name,
+      address,
+      state,
+      pinCode,
+      city,
+      url,
+      description,
+      facilities,
+      clgLogo,
+      // images,
+    } = req.body;
+
+    const college = await College.findById(req.params.id);
+    let new_logo = "";
+    if (!college) {
+      return res.status(404).json({ error: "College not found" });
+    }
+
+    if (req.file) {
+      new_logo = req.file.filename;
+      try {
+        fs.unlinkSync("uploads/" + req.body.old_clgLogo);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      new_logo = req.body.old_clgLogo;
+    }
+
+    college.name = name;
+    college.address = address;
+    college.state = state;
+    college.city = city;
+    college.url = url;
+    college.facilities = facilities;
+    college.pinCode = pinCode;
+    college.description = description;
+    (college.clgLogo = new_logo),
+      // college.images = images;
+
+      await college.save();
+
+    req.session.message = {
+      type: "success",
+      message: "College updated successfully!",
+    };
+    res.redirect("/allColleges");
+    // res.status(200).json({ message: "College updated successfully", college });
+  } catch (error) {
+    console.error("Error updating college:", error);
+    res.status(500).json({ error: "Error updating college" });
+  }
+};
 
 /** DELETE COLLEGE START HERE */
 // Controller for DELETE college

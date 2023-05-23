@@ -2,15 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const web = require("./routes/web");
 const session = require("express-session");
-const methodOverride = require('method-override');
+const methodOverride = require("method-override");
 
 const app = express();
 const PORT = process.env.PORT;
 
 // middlewares
+app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride('_method'));
 
 app.use(
   session({ secret: "my secret key", saveUninitialized: true, resave: false })
