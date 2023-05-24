@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the Course schema
 const courseSchema = mongoose.Schema({
   name: {
     type: String,
@@ -10,10 +9,14 @@ const courseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  attrs: [{ key: { type: String }, value: [{ type: String }] }],
+  feeStructures: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Fee",
+    },
+  ],
 });
 
-// Create the Course model
-const Course = mongoose.model("Course", courseSchema);
+const Course = mongoose.models.Course || mongoose.model("Course", courseSchema);
 
 module.exports = Course;
