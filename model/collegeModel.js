@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the College schema
 const collegeSchema = mongoose.Schema(
   {
     name: {
