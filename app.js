@@ -36,7 +36,6 @@ require("./database/db");
 
 // accessing public directory
 app.use(express.static("public"));
-app.use(express.static("uploads"));
 
 // implementing view using ejs
 app.set("view engine", "ejs");

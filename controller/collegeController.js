@@ -1,6 +1,6 @@
 const fs = require("fs");
-const mongoose = require("mongoose");
 const College = require("../model/collegeModel");
+const Course = require("../model/courseModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -53,6 +53,7 @@ const createCollege = async (req, res) => {
       pinCode,
       city,
       facilities,
+      shortName,
       clgLogo,
       images,
       description,
@@ -88,7 +89,8 @@ const createCollege = async (req, res) => {
       pinCode,
       city,
       facilities,
-      clgLogo: req.file.filename,
+      shortName,
+      clgLogo: "uploads/" + req.file.filename,
       images,
       description,
     });
@@ -105,42 +107,35 @@ const createCollege = async (req, res) => {
     res.status(500).json({ error: "Error creating college" });
   }
 };
-/** CREATE COLLEGE ENDS HERE */
 
-const createCollegeTwoView = (req, res) => {
-  const { collegeId } = req.query;
-  const objectIdCollegeId = new mongoose.Types.ObjectId(collegeId);
-
-  College.findById(objectIdCollegeId)
-    .then((college) => {
-      res.render("admin/addCollegeTwo", { college, title: "next" });
-    })
-    .catch((error) => {
-      console.error("Error retrieving college:", error);
-      req.session.message = "Error retrieving college";
-      res.status(500).json({ error: "Error retrieving college" });
-    });
-};
-
-const createCollegeTwo = async (req, res) => {
-  const { description, url, facilities } = req.body;
-
+const createCollegeTwoView = async (req, res) => {
   try {
-    const college = new College({
-      description,
-      url,
-      facilities,
-    });
+    const { collegeId } = req.query;
 
-    const savedCollege = await college.save();
+    const college = await College.findById(collegeId);
+    const courses = await Course.find();
 
-    res.redirect("/allColleges");
+    res.render("admin/addCollegeTwo", { college, courses, title: "next" });
   } catch (error) {
-    console.error("Error saving college:", error);
-    req.session.message = "Error saving college";
-    res.status(500).json({ error: "Error saving college", savedCollege });
+    console.error("Error retrieving college and courses:", error);
+    req.session.message = "Error retrieving college";
+    res.status(500).json({ error: "Error retrieving college" });
   }
 };
+
+const createCollegeTwo = (req, res) => {
+  const ext = req.body;
+  console.log("check", ext);
+
+  if (ext.courseSelect === "Other") {
+    console.log(ext);
+    res.json(ext);
+  } else {
+    res.json({ message: "Data processed successfully" });
+  }
+};
+
+/** CREATE COLLEGE ENDS HERE */
 
 /** GET ALL COLLEGES STARTS HERE */
 const getAllColleges = async (req, res) => {
@@ -177,6 +172,7 @@ const updateCollegeView = async (req, res) => {
     res.status(500).json({ error: "Error getting college" });
   }
 };
+
 // Controller for updating a college
 const updateCollege = async (req, res) => {
   try {
@@ -189,6 +185,7 @@ const updateCollege = async (req, res) => {
       url,
       description,
       facilities,
+      shortName,
       clgLogo,
       // images,
     } = req.body;
@@ -198,11 +195,10 @@ const updateCollege = async (req, res) => {
     if (!college) {
       return res.status(404).json({ error: "College not found" });
     }
-
     if (req.file) {
-      new_logo = req.file.filename;
+      new_logo = "uploads/" + req.file.filename;
       try {
-        fs.unlinkSync("uploads/" + req.body.old_clgLogo);
+        fs.unlinkSync("public/" + req.body.old_clgLogo);
       } catch (error) {
         console.log(error);
       }
@@ -219,6 +215,7 @@ const updateCollege = async (req, res) => {
     college.pinCode = pinCode;
     college.description = description;
     college.clgLogo = new_logo;
+    college.shortName = shortName;
     // college.images = images;
 
     await college.save();
@@ -242,12 +239,13 @@ const deleteCollege = async (req, res) => {
     const { id } = req.params;
     // Find the college by ID
     const college = await College.findOneAndRemove({ _id: id });
+    // console.log(college);
     if (!college) {
       return res.status(404).json({ error: "College not found" });
     }
     // Delete the corresponding images from the uploads folder
     if (college.clgLogo) {
-      const imagePath = "uploads/" + college.clgLogo;
+      const imagePath = "public/" + college.clgLogo;
       // console.log("Image path:", imagePath);
       fs.unlinkSync(imagePath);
     }
@@ -262,7 +260,8 @@ const deleteCollege = async (req, res) => {
       type: "danger",
       message: "Error deleting college",
     };
-    res.status(500).json({ error: "Error deleting college" });
+    res.redirect("/allColleges");
+    // res.status(500).json({ error: "Error deleting college" });
   }
 };
 /** DELETE COLLEGE ENDS HERE */

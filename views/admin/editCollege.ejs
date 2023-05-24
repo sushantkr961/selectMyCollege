@@ -30,6 +30,17 @@
                   />
                 </div>
                 <div class="form-group">
+                  <label for="cname">Short Name of College</label>
+                  <input
+                    id="cname"
+                    class="form-control"
+                    name="shortName"
+                    minlength="2"
+                    type="text"
+                    value="<%= college.shortName %>"
+                  />
+                </div>
+                <div class="form-group">
                   <label for="caddress">Address</label>
                   <input
                     id="caddress"
@@ -84,26 +95,30 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="clogo">Logo</label>
-                  <input
-                    id="clogo"
-                    class="form-control"
-                    type="file"
-                    name="clgLogo"
-                  />
+                  <label for="clogo">College Logo</label>
+                  <div class="d-flex">
+                    <img
+                      src="<%=process.env.APP_URL%><%= college.clgLogo %>"
+                      width="50"
+                      class="img-thumbnail p-0 rounded-circle me-3"
+                    />
+                    <input
+                      id="clogo"
+                      class="form-control"
+                      type="file"
+                      name="clgLogo"
+                    />
+                    <input
+                      id="clogo"
+                      class="form-control"
+                      type="hidden"
+                      name="old_clgLogo"
+                      value="<%= college.clgLogo %>"
+                    />
+                  </div>
                 </div>
                 <div class="form-group">
-                  <img src="<%= college.clgLogo %>" width="100" class="img-thumbnail"/>
-                  <input
-                    id="clogo"
-                    class="form-control"
-                    type="hidden"
-                    name="old_clgLogo"
-                    value="<%= college.clgLogo %>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="curl">College URL (optional)</label>
+                  <label for="curl">College URL</label>
                   <input
                     id="curl"
                     class="form-control"
@@ -118,7 +133,10 @@
                     id="ccomment"
                     class="form-control"
                     name="description"
-                  ><%= college.description %></textarea>
+                  >
+<%= college.description %>
+                </textarea
+                  >
                 </div>
                 <input class="btn btn-primary" type="submit" value="Update" />
               </fieldset>
