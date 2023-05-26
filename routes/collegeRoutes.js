@@ -35,7 +35,7 @@ router
   .post(upload, controller.createCollege);
 // add colleges part two
 router.get("/addColleges/next", controller.createCollegeTwoView);
-router.post("/addColleges/next", controller.createCollegeTwo);
+router.post("/addColleges/next",upload, controller.createCollegeTwo);
 
 // update colleges
 router

@@ -1,19 +1,20 @@
-// Create FeeStructure
+const Fee = require("../model/feeModel");
+
 const createFeeStructure = async (req, res) => {
-  try {
-    const { collegeId, courseId, fees } = req.body;
+  // try {
+  //   const { collegeId, courseId, fees } = req.body;
 
-    const feeStructure = new FeeStructure({
-      college: collegeId,
-      course: courseId,
-      fees,
-    });
+  //   const feeStructure = await Fee.create({
+  //     college: collegeId,
+  //     course: courseId,
+  //     fees,
+  //   });
 
-    await feeStructure.save();
-
-    res.status(201).json({ feeStructure });
-  } catch (error) {
-    console.error("Error creating fee structure:", error);
-    res.status(500).json({ error: "Error creating fee structure" });
-  }
+  //   res.status(201).json({ feeStructure });
+  // } catch (error) {
+  //   console.error("Error creating fee structure:", error);
+  //   res.status(500).json({ error: "Error creating fee structure" });
+  // }
 };
+
+module.exports = { createFeeStructure };

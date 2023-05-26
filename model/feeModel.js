@@ -1,28 +1,26 @@
 const mongoose = require("mongoose");
 
-const feeSchema = mongoose.Schema({
-  college: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "College",
-  },
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
-  },
-  fees: [
-    {
-      key: {
-        type: String,
-        required: true,
-      },
-      value: {
-        type: String,
-        required: true,
-      },
+const feeSchema = mongoose.Schema(
+  {
+    collegeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "College",
+      required: true,
     },
-  ],
-});
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
+    fees: [],
+    // totalFee: {
+    //   type: Number,
+    //   required: true,
+    // },
+  },
+  { toJSON: { virtuals: true } }
+);
 
-const Course = mongoose.models.Fee || mongoose.model("Fee", feeSchema);
+const Fee = mongoose.models.Fee || mongoose.model("Fee", feeSchema);
 
-module.exports = Course;
+module.exports = Fee;

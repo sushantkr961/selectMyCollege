@@ -1,6 +1,7 @@
 const fs = require("fs");
 const College = require("../model/collegeModel");
 const Course = require("../model/courseModel");
+const Fee = require("../model/feeModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -65,7 +66,8 @@ const createCollege = async (req, res) => {
         type: "danger",
         message: "All inputs are required",
       };
-      return res.status(400).json({ error: "All inputs are required" });
+      return res.redirect("/addColleges");
+      // return res.status(400).json({ error: "All inputs are required" });
     }
 
     // Check if college already exists
@@ -75,10 +77,7 @@ const createCollege = async (req, res) => {
         type: "danger",
         message: "College already exists",
       };
-      return res.status(400).json({
-        error: "College already exists",
-        message: "College already exists",
-      });
+      return res.redirect("/addColleges");
     }
 
     // Create the new college document
@@ -98,20 +97,17 @@ const createCollege = async (req, res) => {
       type: "success",
       message: "College created successfully",
     };
-    // res.status(201).json({ message: "College created successfully", college });
-    // res.redirect("/allColleges");
-    res.redirect(`/addColleges/next?collegeId=${college._id}`);
+    return res.redirect(`/addColleges/next?collegeId=${college._id}`);
   } catch (error) {
     console.error("Error creating college:", error);
     req.session.message = "Error creating college";
-    res.status(500).json({ error: "Error creating college" });
+    return res.redirect("/addColleges");
   }
 };
 
 const createCollegeTwoView = async (req, res) => {
   try {
     const { collegeId } = req.query;
-
     const college = await College.findById(collegeId);
     const courses = await Course.find();
 
@@ -119,19 +115,36 @@ const createCollegeTwoView = async (req, res) => {
   } catch (error) {
     console.error("Error retrieving college and courses:", error);
     req.session.message = "Error retrieving college";
-    res.status(500).json({ error: "Error retrieving college" });
+    return res.redirect("/allColleges");
   }
 };
 
-const createCollegeTwo = (req, res) => {
-  const ext = req.body;
-  console.log("check", ext);
+const createCollegeTwo = async (req, res) => {
+  const { courseSelect, addCourse, duration, fee } = req.body;
 
-  if (ext.courseSelect === "Other") {
-    console.log(ext);
-    res.json(ext);
+  if (courseSelect === "Other") {
+    const course = await Course.create({
+      name: addCourse,
+      duration,
+    });
+    const collegeId = req.query.collegeId;
+    const courseId = course._id;
+    await Fee.create({
+      collegeId,
+      courseId,
+      fees: fee,
+    });
+    return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
   } else {
-    res.json({ message: "Data processed successfully" });
+    const collegeId = req.query.collegeId;
+    const courseId = req.body.courseSelect;
+    await Fee.create({
+      collegeId,
+      courseId,
+      fees: fee,
+    });
+    return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
+    // res.json({ message: "Data processed successfully" });
   }
 };
 
@@ -141,11 +154,22 @@ const createCollegeTwo = (req, res) => {
 const getAllColleges = async (req, res) => {
   try {
     const colleges = await College.find();
-    // res.status(200).json({ colleges }); // by using this ejs file doesn't render
+    const fees = await Fee.find().populate("collegeId courseId");
+    // Calculate the total fee for each fee structure
+    const feesWithTotal = fees.map((fee) => {
+      const totalFee = fee.fees.reduce((sum, currentFee) => {
+        return sum + parseInt(currentFee[1]);
+      }, 0);
+      return {
+        ...fee.toJSON(),
+        totalFee: totalFee.toFixed(2),
+      };
+    });
 
-    // Render the EJS template
+    // res.status(200).json({ colleges, fees: feesWithTotal }); // by using this ejs file doesn't render
     res.render("admin/allColleges", {
       colleges,
+      feesWithTotal,
       title: "allColleges",
     });
   } catch (error) {

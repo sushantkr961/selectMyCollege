@@ -24,22 +24,15 @@ const getAllCourses = async (req, res) => {
 const postCourses = async (req, res) => {
   try {
     const { name, duration } = req.body;
-    console.log(req.body);
-    if (!name || !duration) {
-      return res.status(400).send("Course name and duration are required");
-    }
-    const courseExists = await Course.findOne({ name });
-    if (courseExists) {
-      return res.status(400).send("Course already exists");
-    }
     const course = await Course.create({
       name,
-      duration: duration,
+      duration,
     });
-    res.status(201).send({ course });
+
+    res.status(201).json({ course });
   } catch (error) {
     console.error("Error creating course:", error);
-    res.status(500).send("Error creating course");
+    res.status(500).json({ error: "Error creating course" });
   }
 };
 

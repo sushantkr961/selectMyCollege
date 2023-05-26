@@ -26,7 +26,6 @@
             <h4 class="card-title fs-3 py-2">
               <%= college.name %> (<%= college.shortName %>)
             </h4>
-            <!-- <div></div> -->
             <form class="cmxform" method="post" enctype="multipart/form-data">
               <fieldset>
                 <div class="row">
@@ -37,11 +36,13 @@
                         id="course-select"
                         class="form-select p-3"
                         name="courseSelect"
-                        placeholder="Select Course"
                         onchange="coursea(this)"
                       >
+                        <option>Select Course</option>
                         <% courses.map((cou) => { %>
-                        <option class="p-3"><%=cou.name%></option>
+                        <option class="p-3" value="<%=cou._id%>">
+                          <%=cou.name%>
+                        </option>
                         <% })%>
                         <option>Other</option>
                       </select>
@@ -70,7 +71,7 @@
                       >
                       <input
                         type="number"
-                        name="addCourse"
+                        name="duration"
                         placeholder="Course Duration in Years"
                         class="form-control"
                         id="courseDuration"
@@ -83,7 +84,7 @@
                   <div class="col-md-5">
                     <div class="form-group row m-0">
                       <label class="col-form-label py-0">Add Semester</label>
-                      <input type="text" class="form-control" name="key[]" />
+                      <input type="text" class="form-control" name="fee[0][]" />
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -91,7 +92,7 @@
                       <label class="col-form-label py-0"
                         >Add Fee / semester</label
                       >
-                      <input type="text" class="form-control" name="val[]" />
+                      <input type="text" class="form-control" name="fee[0][]" />
                     </div>
                   </div>
                   <div class="col-md-2 d-flex align-items-center">
@@ -125,13 +126,17 @@
                     <div class="form-group row">
                       <label class="col-form-label py-0"
                         >Add Semester</label>
-                        <input type="text" class="form-control" name="key[]" />
+                        <input type="text" class="form-control" name="fee[` +
+            yo +
+            `][]" />
                     </div>
                   </div>
                   <div class="col-md-5">
                     <div class="form-group row">
                       <label class="col-form-label py-0">Add Fee / semester</label>
-                        <input type="text" class="form-control" name="val[]" />
+                        <input type="text" class="form-control" name="fee[` +
+            yo +
+            `][]" />
                     </div>
                   </div>
                   <div class="col-md-2 d-flex align-items-center">
