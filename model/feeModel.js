@@ -10,7 +10,6 @@ const feeSchema = mongoose.Schema(
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
-      required: true,
     },
     fees: [],
     // totalFee: {
