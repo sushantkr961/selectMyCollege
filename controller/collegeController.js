@@ -110,21 +110,35 @@ const createCollegeTwoView = async (req, res) => {
     const { collegeId } = req.query;
     const college = await College.findById(collegeId);
     const courses = await Course.find();
-    const fee = await Fee.find({ collegeId: collegeId });
-
+    const fee = await Fee.find({ collegeId });
+    let collegeName, courseName;
     const populatedFee = await Promise.all(
       fee.map(async (feeDoc) => {
-        const collegeName = (await College.findById(feeDoc.collegeId)).name;
-        const courseName = (await Course.findById(feeDoc.courseId)).name;
+        const cn = await College.findById(feeDoc.collegeId);
+        if (!Array.isArray(cn) && cn) {
+          collegeName = cn.name;
+        } else {
+          collegeName = null;
+        }
+        const con = await Course.findById(feeDoc.courseId);
+        if (!Array.isArray(con) && con) {
+          courseName = con.name;
+        } else {
+          courseName = null;
+        }
+        // console.log(con);
+        const totalFee = feeDoc.fees.reduce(
+          (sum, [_, value]) => sum + parseFloat(value),
+          0
+        );
         return {
           ...feeDoc.toObject(),
           collegeName,
           courseName,
+          totalFee,
         };
       })
     );
-
-    // console.log(populatedFee);
     res.render("admin/addCollegeTwo", {
       college,
       courses,
@@ -133,38 +147,10 @@ const createCollegeTwoView = async (req, res) => {
     });
   } catch (error) {
     console.error("Error retrieving college, courses, and fees:", error);
-    req.session.message = "Error retrieving college";
+    req.session.message = "Server Error! Please try agian later.";
     return res.redirect("/allColleges");
   }
 };
-
-// const createCollegeTwo = async (req, res) => {
-//   const { courseSelect, addCourse, duration, fee } = req.body;
-
-//   if (courseSelect === "Other") {
-//     const course = await Course.create({
-//       name: addCourse,
-//       duration,
-//     });
-//     const collegeId = req.query.collegeId;
-//     const courseId = course._id;
-//     await Fee.create({
-//       collegeId,
-//       courseId,
-//       fees: fee,
-//     });
-//     return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
-//   } else {
-//     const collegeId = req.query.collegeId;
-//     const courseId = req.body.courseSelect;
-//     await Fee.create({
-//       collegeId,
-//       courseId,
-//       fees: fee,
-//     });
-//     return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
-//   }
-// };
 
 const createCollegeTwo = async (req, res) => {
   const { courseSelect, addCourse, duration, fee } = req.body;
@@ -196,10 +182,8 @@ const createCollegeTwo = async (req, res) => {
 /** CREATE COLLEGE ENDS HERE */
 
 const deleteCourseTwo = async (req, res) => {
-  const collegeId = req.params.collegeId;
+  const collegeId = req.params.id;
   const feeId = req.params.feeId;
-  console.log(collegeId);
-
   try {
     // Delete the fee based on the feeId
     await Fee.findByIdAndRemove(feeId);
@@ -210,37 +194,49 @@ const deleteCourseTwo = async (req, res) => {
   }
 };
 
+const editCollegeCourseView = async (req, res) => {
+  try {
+    const feeId = req.params.feeid;
+    const fee = await Fee.findById(feeId);
+    const college = await College.findById(fee.collegeId);
+    const course = await Course.findById(fee.courseId);
+
+    res.render("admin/editCollegeCourseView", {
+      title: "selectmycollege",
+      fee,
+      college,
+      course,
+    });
+  } catch (error) {}
+};
+
+const editCollegeCourse = async (req, res) => {
+  try {
+    const feeId = req.params.feeid;
+    const { fee } = req.body;
+
+    const updatedFee = await Fee.findById(feeId);
+
+    if (!updatedFee) {
+      req.session.message = "Fee not found";
+      return res.redirect(
+        `/addColleges/next?collegeId=${updatedFee.collegeId}`
+      );
+    }
+
+    updatedFee.fees = fee;
+    await updatedFee.save();
+
+    req.session.message = "Fee updated successfully";
+    return res.redirect(`/addColleges/next?collegeId=${updatedFee.collegeId}`);
+  } catch (error) {
+    console.error("Error updating college course:", error);
+    req.session.message = "Error updating college course";
+    return res.redirect("/allColleges");
+  }
+};
+
 /** GET ALL COLLEGES STARTS HERE */
-// const getAllColleges = async (req, res) => {
-//   try {
-//     const colleges = await College.find();
-//     const courses = await Course.find();
-//     const fees = await Fee.find().populate("collegeId courseId");
-
-//     if (!colleges || !courses || !fees) {
-//       throw new Error("Error retrieving college, courses, and fees");
-//     }
-
-//     // Calculate the total fee for each fee structure
-//     const feesWithTotal = fees.map((fee) => ({
-//       ...fee.toJSON(),
-//       totalFee: fee.totalFee.toFixed(2),
-//     }));
-//        res.status(200).json({ colleges, fees: feesWithTotal });
-
-//     res.render("admin/allColleges", {
-//       colleges,
-//       courses,
-//       feesWithTotal,
-//       title: "allColleges",
-//     });
-//   } catch (error) {
-//     console.error("Error retrieving college, courses, and fees:", error);
-//     res
-//       .status(500)
-//       .json({ error: "Error retrieving college, courses, and fees" });
-//   }
-// };
 
 const getAllColleges = async (req, res) => {
   try {
@@ -256,7 +252,7 @@ const getAllColleges = async (req, res) => {
         totalFee: totalFee.toFixed(2),
       };
     });
-    res.status(200).json({ colleges, fees: feesWithTotal }); // by using this ejs file doesn't render
+    // res.status(200).json({ colleges, fees: feesWithTotal }); // by using this ejs file doesn't render
     res.render("admin/allColleges", {
       colleges,
       feesWithTotal,
@@ -395,4 +391,6 @@ module.exports = {
   createCollegeTwo,
   createCollegeTwoView,
   deleteCourseTwo,
+  editCollegeCourse,
+  editCollegeCourseView,
 };

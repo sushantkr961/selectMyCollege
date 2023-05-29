@@ -35,8 +35,10 @@ router
   .post(upload, controller.createCollege);
 // add colleges part two
 router.get("/addColleges/next", controller.createCollegeTwoView);
-router.post("/addColleges/next", upload, controller.createCollegeTwo);
-router.delete("/addColleges/next/:collegeId/:feeId", controller.deleteCourseTwo);
+router.post("/addColleges/next", controller.createCollegeTwo);
+router.delete("/deletecolleges/:id/courses/:feeId", controller.deleteCourseTwo);
+router.get("/editCollegeCouresView/:feeid", controller.editCollegeCourseView);
+router.post("/editCollegeCouresView/:feeid", controller.editCollegeCourse);
 
 // update colleges
 router

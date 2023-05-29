@@ -1,7 +1,6 @@
 const express = require("express");
 const web = express();
 
-const courseRoutes = require("./courseRoutes");
 const leadsRoutes = require("./leadsRoutes");
 const collegeRoutes = require("./collegeRoutes");
 const blogRoutes = require("./blogRoutes");
@@ -11,8 +10,6 @@ const feeRoutes = require("./feeRoutes");
 // college page
 web.use("/", collegeRoutes);
 
-// courses page
-web.use("/", courseRoutes);
 
 // blogs page
 web.use("/", blogRoutes);
