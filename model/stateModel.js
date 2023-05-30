@@ -4,6 +4,7 @@ const stateSchema = mongoose.Schema(
   {
     stateName: {
       type: String,
+      required: true,
     },
     country: {
       type: String,

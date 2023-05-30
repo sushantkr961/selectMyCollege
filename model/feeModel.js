@@ -17,7 +17,10 @@ const feeSchema = mongoose.Schema(
     //   required: true,
     // },
   },
-  { toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true } },
+  {
+    timestamps: true,
+  }
 );
 
 const Fee = mongoose.models.Fee || mongoose.model("Fee", feeSchema);

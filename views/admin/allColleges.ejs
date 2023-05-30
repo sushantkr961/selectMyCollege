@@ -42,11 +42,17 @@
                   <% colleges.forEach(function(college, index) { %>
                   <tr>
                     <td><%= index+1 %></td>
-                    <td><img src="<%=process.env.APP_URL%><%= college.clgLogo %>" alt="logo" class="img-thumbnail p-0" /></td>
+                    <td>
+                      <img
+                        src="<%=process.env.APP_URL%><%= college.clgLogo %>"
+                        alt="logo"
+                        class="img-thumbnail p-0"
+                      />
+                    </td>
                     <td><%= college.shortName, %></td>
                     <td><%= college.address %></td>
-                    <td><%= college.city %></td>
-                    <td><%= college.state %></td>
+                    <td><%= college.city.cityName %></td>
+                    <td><%= college.state.stateName %></td>
                     <td><%= college.pinCode %></td>
                     <td>
                       <a

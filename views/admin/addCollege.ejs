@@ -62,26 +62,35 @@
                     required
                   />
                 </div>
-                <div class="form-group">
-                  <label for="ccity">City</label>
-                  <input
-                    id="ccity"
-                    class="form-control"
-                    type="text"
-                    name="city"
-                    required
-                  />
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="cityInput">City</label>
+                    <input
+                      list="cities"
+                      name="city"
+                      id="cityInput"
+                      class="form-control"
+                    />
+                    <datalist id="cities">
+                      <% cities.forEach(city => { %>
+                      <option value="<%= city.cityName %>"><% }); %></option>
+                    </datalist>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="stateInput">State</label>
+                    <input
+                      list="states"
+                      name="state"
+                      id="stateInput"
+                      class="form-control"
+                    />
+                    <datalist id="states">
+                      <% states.forEach(state => { %>
+                      <option value="<%= state.stateName %>"><% }); %></option>
+                    </datalist>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="cstate">State</label>
-                  <input
-                    id="cstate"
-                    class="form-control"
-                    type="text"
-                    name="state"
-                    required
-                  />
-                </div>
+
                 <div class="form-group">
                   <label for="cpin">Pin Code</label>
                   <input

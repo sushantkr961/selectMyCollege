@@ -11,7 +11,8 @@ const collegeSchema = mongoose.Schema(
       required: true,
     },
     state: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "State",
       required: true,
     },
     pinCode: {
@@ -19,7 +20,8 @@ const collegeSchema = mongoose.Schema(
       required: true,
     },
     city: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "City",
       required: true,
     },
     url: {
