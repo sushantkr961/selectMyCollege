@@ -39,14 +39,29 @@ const getCollegeById = async (req, res) => {
 };
 
 const adminPage = async (req, res) => {
-  res.render("admin/admin", { title: "selectmycollege Admin" });
+  try {
+    const collegeCount = await College.countDocuments();
+    const courseCount = await Course.countDocuments();
+
+    res.render("admin/admin", {
+      title: "selectmycollege Admin",
+      collegeCount,
+      courseCount,
+    });
+  } catch (error) {
+    console.error("Error getting count:", error);
+    req.session.message = "Error getting count";
+    res.redirect("/admin");
+  }
 };
 
 /** CREATE COLLEGE STARTS HERE */
 const createCollegeView = async (req, res) => {
   try {
-    const cities = await City.find();
-    const states = await State.find();
+    const citiesPromise = City.find();
+    const statesPromise = State.find();
+    const [cities, states] = await Promise.all([citiesPromise, statesPromise]);
+
     res.render("admin/addCollege", {
       title: "selectmycollege Admin",
       cities,
@@ -57,160 +72,6 @@ const createCollegeView = async (req, res) => {
     res.status(500).json({ error: "Error retrieving cities" });
   }
 };
-
-// const createCollege = async (req, res) => {
-//   try {
-//     const {
-//       name,
-//       address,
-//       state,
-//       pinCode,
-//       city,
-//       facilities,
-//       shortName,
-//       clgLogo,
-//       images,
-//       description,
-//     } = req.body;
-
-//     if (!(name && address && pinCode)) {
-//       req.session.message = {
-//         type: "danger",
-//         message: "All inputs are required",
-//       };
-//       return res.redirect("/addColleges");
-//     }
-
-//     const collegeExists = await College.findOne({ name });
-//     if (collegeExists) {
-//       req.session.message = {
-//         type: "danger",
-//         message: "College already exists",
-//       };
-//       return res.redirect("/addColleges");
-//     }
-
-//     let selectedCity = await City.findOne({ cityName: city });
-//     if (!selectedCity) {
-//       selectedCity = await City.create({ cityName: city });
-//     }
-
-//     let selectedState = await State.findOne({ stateName: state });
-//     if (!selectedState) {
-//       selectedState = await State.create({ stateName: state });
-//     }
-
-//     const college = await College.create({
-//       name,
-//       address,
-//       state: selectedState._id,
-//       pinCode,
-//       city: selectedCity._id,
-//       facilities,
-//       shortName,
-//       clgLogo: "uploads/" + req.file.filename,
-//       images,
-//       description,
-//     });
-
-//     req.session.message = {
-//       type: "success",
-//       message: "College created successfully",
-//     };
-//     return res.redirect(`/addColleges/next?collegeId=${college._id}`);
-//   } catch (error) {
-//     console.error("Error creating college:", error);
-//     req.session.message = "Error creating college";
-//     return res.redirect("/addColleges");
-//   }
-// };
-
-// const createCollege = async (req, res) => {
-//   try {
-//     const {
-//       name,
-//       address,
-//       state,
-//       pinCode,
-//       city,
-//       facilities,
-//       shortName,
-//       clgLogo,
-//       images,
-//       description,
-//     } = req.body;
-
-//     if (!(name && address && pinCode)) {
-//       req.session.message = {
-//         type: "danger",
-//         message: "All inputs are required",
-//       };
-//       return res.redirect("/addColleges");
-//     }
-
-//     const collegeExists = await College.findOne({ name });
-//     if (collegeExists) {
-//       req.session.message = {
-//         type: "danger",
-//         message: "College already exists",
-//       };
-//       return res.redirect("/addColleges");
-//     }
-
-//     let selectedCity;
-//     if (Array.isArray(city)) {
-//       // Take the first city name from the array
-//       const cityName = city[0];
-//       selectedCity = await City.findOne({ cityName });
-//       if (!selectedCity) {
-//         selectedCity = await City.create({ cityName });
-//       }
-//     } else {
-//       selectedCity = await City.findOne({ cityName: city });
-//       if (!selectedCity) {
-//         selectedCity = await City.create({ cityName: city });
-//       }
-//     }
-
-//     let selectedState;
-//     if (Array.isArray(state)) {
-//       // Take the first state name from the array
-//       const stateName = state[0];
-//       selectedState = await State.findOne({ stateName });
-//       if (!selectedState) {
-//         selectedState = await State.create({stateName})
-//       }
-//     } else {
-//       selectedState = await State.findOne({ stateName: state });
-//       if (!selectedState) {
-//         selectedState = await State.create({stateName: state})
-//       }
-//     }
-
-//     const college = await College.create({
-//       name,
-//       address,
-//       state: selectedState._id,
-//       pinCode,
-//       city: selectedCity._id,
-//       facilities,
-//       shortName,
-//       clgLogo: "uploads/" + req.file.filename,
-//       images,
-//       description,
-//     });
-
-//     req.session.message = {
-//       type: "success",
-//       message: "College created successfully",
-//     };
-//     return res.redirect(`/addColleges/next?collegeId=${college._id}`);
-//   } catch (error) {
-//     console.error("Error creating college:", error);
-//     req.session.message = "Error creating college";
-//     return res.redirect("/addColleges");
-//   }
-// };
 
 const createCollege = async (req, res) => {
   try {
@@ -435,21 +296,8 @@ const editCollegeCourse = async (req, res) => {
 const getAllColleges = async (req, res) => {
   try {
     const colleges = await College.find().populate("city state");
-    const fees = await Fee.find().populate("collegeId courseId");
-    // Calculate the total fee for each fee structure
-    const feesWithTotal = fees.map((fee) => {
-      const totalFee = fee.fees.reduce((sum, currentFee) => {
-        return sum + parseInt(currentFee[1]);
-      }, 0);
-      return {
-        ...fee.toJSON(),
-        totalFee: totalFee.toFixed(2),
-      };
-    });
-    // res.status(200).json({ colleges, fees: feesWithTotal }); // by using this ejs file doesn't render
     res.render("admin/allColleges", {
       colleges,
-      feesWithTotal,
       title: "allColleges",
     });
   } catch (error) {
@@ -463,15 +311,21 @@ const getAllColleges = async (req, res) => {
 /** UPDATE COLLEGES STARTS HERE */
 const updateCollegeView = async (req, res) => {
   try {
-    const college = await College.findById(req.params.id);
+    const college = await College.findById(req.params.id).populate(
+      "city state"
+    );
+    const cities = await City.find();
+    const states = await State.find();
+
     if (!college) {
       return res.status(404).json({ error: "College not found" });
     }
     res.render("admin/editCollege", {
-      title: "update college",
+      title: "Update College",
       college,
+      cities,
+      states,
     });
-    // res.status(200).json({ college });
   } catch (error) {
     console.error("Error getting college:", error);
     res.status(500).json({ error: "Error getting college" });
