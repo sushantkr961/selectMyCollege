@@ -296,11 +296,7 @@ const deleteImage = async (req, res) => {
       };
       return res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
     }
-
-    // Delete image file from uploads folder
-    const imagePath = path.join(__dirname, "public", deletedImage.image);
-    fs.unlinkSync(imagePath);
-
+    fs.unlinkSync("public/" + deletedImage.image);
     res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
   } catch (err) {
     console.error(err);
