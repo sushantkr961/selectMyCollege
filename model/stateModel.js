@@ -10,9 +10,6 @@ const stateSchema = mongoose.Schema(
       type: String,
       default: "India",
     },
-  },
-  {
-    timestamps: true,
   }
 );
 

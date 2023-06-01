@@ -4,6 +4,7 @@ const Course = require("../model/courseModel");
 const Fee = require("../model/feeModel");
 const City = require("../model/cityModel");
 const State = require("../model/stateModel");
+const Gallery = require("../model/galleryModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -234,6 +235,77 @@ const createCollegeTwo = async (req, res) => {
   }
 };
 
+const createImageGalleryView = async (req, res) => {
+  const { collegeId } = req.query;
+  try {
+    const college = await College.findById(collegeId);
+    if (!college) {
+      return res.status(404).send("College not found");
+    }
+
+    // Retrieve gallery images for the college
+    const galleryImages = await Gallery.find({ collegeId });
+
+    res.render("admin/addImageGallery", {
+      title: "selectmycollege",
+      college,
+      galleryImages,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const createImageGallery = async (req, res) => {
+  const files = req.files;
+  const { collegeId } = req.query;
+
+  try {
+    const college = await College.findById(collegeId);
+    if (!college) {
+      return res.status(404).send("College not found");
+    }
+    const galleryImages = files.map((file) => ({
+      image: "uploads/" + file.filename,
+      collegeId: collegeId,
+    }));
+    const createdImages = await Gallery.create(galleryImages);
+    college.images = college.images || [];
+    college.images = college.images.concat(
+      createdImages.map((image) => image._id)
+    );
+    await college.save();
+    res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const deleteImage = async (req, res) => {
+  // const { collegeId, imageId } = req.params;
+  // console.log(req.params)
+  // try {
+  //   const college = await College.findById(collegeId);
+  //   if (!college) {
+  //     return res.status(404).send("College not found");
+  //   }
+  //   const imageIndex = college.images.findIndex(
+  //     (image) => image._id.toString() === imageId
+  //   );
+  //   if (imageIndex === -1) {
+  //     return res.status(404).send("Image not found");
+  //   }
+  //   college.images.splice(imageIndex, 1);
+  //   await college.save();
+  //   res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).send("Internal Server Error");
+  // }
+};
+
 /** CREATE COLLEGE ENDS HERE */
 
 const deleteCourseTwo = async (req, res) => {
@@ -442,4 +514,7 @@ module.exports = {
   deleteCourseTwo,
   editCollegeCourse,
   editCollegeCourseView,
+  createImageGalleryView,
+  createImageGallery,
+  deleteImage,
 };

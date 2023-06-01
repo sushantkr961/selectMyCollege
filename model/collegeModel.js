@@ -38,38 +38,9 @@ const collegeSchema = mongoose.Schema(
         type: String,
       },
     ],
-    alumniReviews: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-        review: {
-          type: String,
-          required: true,
-        },
-        rating: {
-          type: Number,
-          min: 1,
-          max: 5,
-          required: true,
-        },
-      },
-    ],
-    courses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
     clgLogo: {
       type: String,
     },
-    images: [
-      {
-        type: String,
-      },
-    ],
   },
   {
     timestamps: true,

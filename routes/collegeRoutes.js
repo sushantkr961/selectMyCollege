@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("clgLogo");
+const upload = multer({ storage: storage });
 
 // Home page
 router.get("/", controller.homePage);
@@ -32,7 +32,7 @@ router.get("/admin", controller.adminPage);
 router
   .route("/addColleges")
   .get(controller.createCollegeView)
-  .post(upload, controller.createCollege);
+  .post(upload.single("clgLogo"), controller.createCollege);
 // add colleges part two
 router.get("/addColleges/next", controller.createCollegeTwoView);
 router.post("/addColleges/next", controller.createCollegeTwo);
@@ -40,11 +40,22 @@ router.delete("/deletecolleges/:id/courses/:feeId", controller.deleteCourseTwo);
 router.get("/editCollegeCouresView/:feeid", controller.editCollegeCourseView);
 router.post("/editCollegeCouresView/:feeid", controller.editCollegeCourse);
 
+router.get("/addColleges/next/gallery", controller.createImageGalleryView);
+router.post(
+  "/addColleges/next/gallery",
+  upload.array("clgLogo", 4),
+  controller.createImageGallery
+);
+router.delete(
+  "/addColleges/next/gallery/:collegeId/images/:imageId",
+  controller.deleteImage
+);
+
 // update colleges
 router
   .route("/updateCollege/:id")
   .get(controller.updateCollegeView)
-  .put(upload, controller.updateCollege);
+  .put(upload.single("clgLogo"), controller.updateCollege);
 
 //delete colleges
 router.delete("/colleges/:id", controller.deleteCollege);
