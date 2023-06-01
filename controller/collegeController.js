@@ -243,8 +243,6 @@ const createImageGalleryView = async (req, res) => {
     if (!college) {
       return res.status(404).send("College not found");
     }
-
-    // Retrieve gallery images for the college
     const galleryImages = await Gallery.find({ collegeId });
 
     res.render("admin/addImageGallery", {
@@ -307,7 +305,6 @@ const deleteImage = async (req, res) => {
     res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
   }
 };
-
 /** CREATE COLLEGE ENDS HERE */
 
 const deleteCourseTwo = async (req, res) => {

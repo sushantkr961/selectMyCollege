@@ -1,0 +1,75 @@
+<%- include('./header.ejs') %>
+
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <!-- notification message -->
+    <% if (message) { %>
+    <div
+      class="alert alert-dismissible fade show alert-<%= message.type %>"
+      role="alert"
+    >
+      <button
+        class="btn-close"
+        type="button"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
+      <strong><%= message.message %></strong>
+    </div>
+    <% } %>
+    <!-- notification message -->
+    <div class="row grid-margin">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title fs-3 py-2">
+              <%= college.name %> (<%= college.shortName %>)
+            </h4>
+            <h4 class="card-title fs-4">College Alumni</h4>
+            <form
+              action="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              method="POST"
+              class="cmxform"
+            >
+              <fieldset>
+                <div class="form-group">
+                  <label for="cname">Name of the Alumnus</label>
+                  <input
+                    id="cname"
+                    class="form-control"
+                    name="name"
+                    type="text"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cbatch">Batch</label>
+                  <input
+                    id="cbatch"
+                    class="form-control"
+                    name="batch"
+                    type="text"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cpackage">Package</label>
+                  <input
+                    id="cpackage"
+                    class="form-control"
+                    type="text"
+                    name="package"
+                    required
+                  />
+                </div>
+                <input class="btn btn-primary" type="submit" value="Next" />
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>
