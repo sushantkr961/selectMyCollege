@@ -5,6 +5,7 @@ const Fee = require("../model/feeModel");
 const City = require("../model/cityModel");
 const State = require("../model/stateModel");
 const Gallery = require("../model/galleryModel");
+const path = require("path");
 
 // index page
 const homePage = async (req, res) => {
@@ -284,26 +285,31 @@ const createImageGallery = async (req, res) => {
 };
 
 const deleteImage = async (req, res) => {
-  // const { collegeId, imageId } = req.params;
-  // console.log(req.params)
-  // try {
-  //   const college = await College.findById(collegeId);
-  //   if (!college) {
-  //     return res.status(404).send("College not found");
-  //   }
-  //   const imageIndex = college.images.findIndex(
-  //     (image) => image._id.toString() === imageId
-  //   );
-  //   if (imageIndex === -1) {
-  //     return res.status(404).send("Image not found");
-  //   }
-  //   college.images.splice(imageIndex, 1);
-  //   await college.save();
-  //   res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).send("Internal Server Error");
-  // }
+  const { collegeId, imageId } = req.params;
+
+  try {
+    const deletedImage = await Gallery.findOneAndRemove({ _id: imageId });
+    if (!deletedImage) {
+      req.session.message = {
+        type: "error",
+        message: "Image not found",
+      };
+      return res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
+    }
+
+    // Delete image file from uploads folder
+    const imagePath = path.join(__dirname, "public", deletedImage.image);
+    fs.unlinkSync(imagePath);
+
+    res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
+  } catch (err) {
+    console.error(err);
+    req.session.message = {
+      type: "error",
+      message: "Internal Server Error",
+    };
+    res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
+  }
 };
 
 /** CREATE COLLEGE ENDS HERE */
