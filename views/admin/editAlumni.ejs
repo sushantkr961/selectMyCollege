@@ -23,12 +23,10 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title fs-3 py-2">
-              <%= college.name %> (<%= college.shortName %>)
-            </h4>
-            <h4 class="card-title fs-4">College Alumni</h4>
+            <h4 class="card-title fs-4">Edit College Alumni</h4>
+            <h4 class="card-title fs-3 py-2"><%= alum.name %></h4>
             <form
-              action="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              action="/addColleges/next/alumni?collegeId=<%= //college._id %>"
               method="POST"
               class="cmxform"
             >
@@ -40,6 +38,7 @@
                     class="form-control"
                     name="name"
                     type="text"
+                    value="<%= alum.name %>"
                     required
                   />
                 </div>
@@ -50,6 +49,8 @@
                     class="form-control"
                     name="batch"
                     type="text"
+                    value="<%= alum.batch %>"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -59,6 +60,7 @@
                     class="form-control"
                     type="text"
                     name="package"
+                    value="<%= alum.package %>"
                     required
                   />
                 </div>
