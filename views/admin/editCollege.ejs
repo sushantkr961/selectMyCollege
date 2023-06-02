@@ -60,7 +60,7 @@
                       class="form-control"
                       type="text"
                       name="city"
-                      value="<%= college.city.cityName %>"
+                      value="<%= college.city._id %>"
                       required
                     />
                     <datalist id="cities">
@@ -76,7 +76,7 @@
                       type="text"
                       name="state"
                       list="states"
-                      value="<%= college.state.stateName %>"
+                      value="<%= college.state._id %>"
                       required
                     />
                     <datalist id="states">
@@ -152,17 +152,28 @@
                 </textarea
                   >
                 </div>
+                <div class="row">
+                  <a
+                    href="/addColleges/next?collegeId=<%= college._id %>"
+                    class="text-decoration-none col-md-4"
+                  >
+                    <span>Manage College Courses</span>
+                  </a>
+                  <a
+                    href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+                    class="text-decoration-none col-md-4"
+                  >
+                    <span>Manage College Gallery</span>
+                  </a>
+                  <a
+                    href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+                    class="text-decoration-none col-md-4"
+                  >
+                    <span>Manage College Alumni</span>
+                  </a>
+                </div>
+                <br />
                 <input class="btn btn-primary" type="submit" value="Update" />
-                <a href="/addColleges/next?collegeId=<%= college._id %>" class="text-decoration-none">
-                  <button class="btn btn-primary" type="button">
-                    Manage Courses
-                  </button>
-                </a>
-                <a href="/addColleges/next/gallery?collegeId=<%= college._id %>" class="text-decoration-none">
-                  <button class="btn btn-primary" type="button">
-                    Manage College Gallery
-                  </button>
-                </a>
               </fieldset>
             </form>
           </div>

@@ -8,6 +8,7 @@ const alumniRoutes = require("./alumniRoutes");
 const feeRoutes = require("./feeRoutes");
 const cityRoutes = require("./cityRoutes");
 const stateRoutes = require("./stateRoutes");
+const courseRoutes = require("./courseRoutes");
 
 // college page
 web.use("/", collegeRoutes);
@@ -29,5 +30,8 @@ web.use("/", cityRoutes);
 
 // state route
 web.use("/", stateRoutes);
+
+// course route
+web.use("/", courseRoutes);
 
 module.exports = web;
