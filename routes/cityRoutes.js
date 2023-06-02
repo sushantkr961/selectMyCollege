@@ -2,14 +2,15 @@ const exprss = require("express");
 const controller = require("../controller/cityController");
 const router = exprss.Router();
 
-router.post("/cities", controller.createCity);
+router
+  .route("/cities")
+  .post(controller.createCity)
+  .get(controller.getAllCities);
 
-router.put("/cities/:id", controller.updateCity);
-
-router.delete("/cities/:id", controller.deleteCity);
-
-router.get("/cities", controller.getAllCities);
-
-router.get("/cities/:id", controller.getCityById);
+router
+  .route("/cities/:id")
+  .put(controller.updateCity)
+  .delete(controller.deleteCity)
+  .get(controller.getCityById);
 
 module.exports = router;

@@ -1,9 +1,9 @@
-const exprss = require("express");
+const express = require("express");
 const controller = require("../controller/collegeController");
-const router = exprss.Router();
+const router = express.Router();
 const multer = require("multer");
 
-// logo image upload Multer configuration for file uploads
+// Logo image upload Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./public/uploads");
@@ -34,12 +34,12 @@ router
   .get(controller.createCollegeView)
   .post(upload.single("clgLogo"), controller.createCollege);
 
-router.get("/addColleges/next/gallery", controller.createImageGalleryView);
-router.post(
-  "/addColleges/next/gallery",
-  upload.array("clgLogo", 4),
-  controller.createImageGallery
-);
+// add college gallery
+router
+  .route("/addColleges/next/gallery")
+  .get(controller.createImageGalleryView)
+  .post(upload.array("clgLogo", 4), controller.createImageGallery);
+
 router.delete(
   "/addColleges/next/gallery/:collegeId/images/:imageId",
   controller.deleteImage
@@ -51,7 +51,7 @@ router
   .get(controller.updateCollegeView)
   .put(upload.single("clgLogo"), controller.updateCollege);
 
-//delete colleges
+// delete colleges
 router.delete("/colleges/:id", controller.deleteCollege);
 
 // all colleges

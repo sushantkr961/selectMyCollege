@@ -2,14 +2,15 @@ const exprss = require("express");
 const controller = require("../controller/stateController");
 const router = exprss.Router();
 
-router.post("/states", controller.createState);
+router
+  .route("/states")
+  .post(controller.createState)
+  .get(controller.getAllStates);
 
-router.put("/states/:id", controller.updateState);
-
-router.delete("/states/:id", controller.deleteState);
-
-router.get("/states", controller.getAllStates);
-
-router.get("/states/:id", controller.getStateById);
+router
+  .route("/states/:id")
+  .put(controller.updateState)
+  .delete(controller.deleteState)
+  .get(controller.getStateById);
 
 module.exports = router;

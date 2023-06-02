@@ -3,6 +3,22 @@
 <!-- partial -->
 <div class="main-panel">
   <div class="content-wrapper">
+    <!-- notification message -->
+    <% if (message) { %>
+    <div
+      class="alert alert-dismissible fade show alert-<%= message.type %>"
+      role="alert"
+    >
+      <button
+        class="btn-close"
+        type="button"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
+      <strong><%= message.message %></strong>
+    </div>
+    <% } %>
+    <!-- notification message -->
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Data table</h4>

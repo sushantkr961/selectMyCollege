@@ -5,7 +5,6 @@ const leadsRoutes = require("./leadsRoutes");
 const collegeRoutes = require("./collegeRoutes");
 const blogRoutes = require("./blogRoutes");
 const alumniRoutes = require("./alumniRoutes");
-const feeRoutes = require("./feeRoutes");
 const cityRoutes = require("./cityRoutes");
 const stateRoutes = require("./stateRoutes");
 const courseRoutes = require("./courseRoutes");
@@ -21,9 +20,6 @@ web.use("/", alumniRoutes);
 
 // leads
 web.use("/", leadsRoutes);
-
-// fee route
-web.use("/", feeRoutes);
 
 //city route
 web.use("/", cityRoutes);
