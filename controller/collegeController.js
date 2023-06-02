@@ -6,6 +6,7 @@ const City = require("../model/cityModel");
 const State = require("../model/stateModel");
 const Gallery = require("../model/galleryModel");
 const path = require("path");
+const Alumni = require("../model/alumniModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -44,11 +45,13 @@ const adminPage = async (req, res) => {
   try {
     const collegeCount = await College.countDocuments();
     const courseCount = await Course.countDocuments();
+    const alumniCount = await Alumni.countDocuments();
 
     res.render("admin/admin", {
       title: "selectmycollege Admin",
       collegeCount,
       courseCount,
+      alumniCount,
     });
   } catch (error) {
     console.error("Error getting count:", error);
