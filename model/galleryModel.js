@@ -11,6 +11,10 @@ const gallerySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    banners: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

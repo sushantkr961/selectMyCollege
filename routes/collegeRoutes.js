@@ -33,12 +33,6 @@ router
   .route("/addColleges")
   .get(controller.createCollegeView)
   .post(upload.single("clgLogo"), controller.createCollege);
-// add colleges part two
-// router.get("/addColleges/next", controller.createCourseView);
-// router.post("/addColleges/next", controller.createCourse);
-// router.delete("/deletecolleges/:id/courses/:feeId", controller.deleteCourseTwo);
-// router.get("/editCollegeCouresView/:feeid", controller.editCollegeCourseView);
-// router.post("/editCollegeCouresView/:feeid", controller.editCollegeCourse);
 
 router.get("/addColleges/next/gallery", controller.createImageGalleryView);
 router.post(

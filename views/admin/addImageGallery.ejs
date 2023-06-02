@@ -33,33 +33,30 @@
               enctype="multipart/form-data"
               class="cmxform"
             >
-              <div class="row">
-                <div class="form-group col-md-8">
-                  <label for="cimage">Upload Images</label>
-                  <input
-                    id="cimage"
-                    class="form-control"
-                    name="clgLogo"
-                    type="file"
-                    multiple
-                    required
-                  />
-                </div>
-                <div
-                  class="col-md-2 d-flex align-items-center justify-content-end"
-                >
-                  <button class="btn btn-primary" type="submit">Upload</button>
-                </div>
-                <div
-                  class="col-md-2 d-flex align-items-center justify-content-end"
-                >
-                  <a href="/addColleges/next/alumni?collegeId=<%= college._id %>"
-                    ><button class="btn btn-primary" type="button">
-                      Next
-                    </button></a
-                  >
-                </div>
+              <div class="form-group">
+                <label for="cimage">Upload Images</label>
+                <input
+                  id="cimage"
+                  class="form-control"
+                  name="clgLogo"
+                  type="file"
+                  multiple
+                  required
+                />
               </div>
+              <div class="form-group">
+                <input
+                id="cbanner"
+                name="banners"
+                type="checkbox"
+                value="true"
+                />
+                <label for="cbanner" class="fw-bold">Mark as Banner</label>
+              </div>
+              <input class="btn btn-primary" type="submit" value="Upload" />
+              <a href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+                ><button class="btn btn-primary" type="button">Next</button></a
+              >
             </form>
             <hr />
             <h3>Uploaded Images:</h3>
