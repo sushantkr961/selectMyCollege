@@ -20,6 +20,66 @@
     <% } %>
     <!-- notification message -->
     <div class="row grid-margin">
+      <nav class="">
+        <ul class="nav nav-tabs" id="myTabs">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              href="/addColleges/next?collegeId=<%= college._id %>"
+              data-tab="#tab1"
+              >Course</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+              data-tab="#tab2"
+              >Gallery</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              data-tab="#tab3"
+              >Alumni</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/testimonial" data-tab="#tab4"
+              >Testimonial</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/others" data-tab="#tab5">Others</a>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const tabs = document.querySelectorAll("#myTabs .nav-link");
+          tabs.forEach(function (tab) {
+            tab.addEventListener("click", function (event) {
+              const targetTab = this.getAttribute("data-tab");
+              tabs.forEach(function (tab) {
+                tab.classList.remove("active");
+              });
+              this.classList.add("active");
+              window.location.href = this.getAttribute("href");
+              event.preventDefault();
+            });
+          });
+          const currentUrl = window.location.pathname;
+          tabs.forEach(function (tab) {
+            if (tab.getAttribute("href") === currentUrl) {
+              tab.classList.add("active");
+            }
+          });
+        });
+      </script>
+      <!--  -->
+
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
@@ -46,10 +106,10 @@
               </div>
               <div class="form-group">
                 <input
-                id="cbanner"
-                name="banners"
-                type="checkbox"
-                value="true"
+                  id="cbanner"
+                  name="banners"
+                  type="checkbox"
+                  value="true"
                 />
                 <label for="cbanner" class="fw-bold">Mark as Banner</label>
               </div>
