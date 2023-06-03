@@ -1,10 +1,12 @@
 const fs = require("fs");
+const imageSize = require("image-size");
 const College = require("../model/collegeModel");
 const Course = require("../model/courseModel");
 const City = require("../model/cityModel");
 const State = require("../model/stateModel");
 const Gallery = require("../model/galleryModel");
 const Alumni = require("../model/alumniModel");
+const Lead = require("../model/leadsModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -45,17 +47,22 @@ const adminPage = async (req, res) => {
     const collegeCount = await College.countDocuments();
     const courseCount = await Course.countDocuments();
     const alumniCount = await Alumni.countDocuments();
+    const leadsCount = await Lead.countDocuments();
 
     res.render("admin/admin", {
       title: "selectmycollege Admin",
       collegeCount,
       courseCount,
       alumniCount,
+      leadsCount,
     });
   } catch (error) {
     console.error("Error getting count:", error);
-    req.session.message = "Error getting count";
-    res.redirect("/admin");
+    req.session.message = {
+      type: "warning",
+      message: "Error getting count",
+    };
+    return res.redirect("/admin");
   }
 };
 
@@ -73,7 +80,11 @@ const createCollegeView = async (req, res) => {
     });
   } catch (error) {
     console.error("Error retrieving cities:", error);
-    res.status(500).json({ error: "Error retrieving cities" });
+    req.session.message = {
+      type: "danger",
+      message: "Error retrieving cities.",
+    };
+    return res.redirect("/addCollege");
   }
 };
 
@@ -103,7 +114,7 @@ const createCollege = async (req, res) => {
     const collegeExists = await College.findOne({ name });
     if (collegeExists) {
       req.session.message = {
-        type: "danger",
+        type: "warning",
         message: "College already exists",
       };
       return res.redirect("/addColleges");
@@ -159,7 +170,10 @@ const createCollege = async (req, res) => {
     return res.redirect(`/addColleges/next?collegeId=${college._id}`);
   } catch (error) {
     console.error("Error creating college:", error);
-    req.session.message = "Error creating college";
+    req.session.message = {
+      type: "danger",
+      message: "Error creating college.",
+    };
     return res.redirect("/addColleges");
   }
 };
@@ -180,7 +194,11 @@ const createImageGalleryView = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    req.session.message = {
+      type: "danger",
+      message: "Internal Server Error",
+    };
+    return res.redirect("admin/addImageGallery");
   }
 };
 
@@ -193,6 +211,45 @@ const createImageGallery = async (req, res) => {
     if (!college) {
       return res.status(404).send("College not found");
     }
+    // Perform validation only if the checkbox is checked
+    if (banners === "true") {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dimensions = imageSize(file.path);
+
+        // Example validation: Check if resolution is less than 1920x1080
+        const maxWidth = 1920;
+        const maxHeight = 1080;
+        if (dimensions.width > maxWidth || dimensions.height > maxHeight) {
+          // Delete the uploaded file
+          fs.unlinkSync(file.path);
+          req.session.message = {
+            type: "danger",
+            message:
+              "Invalid image resolution. Please select an image with a maximum resolution of 1920x1080.",
+          };
+          return res.redirect(
+            `/addColleges/next/gallery?collegeId=${collegeId}`
+          );
+        }
+
+        // Example validation: Check if file size is greater than 2MB
+        const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+        if (file.size > maxSize) {
+          // Delete the uploaded file
+          fs.unlinkSync(file.path);
+          req.session.message = {
+            type: "danger",
+            message:
+              "Invalid file size. Please select an image with a maximum size of 2MB.",
+          };
+          return res.redirect(
+            `/addColleges/next/gallery?collegeId=${collegeId}`
+          );
+        }
+      }
+    }
+
     const galleryImages = files.map((file) => ({
       image: "uploads/" + file.filename,
       collegeId: collegeId,
@@ -213,12 +270,11 @@ const createImageGallery = async (req, res) => {
 
 const deleteImage = async (req, res) => {
   const { collegeId, imageId } = req.params;
-
   try {
     const deletedImage = await Gallery.findOneAndRemove({ _id: imageId });
     if (!deletedImage) {
       req.session.message = {
-        type: "error",
+        type: "danger",
         message: "Image not found",
       };
       return res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
@@ -228,7 +284,7 @@ const deleteImage = async (req, res) => {
   } catch (err) {
     console.error(err);
     req.session.message = {
-      type: "error",
+      type: "danger",
       message: "Internal Server Error",
     };
     res.redirect(`/addColleges/next/gallery?collegeId=${collegeId}`);
@@ -247,7 +303,11 @@ const getAllColleges = async (req, res) => {
     });
   } catch (error) {
     console.error("Error getting colleges:", error);
-    res.status(500).json({ error: "Error getting colleges" });
+    req.session.message = {
+      type: "danger",
+      message: "Error getting colleges",
+    };
+    return res.redirect("/allColleges");
   }
 };
 
@@ -354,7 +414,7 @@ const deleteCollege = async (req, res) => {
       fs.unlinkSync(imagePath);
     }
     req.session.message = {
-      type: "info",
+      type: "success",
       message: "College Deleted Successfully!",
     };
     res.redirect("/allColleges");

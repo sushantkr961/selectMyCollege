@@ -44,7 +44,10 @@ const createCourseView = async (req, res) => {
     });
   } catch (error) {
     console.error("Error retrieving college, courses, and fees:", error);
-    req.session.message = "Server Error! Please try agian later.";
+    req.session.message = {
+      type: "danger",
+      message: "Server Error! Please try agian later.",
+    };
     return res.redirect("/allColleges");
   }
 };

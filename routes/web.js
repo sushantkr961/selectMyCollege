@@ -23,7 +23,7 @@ web.use("/", alumniRoutes);
 web.use("/", leadsRoutes);
 
 //city route
-web.use("/", cityRoutes);
+// web.use("/", cityRoutes);
 
 // state route
 web.use("/", stateRoutes);

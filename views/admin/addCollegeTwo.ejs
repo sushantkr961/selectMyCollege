@@ -67,7 +67,7 @@
             <form class="cmxform" method="post">
               <fieldset>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="course-select">Select Course</label>
                       <select
@@ -86,8 +86,26 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="course-select">Select Sub Course</label>
+                      <select
+                        id="course-select"
+                        class="form-select p-3"
+                        name="courseSelect"
+                        onchange="coursea(this)"
+                      >
+                        <option>Select Course</option>
+                        <% courses.map((course) => { %>
+                        <option class="p-3" value="<%= course._id %>">
+                          <%= course.name %>
+                        </option>
+                        <% })%>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="addCourse" class="col-form-label py-0"
                         >Add New Course</label
@@ -101,7 +119,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="courseDuration" class="col-form-label py-0"
                         >Course Duration</label

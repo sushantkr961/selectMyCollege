@@ -78,7 +78,11 @@ const editAlumniView = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    req.session.message = {
+      type: "danger",
+      message: "Internal Server Error",
+    };
+    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
   }
 };
 
