@@ -63,15 +63,15 @@
             <h4 class="card-title fs-3 py-2">
               <%= college.name %> (<%= college.shortName %>)
             </h4>
-            <h4 class="card-title fs-4">College Alumni</h4>
+            <h4 class="card-title fs-4">College Testimonial</h4>
             <form
-              action="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              action="/addColleges/next/testimonial?collegeId=<%= college._id %>"
               method="POST"
               class="cmxform"
             >
               <fieldset>
                 <div class="form-group">
-                  <label for="cname">Name of the Alumnus</label>
+                  <label for="cname">Full Name</label>
                   <input
                     id="cname"
                     class="form-control"
@@ -81,31 +81,25 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="cbatch">Batch</label>
+                  <label for="cdesignation">Designation</label>
                   <input
-                    id="cbatch"
+                    id="cdesignation"
                     class="form-control"
-                    name="batch"
+                    name="designation"
                     type="text"
                   />
                 </div>
                 <div class="form-group">
-                  <label for="cpackage">Package</label>
-                  <input
-                    id="cpackage"
+                  <label for="cmessage">message</label>
+                  <textarea
+                    id="cmessage"
                     class="form-control"
-                    type="text"
-                    name="package"
+                    name="message"
                     required
-                  />
+                  >
+                  </textarea>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a
-                  href="/addColleges/next/testimonial?collegeId=<%= college._id %>"
-                  ><button type="button" class="btn btn-primary">
-                    Next
-                  </button></a
-                >
               </fieldset>
             </form>
             <hr />
@@ -117,28 +111,28 @@
                       <tr>
                         <th>S.No</th>
                         <th>Alumni Name</th>
-                        <th>Batch</th>
-                        <th>Package</th>
+                        <th>Designation</th>
+                        <th>Message</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <% alumni.forEach(function(alum, index) { %>
+                      <% testimonials.forEach(function(testimonial, index) { %>
                       <tr>
                         <td><%= index + 1 %></td>
-                        <td><%= alum.name %></td>
-                        <td><%= alum.batch %></td>
-                        <td><%= alum.package %></td>
+                        <td><%= testimonial.name %></td>
+                        <td><%= testimonial.designation %></td>
+                        <td><%= testimonial.message %></td>
                         <td>
                           <a
-                            href="/addColleges/next/alumni/edit/<%= alum._id %>/<%= college._id %>"
+                            href="/addColleges/next/testimonial/edit/<%= testimonial._id %>/<%= college._id %>"
                             class="btn btn-outline-primary"
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </a>
                           <form
                             class="delete-form"
-                            action="/addColleges/next/alumni/<%= alum._id %>/<%= college._id %>?_method=DELETE"
+                            action="/addColleges/next/testimonial/<%= testimonial._id %>/<%= college._id %>?_method=DELETE"
                             method="POST"
                           >
                             <button

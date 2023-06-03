@@ -48,7 +48,7 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/testimonial" data-tab="#tab4"
+            <a class="nav-link" href="/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
               >Testimonial</a
             >
           </li>
@@ -57,28 +57,6 @@
           </li>
         </ul>
       </nav>
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const tabs = document.querySelectorAll("#myTabs .nav-link");
-          tabs.forEach(function (tab) {
-            tab.addEventListener("click", function (event) {
-              const targetTab = this.getAttribute("data-tab");
-              tabs.forEach(function (tab) {
-                tab.classList.remove("active");
-              });
-              this.classList.add("active");
-              window.location.href = this.getAttribute("href");
-              event.preventDefault();
-            });
-          });
-          const currentUrl = window.location.pathname;
-          tabs.forEach(function (tab) {
-            if (tab.getAttribute("href") === currentUrl) {
-              tab.classList.add("active");
-            }
-          });
-        });
-      </script>
       <!--  -->
       <div class="col-lg-12">
         <div class="card">
