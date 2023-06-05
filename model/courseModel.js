@@ -7,15 +7,9 @@ const courseSchema = mongoose.Schema(
       required: true,
     },
     duration: {
-      type: Number,
+      type: String,
       required: true,
-    },
-    feeStructures: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Fee",
-      },
-    ],
+    }
   },
   {
     timestamps: true,

@@ -134,10 +134,76 @@ const editCollegeCourse = async (req, res) => {
   }
 };
 
+const allCoursesView = async (req, res) => {
+  try {
+    const courses = await Course.find();
+    res.render("admin/allCourses", { courses, title: "selectMyCollege" });
+  } catch (error) {
+    console.error("Error retrieving courses:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const deleteCourse = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    if (!courseId) {
+      req.session.message = { type: "danger", message: "CourseId is required" };
+      return res.redirect("/allCourses");
+    }
+    const deletedCourse = await Course.findByIdAndDelete(courseId);
+    if (!deletedCourse) {
+      req.session.message = { type: "danger", message: "Course not found" };
+      return res.redirect("/allCourses");
+    }
+    req.session.message = {
+      type: "success",
+      message: "Course deleted successfully",
+    };
+    res.redirect("/allCourses");
+  } catch (error) {
+    console.error("Error deleting course:", error);
+    req.session.message = { type: "danger", message: "Internal Server Error" };
+    res.redirect("/allCourses");
+  }
+};
+
+const updateCourse = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const { name, duration } = req.body;
+    if (!courseId) {
+      req.session.message = { type: "danger", message: "CourseId is required" };
+      return res.redirect("/allCourses");
+    }
+    const course = await Course.findByIdAndUpdate(
+      courseId,
+      { name, duration },
+      { new: true }
+    );
+    if (!course) {
+      req.session.message = { type: "danger", message: "Course not found" };
+      return res.redirect("/allCourses");
+    }
+    req.session.message = {
+      type: "success",
+      message: "Course updated successfully",
+    };
+    res.redirect("/allCourses");
+  } catch (error) {
+    console.error("Error updating course:", error);
+    req.session.message = { type: "danger", message: "Internal Server Error" };
+    res.redirect("/allCourses");
+  }
+};
+
 module.exports = {
   createCourse,
   createCourseView,
   editCollegeCourseView,
   deleteCourseTwo,
   editCollegeCourse,
+  allCoursesView,
+  deleteCourse,
+  updateCourse,
 };

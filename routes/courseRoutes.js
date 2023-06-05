@@ -16,4 +16,10 @@ router
   .get(controller.editCollegeCourseView)
   .post(controller.editCollegeCourse);
 
+router.route("/allCourses").get(controller.allCoursesView);
+router
+  .route("/allCourses/:id")
+  .delete(controller.deleteCourse)
+  .post(controller.updateCourse);
+
 module.exports = router;

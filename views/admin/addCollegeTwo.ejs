@@ -96,11 +96,11 @@
                         onchange="coursea(this)"
                       >
                         <option>Select Course</option>
-                        <% courses.map((course) => { %>
-                        <option class="p-3" value="<%= course._id %>">
-                          <%= course.name %>
+                        <% //courses.map((course) => { %>
+                        <option class="p-3" value="<%= //course._id %>">
+                          <%= //course.name %>
                         </option>
-                        <% })%>
+                        <% //})%>
                         <option>Other</option>
                       </select>
                     </div> -->
@@ -125,9 +125,9 @@
                         >Course Duration</label
                       >
                       <input
-                        type="number"
+                        type="text"
                         name="duration"
-                        placeholder="Course Duration in Years"
+                        placeholder="Course Duration in Years/Months"
                         class="form-control"
                         id="courseDuration"
                         disabled
