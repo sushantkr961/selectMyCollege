@@ -1,4 +1,4 @@
- <%- include('./header.ejs') %>
+<%- include('./header.ejs') %>
 
 <!-- partial -->
 <div class="main-panel text-capitalize">
@@ -41,6 +41,11 @@
                     <td><%= course.name, %></td>
                     <td><%= course.duration %></td>
                     <td>
+                      <a
+                        href="/courses/<%= course._id %>"
+                        class="btn btn-outline-primary"
+                        ><i class="fa-solid fa-pen-to-square"></i
+                      ></a>
                       <form
                         class="delete-form"
                         action="/allCourses/<%= course._id %>?_method=DELETE"

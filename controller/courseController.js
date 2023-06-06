@@ -168,20 +168,33 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+const updateCourseView = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+    res.render("admin/editCourses", {
+      title: "Update Course",
+      course,
+    });
+  } catch (error) {
+    console.error("Error retrieving course:", error);
+    res.redirect(`/allCourses`);
+  }
+};
+
 const updateCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
-    const { name, duration } = req.body;
-    if (!courseId) {
-      req.session.message = { type: "danger", message: "CourseId is required" };
-      return res.redirect("/allCourses");
-    }
-    const course = await Course.findByIdAndUpdate(
+    const updatedCourseData = req.body;
+    const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
-      { name, duration },
+      updatedCourseData,
       { new: true }
     );
-    if (!course) {
+    if (!updatedCourse) {
       req.session.message = { type: "danger", message: "Course not found" };
       return res.redirect("/allCourses");
     }
@@ -206,4 +219,5 @@ module.exports = {
   allCoursesView,
   deleteCourse,
   updateCourse,
+  updateCourseView,
 };
