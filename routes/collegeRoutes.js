@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("../controller/collegeController");
 const router = express.Router();
 const multer = require("multer");
+const authMiddleware = require("../middleware/authMiddleware");
 
 // Logo image upload Multer configuration for file uploads
 const storage = multer.diskStorage({
@@ -26,7 +27,7 @@ router.get("/view", controller.viewPage);
 router.get("/colleges/:id", controller.getCollegeById);
 
 // admin page
-router.get("/admin", controller.adminPage);
+router.get("/admin", authMiddleware, controller.adminPage);
 
 // add colleges
 router
