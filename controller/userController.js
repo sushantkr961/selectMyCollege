@@ -12,21 +12,17 @@ const allAdmin = async (req, res) => {
 };
 
 const registerView = async (req, res) => {
-  res.render("register", { title: "selectMyCollege" });
+  res.render("admin/addAdmin", { title: "selectMyCollege" });
 };
 
 const register = async (req, res) => {
   const { username, password, adminRole } = req.body;
   try {
-    // Check if username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       // req.flash("message", "Username already exists");
       return res.redirect("/register");
     }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Set the default role
     let role = "user";
@@ -39,7 +35,7 @@ const register = async (req, res) => {
     // Create a new user
     const newUser = new User({
       username,
-      password: hashedPassword,
+      password,
       role,
     });
 
@@ -65,8 +61,7 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
+    if (user.password !== password) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
     req.session.isAuthenticated = true;
