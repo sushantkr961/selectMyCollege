@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const User = require("../model/userModel");
 
 const allAdmin = async (req, res) => {
