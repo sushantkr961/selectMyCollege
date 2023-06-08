@@ -52,9 +52,9 @@
               >Testimonial</a
             >
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="/others" data-tab="#tab5">Others</a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <!--  -->
@@ -87,25 +87,25 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                       <label for="course-select">Select Sub Course</label>
                       <select
                         id="course-select"
                         class="form-select p-3"
                         name="courseSelect"
-                        onchange="coursea(this)"
+                        onchange="subcoursea(this)"
                       >
                         <option>Select Course</option>
-                        <% //courses.map((course) => { %>
-                        <option class="p-3" value="<%= //course._id %>">
-                          <%= //course.name %>
+                        <% courses.map((course) => { %>
+                        <option class="p-3" value="<%= course._id %>">
+                          <%= course.name %>
                         </option>
-                        <% //})%>
+                        <% })%>
                         <option>Other</option>
                       </select>
-                    </div> -->
+                    </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label for="addCourse" class="col-form-label py-0"
                         >Add New Course</label
@@ -119,7 +119,21 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="addCourse" class="col-form-label py-0"
+                        >Add Sub Course</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="addSubCourse"
+                        name="addSubCourse"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label for="courseDuration" class="col-form-label py-0"
                         >Course Duration</label
@@ -249,9 +263,21 @@
       var val = $(v).val();
       if (val == "Other") {
         $("#addCourse").removeAttr("disabled");
+        $("#addSubCourse").removeAttr("disabled");
         $("#courseDuration").removeAttr("disabled");
       } else {
         $("#addCourse").prop("disabled", true);
+        $("#addSubCourse").prop("disabled", true);
+        $("#courseDuration").prop("disabled", true);
+      }
+    }
+    function subcoursea(v) {
+      var val = $(v).val();
+      if (val == "Other") {
+        $("#addSubCourse").removeAttr("disabled");
+        $("#courseDuration").removeAttr("disabled");
+      } else {
+        $("#addSubCourse").prop("disabled", true);
         $("#courseDuration").prop("disabled", true);
       }
     }

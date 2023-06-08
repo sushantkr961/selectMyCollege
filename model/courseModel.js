@@ -8,12 +8,11 @@ const courseSchema = mongoose.Schema(
     },
     duration: {
       type: String,
-      required: true,
     },
-    coursetype: {
+    subcourse: {
       type: String,
       default: 0,
-    }
+    },
   },
   {
     timestamps: true,
