@@ -62,7 +62,7 @@ const adminPage = async (req, res) => {
       type: "warning",
       message: "Error getting count",
     };
-    return res.redirect("/admin/dashboard");
+    return res.redirect("admin/dashboard");
   }
 };
 

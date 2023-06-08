@@ -15,6 +15,6 @@ router.get("/logout", controller.logout);
 
 router.get("/admin/allAdmin", controller.allAdmin);
 
-router.delete("/admin/admin/:id", controller.deleteAdmin);
+router.delete("/admin/deladmin/:id", controller.deleteAdmin);
 
 module.exports = router;
