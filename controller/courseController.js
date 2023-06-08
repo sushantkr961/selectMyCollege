@@ -6,7 +6,7 @@ const createCourseView = async (req, res) => {
   try {
     const { collegeId } = req.query;
     const college = await College.findById(collegeId);
-    const courses = await Course.find();
+    const courses = await Course.find({percouid:0});
     const fee = await Fee.find({ collegeId });
     let collegeName, courseName;
     const populatedFee = await Promise.all(
@@ -52,20 +52,58 @@ const createCourseView = async (req, res) => {
   }
 };
 
-const createCourse = async (req, res) => {
-  const { courseSelect, addCourse, duration, fee } = req.body;
-  const collegeId = req.query.collegeId;
+const getsubcourse = async (req, res) => {
+  const coursesid = req.params.id;
+  const tsc = await Course.find({percouid:coursesid});
+  // console.log(tsc);
+  let aa = `<option>Select Sub Course</option>`;
+  if(tsc.length > 0){ tsc.map((course) => {
+    aa += `<option class="p-3" value="`+course._id+`">`+course.name+`</option>`
+    })}else{
+    aa += `<option>No Sub Course</option>`;
+    }
+    aa += `<option>Other</option>`;
+    return res.json({haha:aa});
+}
 
+const createCourse = async (req, res) => {
+  const { courseSelect, subCourseSelect, addCourse, addSubCourse, duration, fee } = req.body;
+  const collegeId = req.query.collegeId;
+  // console.log(req.body);
   try {
     let courseId;
     if (courseSelect === "Other") {
+    if (subCourseSelect === "Other") {
+      const course = await Course.create({
+        name: addCourse,
+      });
+      mcourseId = course._id;
+      const subcourse = await Course.create({
+        name: addSubCourse,
+        duration,
+        percouid:mcourseId
+      });
+      courseId = subcourse._id;
+    }else{
       const course = await Course.create({
         name: addCourse,
         duration,
       });
       courseId = course._id;
+    }
     } else {
-      courseId = courseSelect;
+      if (subCourseSelect === "Other") {
+        const course = await Course.create({
+          name: addSubCourse,
+          duration,
+          percouid:courseSelect
+        });
+        courseId = course._id;
+      } else if (subCourseSelect === "No Sub Course") {
+        courseId = courseSelect;
+      } else {
+        courseId = subCourseSelect;
+      }
     }
     await Fee.create({
       collegeId,
@@ -220,4 +258,5 @@ module.exports = {
   deleteCourse,
   updateCourse,
   updateCourseView,
+  getsubcourse,
 };

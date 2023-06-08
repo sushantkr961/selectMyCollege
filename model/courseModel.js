@@ -9,10 +9,10 @@ const courseSchema = mongoose.Schema(
     duration: {
       type: String,
     },
-    subcourse: {
+    percouid: {
       type: String,
       default: 0,
-    },
+    }
   },
   {
     timestamps: true,

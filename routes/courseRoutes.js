@@ -25,4 +25,6 @@ router
   .get(controller.updateCourseView)
   .put(controller.updateCourse);
 
+router.get('/getsubcourse/:id',controller.getsubcourse);
+
 module.exports = router;

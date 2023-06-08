@@ -88,21 +88,13 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="course-select">Select Sub Course</label>
+                      <label for="subcourse-select">Select Sub Course</label>
                       <select
-                        id="course-select"
+                        id="subcourse-select"
                         class="form-select p-3"
-                        name="courseSelect"
+                        name="subCourseSelect"
                         onchange="subcoursea(this)"
-                      >
-                        <option>Select Course</option>
-                        <% courses.map((course) => { %>
-                        <option class="p-3" value="<%= course._id %>">
-                          <%= course.name %>
-                        </option>
-                        <% })%>
-                        <option>Other</option>
-                      </select>
+                      ></select>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -269,6 +261,9 @@
         $("#addCourse").prop("disabled", true);
         $("#addSubCourse").prop("disabled", true);
         $("#courseDuration").prop("disabled", true);
+        $.get('/getsubcourse/'+$(v).val(),function(data, status){
+          $("#subcourse-select").append(data.haha);
+        });
       }
     }
     function subcoursea(v) {
