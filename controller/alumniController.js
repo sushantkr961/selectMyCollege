@@ -89,7 +89,6 @@ const editAlumniView = async (req, res) => {
 const editAlum = async (req, res) => {
   const { id, collegeId } = req.params;
   const { name, batch, package } = req.body;
-  console.log(req.params);
   try {
     const alum = await Alumni.findByIdAndUpdate(
       id,
