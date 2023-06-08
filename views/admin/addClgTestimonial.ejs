@@ -25,7 +25,7 @@
           <li class="nav-item">
             <a
               class="nav-link active"
-              href="/addColleges/next?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next?collegeId=<%= college._id %>"
               data-tab="#tab1"
               >Course</a
             >
@@ -33,7 +33,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
               data-tab="#tab2"
               >Gallery</a
             >
@@ -41,13 +41,13 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
               data-tab="#tab3"
               >Alumni</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
+            <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
               >Testimonial</a
             >
           </li>
@@ -65,7 +65,7 @@
             </h4>
             <h4 class="card-title fs-4">College Testimonial</h4>
             <form
-              action="/addColleges/next/testimonial?collegeId=<%= college._id %>"
+              action="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
               method="POST"
               class="cmxform"
             >
@@ -125,14 +125,14 @@
                         <td><%= testimonial.message %></td>
                         <td>
                           <a
-                            href="/addColleges/next/testimonial/edit/<%= testimonial._id %>/<%= college._id %>"
+                            href="/admin/addColleges/next/testimonial/edit/<%= testimonial._id %>/<%= college._id %>"
                             class="btn btn-outline-primary"
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </a>
                           <form
                             class="delete-form"
-                            action="/addColleges/next/testimonial/<%= testimonial._id %>/<%= college._id %>?_method=DELETE"
+                            action="/admin/addColleges/next/testimonial/<%= testimonial._id %>/<%= college._id %>?_method=DELETE"
                             method="POST"
                           >
                             <button

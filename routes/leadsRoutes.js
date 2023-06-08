@@ -2,7 +2,7 @@ const exprss = require("express");
 const controller = require("../controller/leadsController");
 const router = exprss.Router();
 
-router.route("/leads")
+router.route("/admin/leads")
     .get(controller.leadsPage)
     .post(controller.createLead);
 

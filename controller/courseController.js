@@ -72,7 +72,7 @@ const createCourse = async (req, res) => {
       courseId,
       fees: fee,
     });
-    return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next?collegeId=${collegeId}`);
   } catch (error) {
     console.error("Error creating college:", error);
     res.status(500).json({ error: "Error creating college" });
@@ -85,7 +85,7 @@ const deleteCourseTwo = async (req, res) => {
   try {
     // Delete the fee based on the feeId
     await Fee.findByIdAndRemove(feeId);
-    return res.redirect(`/addColleges/next?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next?collegeId=${collegeId}`);
   } catch (error) {
     console.error("Error deleting course:", error);
     res.status(500).json({ error: "Error deleting course" });
@@ -118,7 +118,7 @@ const editCollegeCourse = async (req, res) => {
     if (!updatedFee) {
       req.session.message = "Fee not found";
       return res.redirect(
-        `/addColleges/next?collegeId=${updatedFee.collegeId}`
+        `/admin/addColleges/next?collegeId=${updatedFee.collegeId}`
       );
     }
 
@@ -126,7 +126,7 @@ const editCollegeCourse = async (req, res) => {
     await updatedFee.save();
 
     req.session.message = "Fee updated successfully";
-    return res.redirect(`/addColleges/next?collegeId=${updatedFee.collegeId}`);
+    return res.redirect(`/admin/addColleges/next?collegeId=${updatedFee.collegeId}`);
   } catch (error) {
     console.error("Error updating college course:", error);
     req.session.message = "Error updating college course";

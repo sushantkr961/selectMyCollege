@@ -21,7 +21,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       // req.flash("message", "Username already exists");
-      return res.redirect("/register");
+      return res.redirect("/admin/register");
     }
 
     // Set the default role
@@ -43,10 +43,10 @@ const register = async (req, res) => {
     await newUser.save();
 
     // req.flash("message", "User registered successfully");
-    res.redirect("/login");
+    res.redirect("/admin/allAdmin");
   } catch (error) {
     // req.flash("message", "Registration failed");
-    res.redirect("/register");
+    res.redirect("/admin/register");
   }
 };
 
@@ -70,7 +70,7 @@ const login = async (req, res) => {
       username: user.username,
       role: user.role,
     };
-    res.redirect("/admin");
+    res.redirect("/admin/dashboard");
     // res.status(200).json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ message: "Login failed" });
@@ -82,10 +82,10 @@ const deleteAdmin = async (req, res) => {
   try {
     await User.findByIdAndDelete(id);
     // req.flash("message", "User deleted successfully");
-    res.redirect("/allAdmin");
+    res.redirect("/admin/allAdmin");
   } catch (error) {
     // req.flash("message", "Failed to delete user");
-    res.redirect("/allAdmin");
+    res.redirect("/admin/allAdmin");
   }
 };
 

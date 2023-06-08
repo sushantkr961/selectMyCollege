@@ -20,7 +20,7 @@ const viewAlunmi = async (req, res) => {
       type: "danger",
       message: "Internal Server Error",
     };
-    res.status(500).send("Internal Server Error");
+    res.redirect("/admin/addColleges/next/alumni");
   }
 };
 
@@ -38,14 +38,14 @@ const createAlum = async (req, res) => {
       type: "success",
       message: "Alum created successfully",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   } catch (error) {
     console.error(error);
     req.session.message = {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   }
 };
 
@@ -53,14 +53,14 @@ const deleteAlumni = async (req, res) => {
   const { id, collegeId } = req.params;
   try {
     await Alumni.findByIdAndDelete(id);
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   } catch (err) {
     console.error(err);
     req.session.message = {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   }
 };
 
@@ -82,7 +82,7 @@ const editAlumniView = async (req, res) => {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   }
 };
 
@@ -101,20 +101,20 @@ const editAlum = async (req, res) => {
         type: "danger",
         message: "Alumni not found",
       };
-      return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+      return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
     }
     req.session.message = {
       type: "success",
       message: "Alumni updated successfully",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   } catch (error) {
     console.error(error);
     req.session.message = {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/addColleges/next/alumni?collegeId=${collegeId}`);
+    return res.redirect(`/admin/addColleges/next/alumni?collegeId=${collegeId}`);
   }
 };
 

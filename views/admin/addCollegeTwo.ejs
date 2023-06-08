@@ -26,7 +26,7 @@
           <li class="nav-item">
             <a
               class="nav-link active"
-              href="/addColleges/next?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next?collegeId=<%= college._id %>"
               data-tab="#tab1"
               >Course</a
             >
@@ -34,7 +34,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
               data-tab="#tab2"
               >Gallery</a
             >
@@ -42,13 +42,13 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+              href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
               data-tab="#tab3"
               >Alumni</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
+            <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
               >Testimonial</a
             >
           </li>
@@ -165,7 +165,7 @@
                   </div>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+                <a href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
                   ><button type="button" class="btn btn-primary">
                     Next
                   </button></a
@@ -185,13 +185,13 @@
                 <h6 class="text-center">Total Fee: ₹ <%= fe.totalFee %></h6>
                 <div class="d-flex justify-content-around">
                   <a
-                    href="/editCollegeCouresView/<%= fe._id %>"
+                    href="/admin/editCollegeCouresView/<%= fe._id %>"
                     class="btn me-2"
                   >
                     <i class="fa-solid fa-pen-to-square text-primary"></i>
                   </a>
                   <form
-                    action="/deletecolleges/<%= college._id %>/courses/<%= fe._id %>/?_method=DELETE"
+                    action="/admin/deletecolleges/<%= college._id %>/courses/<%= fe._id %>/?_method=DELETE"
                     method="POST"
                   >
                     <button type="submit" class="btn me-2">

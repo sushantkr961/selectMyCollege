@@ -9,7 +9,7 @@ router.get("/blogs", controller.blogsPage);
 router.get("/blogsDetail", controller.blogsDetailPage);
 
 // Create a new blog
-router.post("/blog", controller.createBlog);
+router.post("/admin/blog", controller.createBlog);
 
 // Get all blogs
 router.get("/blog", controller.getAllBlogs);
@@ -18,9 +18,9 @@ router.get("/blog", controller.getAllBlogs);
 router.get("/blog/:id", controller.getBlogById);
 
 // Update a blog
-router.put("/blog/:id", controller.updateBlog);
+router.put("/admin/blog/:id", controller.updateBlog);
 
 // Delete a blog
-router.delete("/blog/:id", controller.deleteBlog);
+router.delete("/admin/blog/:id", controller.deleteBlog);
 
 module.exports = router;

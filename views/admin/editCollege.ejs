@@ -11,7 +11,7 @@
             <form
               class="cmxform"
               method="post"
-              action="/updateCollege/<%= college._id %>?_method=PUT"
+              action="/admin/updateCollege/<%= college._id %>?_method=PUT"
               enctype="multipart/form-data"
             >
               <!-- Add the hidden input field with the value "PUT" -->
@@ -168,25 +168,25 @@
                 </div>
                 <div class="row">
                   <a
-                    href="/addColleges/next?collegeId=<%= college._id %>"
+                    href="/admin/addColleges/next?collegeId=<%= college._id %>"
                     class="text-decoration-none col-md-3"
                   >
                     <span>Manage College Courses</span>
                   </a>
                   <a
-                    href="/addColleges/next/gallery?collegeId=<%= college._id %>"
+                    href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
                     class="text-decoration-none col-md-3"
                   >
                     <span>Manage College Gallery</span>
                   </a>
                   <a
-                    href="/addColleges/next/alumni?collegeId=<%= college._id %>"
+                    href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
                     class="text-decoration-none col-md-3"
                   >
                     <span>Manage College Alumni</span>
                   </a>
                   <a
-                    href="/addColleges/next/testimonial?collegeId=<%= college._id %>"
+                    href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
                     class="text-decoration-none col-md-3"
                   >
                     <span>Manage College Testimonial</span>

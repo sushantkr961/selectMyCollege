@@ -42,13 +42,13 @@
                     <td><%= user.role %></td>
                     <td>
                       <a
-                        href="/admin/<%= user._id %>"
+                        href="/admin/admin/<%= user._id %>"
                         class="btn btn-outline-primary"
                         ><i class="fa-solid fa-pen-to-square"></i
                       ></a>
                       <form
                         class="delete-form"
-                        action="/admin/<%= user._id %>?_method=DELETE"
+                        action="/admin/admin/<%= user._id %>?_method=DELETE"
                         method="POST"
                       >
                         <button

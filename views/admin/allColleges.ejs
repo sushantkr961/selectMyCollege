@@ -54,13 +54,13 @@
                     <td><%= college.pinCode %></td>
                     <td>
                       <a
-                        href="/updateCollege/<%= college._id %>"
+                        href="/admin/updateCollege/<%= college._id %>"
                         class="btn btn-outline-primary"
                         ><i class="fa-solid fa-pen-to-square"></i
                       ></a>
                       <form
                         class="delete-form"
-                        action="/colleges/<%= college._id %>?_method=DELETE"
+                        action="/admin/colleges/<%= college._id %>?_method=DELETE"
                         method="POST"
                       >
                         <button

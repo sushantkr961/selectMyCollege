@@ -27,33 +27,33 @@ router.get("/view", controller.viewPage);
 router.get("/colleges/:id", controller.getCollegeById);
 
 // admin page
-router.get("/admin", authMiddleware, controller.adminPage);
+router.get("/admin/dashboard", authMiddleware, controller.adminPage);
 
 // add colleges
 router
-  .route("/addColleges")
+  .route("/admin/addColleges")
   .get(controller.createCollegeView)
   .post(upload.single("clgLogo"), controller.createCollege);
 
 // add college gallery
 router
-  .route("/addColleges/next/gallery")
+  .route("/admin/addColleges/next/gallery")
   .get(controller.createImageGalleryView)
   .post(upload.array("clgLogo", 4), controller.createImageGallery);
 
 router.delete(
-  "/addColleges/next/gallery/:collegeId/images/:imageId",
+  "/admin/addColleges/next/gallery/:collegeId/images/:imageId",
   controller.deleteImage
 );
 
 // update colleges
 router
-  .route("/updateCollege/:id")
+  .route("/admin/updateCollege/:id")
   .get(controller.updateCollegeView)
   .put(upload.single("clgLogo"), controller.updateCollege);
 
 // delete colleges
-router.delete("/colleges/:id", controller.deleteCollege);
+router.delete("/admin/colleges/:id", controller.deleteCollege);
 
 // all colleges
 router.get("/allColleges", controller.getAllColleges);
