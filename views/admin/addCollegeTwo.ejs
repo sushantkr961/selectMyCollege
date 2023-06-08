@@ -48,7 +48,10 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
+            <a
+              class="nav-link"
+              href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
+              data-tab="#tab4"
               >Testimonial</a
             >
           </li>
@@ -94,7 +97,7 @@
                         class="form-select p-3"
                         name="subCourseSelect"
                         onchange="subcoursea(this)"
-                      ></select>
+                      ><option>Other</option></select>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -171,7 +174,8 @@
                   </div>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
+                <a
+                  href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
                   ><button type="button" class="btn btn-primary">
                     Next
                   </button></a
@@ -261,8 +265,8 @@
         $("#addCourse").prop("disabled", true);
         $("#addSubCourse").prop("disabled", true);
         $("#courseDuration").prop("disabled", true);
-        $.get('/getsubcourse/'+$(v).val(),function(data, status){
-          $("#subcourse-select").append(data.haha);
+        $.get("/getsubcourse/" + $(v).val(), function (data, status) {
+          $("#subcourse-select").html(data.haha);
         });
       }
     }

@@ -23,7 +23,6 @@ const createCourseView = async (req, res) => {
         } else {
           courseName = null;
         }
-        // console.log(con);
         const totalFee = feeDoc.fees.reduce(
           (sum, [_, value]) => sum + parseFloat(value),
           0
@@ -55,7 +54,6 @@ const createCourseView = async (req, res) => {
 const getsubcourse = async (req, res) => {
   const coursesid = req.params.id;
   const tsc = await Course.find({percouid:coursesid});
-  // console.log(tsc);
   let aa = `<option>Select Sub Course</option>`;
   if(tsc.length > 0){ tsc.map((course) => {
     aa += `<option class="p-3" value="`+course._id+`">`+course.name+`</option>`
@@ -77,7 +75,7 @@ const createCourse = async (req, res) => {
       const course = await Course.create({
         name: addCourse,
       });
-      mcourseId = course._id;
+      let mcourseId = course._id;
       const subcourse = await Course.create({
         name: addSubCourse,
         duration,
