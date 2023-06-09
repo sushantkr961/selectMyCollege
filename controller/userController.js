@@ -69,7 +69,7 @@ const login = async (req, res) => {
       username: user.username,
       role: user.role,
     };
-    res.redirect("/admin/dashboard");
+    res.redirect("/admin");
     // res.status(200).json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ message: "Login failed" });

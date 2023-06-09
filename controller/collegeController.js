@@ -7,6 +7,8 @@ const State = require("../model/stateModel");
 const Gallery = require("../model/galleryModel");
 const Alumni = require("../model/alumniModel");
 const Lead = require("../model/leadsModel");
+const Fee = require("../model/feeModel");
+const { log } = require("console");
 
 // index page
 const homePage = async (req, res) => {
@@ -15,13 +17,56 @@ const homePage = async (req, res) => {
 };
 
 const topclgPage = async (req, res) => {
-  res.render("topclg", { title: "selectmycollege" });
+  const clickedCity = req.query.city;
+  try {
+    const city = await City.findOne({ cityName: clickedCity });
+    if (!city) {
+      console.error("City not found");
+      return res.status(404).json({ error: "City not found" });
+    }
+    const cityId = city._id;
+    const filteredColleges = await College.find({ city: cityId }).populate("city");
+    
+    const tcdPromises = filteredColleges.map(async (college) => {
+      const collegeId = college._id;
+      const fees = await Fee.find({ collegeId });
+      const collegePromises = fees.map(async (sfee) => {
+        const courseId = sfee.courseId;
+        const course = await Course.findById(courseId);
+        const totalfee = 1000;
+        return {
+          college_name: college.name,
+          college_sname: college.shortName,
+          college_logo: college.clgLogo,
+          college_city: college.city.cityName,
+          college_address: college.address,
+          course_name: course.name,
+          coursefee: totalfee,
+        };
+      });
+      return Promise.all(collegePromises);
+    });
+    
+    const tcd = await Promise.all(tcdPromises);
+    const flattenedTcd = [].concat(...tcd);
+    
+    res.render("topclg", {
+      title: "selectmycollege",
+      city: clickedCity,
+      colleges: flattenedTcd,
+    });
+  } catch (error) {
+    console.error("Error fetching colleges:", error);
+    res.status(500).json({ error: "Error fetching colleges" });
+  }
 };
+
 
 // Controller for getting a specific college by ID
 const viewPage = async (req, res) => {
   res.render("view", { title: "selectmycollege" });
 };
+
 const getCollegeById = async (req, res) => {
   try {
     const college = await College.findById(req.params.id);
@@ -62,7 +107,7 @@ const adminPage = async (req, res) => {
       type: "warning",
       message: "Error getting count",
     };
-    return res.redirect("admin/dashboard");
+    return res.redirect("/admin");
   }
 };
 
@@ -277,7 +322,9 @@ const deleteImage = async (req, res) => {
         type: "danger",
         message: "Image not found",
       };
-      return res.redirect(`/admin/addColleges/next/gallery?collegeId=${collegeId}`);
+      return res.redirect(
+        `/admin/addColleges/next/gallery?collegeId=${collegeId}`
+      );
     }
     fs.unlinkSync("public/" + deletedImage.image);
     res.redirect(`/admin/addColleges/next/gallery?collegeId=${collegeId}`);

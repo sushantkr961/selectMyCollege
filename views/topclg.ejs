@@ -222,7 +222,7 @@
             <div class="d-flex flex-direction-row align-items-center justify-content-md-between justify-content-center">
                 <div>
                     <p class="sk-confused text-start mt-3 fs-1">
-                        Top colleges from Delhi
+                        Top colleges from <%= city  %>
                     </p>
                     <button type="button" class="btn fs-2 rounded-pill text-white fw-bold shadow-lg eligibility_btn" style="backdrop-filter: blur(5px)" onclick="document.getElementById('exampleModal').scrollIntoView({ behavior: 'smooth',block:'center' });" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                         Let us select for you
@@ -235,53 +235,6 @@
 
 <!-- below slider -->
 <div class="container my-5 border border-1 sk-topclg">
-    <!-- <div>
-        <div class="d-flex row justify-content-around  my-3 flex-wrap align-items-around">
-            <input type="text" class="searchOption shadow-sm col-12 col-lg-3 my-2" placeholder="Enter College Name">
-            <select class="searchOption mx-2 col-12 col-lg-3 shadow-sm my-2" aria-label="Default select example">
-                <option selected>Select Course</option>
-                <option value="1">be.tech</option>
-                <option value="2">m.tech</option>
-                <option value="3">Bca</option>
-            </select>
-            <select class="searchOption mx-2 shadow-sm col-12 col-lg-3 my-2" aria-label="Default select example">
-                <option selected>Select Location</option>
-                <option value="1">delhi</option>
-                <option value="2">karnatak</option>
-                <option value="3">kolapur</option>
-            </select>
-            <button type="submit" class=" btn  btn-search col-12 col-lg-3 my-2">Search</button>
-        </div>
-        <div class="" style="overflow: hidden;">
-            <div class="d-flex  justify-content-between my-3" style="overflow-x: auto;">
-                <div class="selection">
-                    <h5>MBA</h3>
-                </div>
-                <div class="selection">
-                    <h5>Engeering</h3>
-                </div>
-                <div class="selection">
-                    <h5>BBA/BCA</h3>
-                </div>
-                <div class="selection">
-                    <h5>Medical</h3>
-                </div>
-                <div class="selection">
-                    <h5>MBA</h3>
-                </div>
-                <div class="selection">
-                    <h5>Engeering</h3>
-                </div>
-                <div class="selection">
-                    <h5>BBA/BCA</h3>
-                </div>
-                <div class="selection">
-                    <h5>Medical</h3>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="container mt-4 mb-md-4">
         <div class="row">
             <div class="col-md-9 mb-1">
@@ -323,7 +276,7 @@
                                 </span>
                                 <span class="col-6 col-md-4 p-0">
                                     <p class="border m-1 text-center">
-                                        < 7Lpa </p>
+                                        7Lpa </p>
                                 </span>
                             </div>
                         </div>
@@ -631,69 +584,64 @@
                     <h4>College Information</h4>
                 </div>
             </div>
-            <div class="clgInfoBox">
-                <!-- 1 -->
-                <div>
-                    <a href="/view" class="text-decoration-none text-black">
-                        <div class="border border-1 border-black p-1 p-md-0 row m-auto px-1 px-md-3 justify-content-between">
-                            <div class="d-flex flex-wrap clgBorderBox align-items-center col-12 col-md-8 p-md-1 row m-auto m-md-0 px-0 px-lg-3">
-                                <div class="col-3 p-0 ">
-                                    <div class="" style="aspect-ratio:16/9;">
-                                    <img class="w-100 h-100" src="image/College Images-01.png" alt="">
+            <% colleges.map((clg,idx) => { %>
+                <div class="clgInfoBox">
+                    <div>
+                        <a href="/view" class="text-decoration-none text-black">
+                            <div class="border border-1 border-black p-1 p-md-0 row m-auto px-1 px-md-3 justify-content-between">
+                                <div class="d-flex flex-wrap clgBorderBox align-items-center col-12 col-md-8 p-md-1 row m-auto m-md-0 px-0 px-lg-3">
+                                    <div class="col-3 p-0 ">
+                                        <div class="" style="aspect-ratio:16/9;">
+                                        <img class="w-100 h-100" src="<%= process.env.APP_URL %><%= clg.college_logo %>" alt="">
+                                        </div>
                                     </div>
-                                    
-                                   
-                                </div>
-                                <div class="col-9">
-                                <h6 class="fw-bold">Department of Management Studies IIT Delhi [DMS IITD], New Delhi
-                                    </h6>
-                                    <div class=" col-9">
-                                        <p class="minipara mt-1 col-12 col-md-4">New Delhi, Delhi NCR </p>
-                                        <span class="col-md-1 midLine"> |</span>
-                                        <p class="minipara col-12 col-md-4"> AICTE, UGC,
-                                            NBA
-                                            Approved</p>
+                                    <div class="col-9">
+                                    <h6 class="fw-bold"><%= clg.college_name %> [<%= clg.college_sname %>], <%= clg.college_city %>
+                                        </h6>
+                                        <div class=" col-9">
+                                            <p class="minipara mt-1 col-12 col-md-4"><%= clg.college_address %></p>
+                                            <span class="col-md-1 midLine"> |</span>
+                                            <p class="minipara col-12 col-md-4"> AICTE, UGC,
+                                                NBA
+                                                Approved</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                       <div class="col-4">
+                                       <span class="text-center text-md-center text-lg-start"><i class="fa-solid fa-user"></i>
+                                            8.7/10</span>
+                                       </div>
                                     </div>
                                 </div>
-                                
-                                <div class="row justify-content-between">
-                                   <div class="col-4">
-                                   <span class="text-center text-md-center text-lg-start"><i class="fa-solid fa-user"></i>
-                                        8.7/10</span>
-                                   </div>
-                                    
-                                   
+                                <div class="row my-1 col-12 col-md-4 m-auto p-0">
+                                    <p class="col-sm-6 col-12 p-0 col-md-12 px-md-2 text-center text-md-start"><span class="fw-bold">Course
+                                            Fee: </span> Rs <%= clg.coursefee %> </h6>
+                                    <p class="col-sm-6 col-12 p-0 col-md-12 px-md-2 text-md-start text-center"> <span class="fw-bold">Course-Name:</span><%= clg.course_name %></h6>
+                                    <form action="" class="col-12 d-flex align-items-center justify-content-center justify-content-md-start">
+                                        <input style="width: 15px; margin: 5px;" type="checkbox" id="vehicle1" name="" value="">
+                                        <label for="vehicle1">
+                                            <p class="minipara fw-bold">Add to compare</p>
+                                        </label>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="row my-1 col-12 col-md-4 m-auto p-0">
-                                <p class="col-sm-6 col-12 p-0 col-md-12 px-md-2 text-center text-md-start"><span class="fw-bold">Course
-                                        Fee: </span> ₹1,040,000 </h6>
-                                <p class="col-sm-6 col-12 p-0 col-md-12 px-md-2 text-md-start text-center"> <span class="fw-bold">Course-Name:</span>MBA/PGDM</h6>
-                                <form action="" class="col-12 d-flex align-items-center justify-content-center justify-content-md-start">
-                                    <input style="width: 15px; margin: 5px;" type="checkbox" id="vehicle1" name="" value="">
-                                    <label for="vehicle1">
-                                        <p class="minipara fw-bold">Add to compare</p>
-                                    </label>
-                                </form>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="minisection1 mb-3 py-2 d-flex justify-content-between row">
-                    <div class="d-flex flex-row align-items-center justify-content-center col-6 col-md-8">
-                        <i class="fa-sharp fa-solid fa-check text-warning"></i>
-                        <span class="minipara hoverefct" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor:pointer;">Apply Now</span>
-                        <i class="fa-solid fa-arrow-right text-warning"></i>
+                        </a>
                     </div>
-                    <div class="d-flex justify-content-center col-6 col-md-4"> <a class="minipara hoverefct" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor:pointer;" id="hoverefct">
-                            <div class="d-flex flex-row d-flex justify-content-around align-items-center ">
-                                <span>Download Brochure</span>
-                                <i class="fa-solid fa-arrow-right text-warning"></i>
-                            </div>
-                        </a></div>
+                    <div class="minisection1 mb-3 py-2 d-flex justify-content-between row">
+                        <div class="d-flex flex-row align-items-center justify-content-center col-6 col-md-8">
+                            <i class="fa-sharp fa-solid fa-check text-warning"></i>
+                            <span class="minipara hoverefct" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor:pointer;">Apply Now</span>
+                            <i class="fa-solid fa-arrow-right text-warning"></i>
+                        </div>
+                        <div class="d-flex justify-content-center col-6 col-md-4"> <a class="minipara hoverefct" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor:pointer;" id="hoverefct">
+                                <div class="d-flex flex-row d-flex justify-content-around align-items-center ">
+                                    <span>Download Brochure</span>
+                                    <i class="fa-solid fa-arrow-right text-warning"></i>
+                                </div>
+                            </a></div>
+                    </div>
                 </div>
-            </div>
-            <!--  -->
+            <% })%>
         </div>
         <div class="d-flex my-4 justify-content-md-end justify-content-center w-100">
             <a href="">
@@ -824,204 +772,3 @@
 </div>
 <%- include('foot') %>
 
-
-<!-- <style>
-    .suggestions-list {
-        position: absolute;
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        max-height: 200px;
-        overflow-y: auto;
-        width: 100%;
-    }
-
-    .suggestion-item {
-        padding: 8px 12px;
-        cursor: pointer;
-    }
-
-    .suggestion-item:hover {
-        background-color: #e9e9e9;
-    }
-</style>
-<div class="form-group">
-    <label for="cityInput">City:</label>
-    <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
-    <div id="suggestions" class="suggestions-list"></div>
-</div>
-<script>
-    const cities = [
-        "Mumbai, Maharashtra",
-        "Delhi, Delhi",
-        "Bangalore, Karnataka",
-        "Hyderabad, Andhra Pradesh",
-        "Ahmedabad, Gujarat",
-        "Chennai, Tamil Nadu",
-        "Kolkata, West Bengal",
-        "Surat, Gujarat",
-        "Pune, Maharashtra",
-        "Jaipur, Rajasthan",
-        "Lucknow, Uttar Pradesh",
-        "Kanpur, Uttar Pradesh",
-        "Nagpur, Maharashtra",
-        "Indore, Madhya Pradesh",
-        "Thane, Maharashtra",
-        "Bhopal, Madhya Pradesh",
-        "Visakhapatnam, Andhra Pradesh",
-        "Pimpri and Chinchwad, Maharashtra",
-        "Patna, Bihar",
-        "Vadodara, Gujarat",
-        "Ghaziabad, Uttar Pradesh",
-        "Ludhiana, Punjab",
-        "Agra, Uttar Pradesh",
-        "Nashik, Maharashtra",
-        "Faridabad, Haryana",
-        "Meerut, Uttar Pradesh",
-        "Rajkot, Gujarat",
-        "Kalyan and Dombivali, Maharashtra",
-        "Vasai Virar, Maharashtra",
-        "Varanasi, Uttar Pradesh",
-        "Srinagar, Jammu and Kashmir",
-        "Aurangabad, Maharashtra",
-        "Dhanbad, Jharkhand",
-        "Amritsar, Punjab",
-        "Navi Mumbai, Maharashtra",
-        "Allahabad, Uttar Pradesh",
-        "Haora, West Bengal",
-        "Ranchi, Jharkhand",
-        "Gwalior, Madhya Pradesh",
-        "Jabalpur, Madhya Pradesh",
-        "Coimbatore, Tamil Nadu",
-        "Vijayawada, Andhra Pradesh",
-        "Jodhpur, Rajasthan",
-        "Madurai, Tamil Nadu",
-        "Raipur, Chhattisgarh",
-        "Kota, Rajasthan",
-        "Chandigarh, Chandigarh",
-        "Guwahati, Assam",
-        "Solapur, Maharashtra",
-        "Hubli and Dharwad, Karnataka",
-        "Bareilly, Uttar Pradesh",
-        "Mysore, Karnataka",
-        "Moradabad, Uttar Pradesh",
-        "Gurgaon, Haryana",
-        "Aligarh, Uttar Pradesh",
-        "Jalandhar, Punjab",
-        "Tiruchirappalli, Tamil Nadu",
-        "Bhubaneswar, Orissa",
-        "Salem, Tamil Nadu",
-        "Mira and Bhayander, Maharashtra",
-        "Thiruvananthapuram, Kerala",
-        "Bhiwandi, Maharashtra",
-        "Saharanpur, Uttar Pradesh",
-        "Gorakhpur, Uttar Pradesh",
-        "Guntur, Andhra Pradesh",
-        "Amravati, Maharashtra",
-        "Bikaner, Rajasthan",
-        "Noida, Uttar Pradesh",
-        "Jamshedpur, Jharkhand",
-        "Bhilai Nagar, Chhattisgarh",
-        "Warangal, Andhra Pradesh",
-        "Cuttack, Orissa",
-        "Firozabad, Uttar Pradesh",
-        "Kochi, Kerala",
-        "Bhavnagar, Gujarat",
-        "Dehradun, Uttarakhand",
-        "Durgapur, West Bengal",
-        "Asansol, West Bengal",
-        "Nanded Waghala, Maharashtra",
-        "Kolapur, Maharashtra",
-        "Ajmer, Rajasthan",
-        "Gulbarga, Karnataka",
-        "Loni, Uttar Pradesh",
-        "Ujjain, Madhya Pradesh",
-        "Siliguri, West Bengal",
-        "Ulhasnagar, Maharashtra",
-        "Jhansi, Uttar Pradesh",
-        "Sangli Miraj Kupwad, Maharashtra",
-        "Jammu, Jammu and Kashmir",
-        "Nellore, Andhra Pradesh",
-        "Mangalore, Karnataka",
-        "Belgaum, Karnataka",
-        "Jamnagar, Gujarat",
-        "Tirunelveli, Tamil Nadu",
-        "Malegaon, Maharashtra",
-        "Gaya, Bihar",
-        "Ambattur, Tamil Nadu",
-        "Jalgaon, Maharashtra",
-        "Udaipur, Rajasthan",
-        "Maheshtala, West Bengal",
-        "Tiruppur, Tamil Nadu",
-        "Davanagere, Karnataka",
-        "Kozhikode, Kerala",
-        "Kurnool, Andhra Pradesh",
-        "Akola, Maharashtra",
-        "Rajpur Sonarpur, West Bengal",
-        "Bokaro Steel, Jharkhand",
-        "Bellary, Karnataka",
-        "Patiala, Punjab",
-        "South Dum Dum, West Bengal",
-        "Rajarhat Gopalpur, West Bengal",
-        "Bhagalpur, Bihar",
-        "Agartala, Tripura",
-        "Muzaffarnagar, Uttar Pradesh",
-        "Bhatpara, West Bengal",
-        "Latur, Maharashtra",
-        "Panihati, West Bengal",
-        "Dhule, Maharashtra",
-        "Rohtak, Haryana",
-        "Korba, Chhattisgarh",
-        "Bhilwara, Rajasthan",
-        "Brahmapur Town, Orissa",
-        "Muzaffarpur, Bihar",
-        "Ahmadnagar, Maharashtra",
-        "Mathura, Uttar Pradesh",
-        "Kollam, Kerala",
-        "Avadi, Tamil Nadu",
-        "Kadapa, Andhra Pradesh",
-        "Rajahmundry, Andhra Pradesh",
-        "Bilaspur, Chhattisgarh",
-        "Kamarhati, West Bengal",
-        "Shahjahanpur, Uttar Pradesh",
-        "Bijapur, Karnataka",
-        "Rampur, Uttar Pradesh",
-        "Shimoga, Karnataka",
-        "Chandrapur, Maharashtra",
-        "Junagadh, Gujarat",
-        "Thrissur, Kerala",
-        "Alwar, Rajasthan",
-        "Barddhaman, West Bengal",
-        "Kulti, West Bengal",
-        "Kakinada, Andhra Pradesh",
-        "Nizamabad, Andhra Pradesh"
-    ];
-
-    const input = document.getElementById("cityInput");
-    const suggestionsContainer = document.getElementById("suggestions");
-
-    input.addEventListener("input", () => {
-        const inputValue = input.value.toLowerCase();
-        const matchingCities = cities.filter(city => {
-            return city.toLowerCase().includes(inputValue);
-        });
-
-        renderSuggestions(matchingCities);
-    });
-
-    function renderSuggestions(suggestions) {
-        suggestionsContainer.innerHTML = "";
-
-        suggestions.forEach(suggestion => {
-            const suggestionItem = document.createElement("div");
-            suggestionItem.classList.add("suggestion-item");
-            suggestionItem.textContent = suggestion;
-
-            suggestionItem.addEventListener("click", () => {
-                input.value = suggestion;
-                suggestionsContainer.innerHTML = "";
-            });
-
-            suggestionsContainer.appendChild(suggestionItem);
-        });
-    }
-</script> -->
