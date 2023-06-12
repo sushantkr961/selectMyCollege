@@ -12,8 +12,11 @@ const { log } = require("console");
 
 // index page
 const homePage = async (req, res) => {
-  const cities = City.find();
   res.render("index", { title: "selectmycollege" });
+};
+
+const adminRoute = async (req, res) => {
+  res.redirect("admin/dashboard");
 };
 
 const topclgPage = async (req, res) => {
@@ -25,13 +28,12 @@ const topclgPage = async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
     const cityId = city._id;
-    const filteredColleges = await College.find({ city: cityId }).populate(
-      "city"
-    );
+    const filteredColleges = await College.find({ city: cityId });
 
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
       const fees = await Fee.find({ collegeId });
+      // console.log(fees)
       const collegePromises = fees.map(async (sfee) => {
         const courseId = sfee.courseId;
         const course = await Course.findById(courseId);
@@ -108,7 +110,7 @@ const adminPage = async (req, res) => {
       type: "warning",
       message: "Error getting count",
     };
-    return res.redirect("/admin");
+    return res.redirect("/admin/dashboard");
   }
 };
 
@@ -522,4 +524,5 @@ module.exports = {
   createImageGalleryView,
   createImageGallery,
   deleteImage,
+  adminRoute,
 };

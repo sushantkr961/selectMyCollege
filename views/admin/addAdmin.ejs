@@ -27,10 +27,19 @@
                 </div>
                 <h3 class="text-center fs-3">Add New Admin</h3>
                 <% if (message) { %>
-                <div class="alert alert-danger" role="alert">
-                  <%= message %>
-                </div>
-                <% } %>
+                  <div
+                    class="alert alert-dismissible fade show alert-<%= message.type %>"
+                    role="alert"
+                  >
+                    <button
+                      class="btn-close"
+                      type="button"
+                      data-bs-dismiss="alert"
+                      aria-label="close"
+                    ></button>
+                    <strong><%= message.message %></strong>
+                  </div>
+                  <% } %>
                 <form class="pt-3" action="/admin/register" method="POST">
                   <div class="form-group">
                     <input

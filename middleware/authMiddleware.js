@@ -4,7 +4,10 @@ const authMiddleware = (req, res, next) => {
     // User is authenticated and has admin role
     next();
   } else {
-    // User is not authenticated or doesn't have admin role
+    req.session.message = {
+      type: "danger",
+      message: "You are not authorized to access this page",
+    };
     res.redirect("/login"); // Redirect to a login page or show an error message
   }
 };

@@ -3,9 +3,17 @@ const User = require("../model/userModel");
 const allAdmin = async (req, res) => {
   try {
     const users = await User.find();
-    res.render("admin/allAdmin", { users, title: "selectMyCollege" });
+    res.render("admin/allAdmin", {
+      users,
+      title: "selectMyCollege",
+      message: req.session.message,
+    });
+    req.session.message = null;
   } catch (error) {
-    // req.flash('message', 'Failed to fetch users');
+    req.session.message = {
+      type: "danger",
+      message: "Failed to fetch users",
+    };
     res.redirect("/login");
   }
 };
@@ -19,32 +27,33 @@ const register = async (req, res) => {
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      // req.flash("message", "Username already exists");
+      req.session.message = {
+        type: "danger",
+        message: "Username already exists",
+      };
       return res.redirect("/admin/register");
     }
-
-    // Set the default role
     let role = "user";
-
-    // Check if the adminRole checkbox is checked
     if (adminRole) {
       role = "admin";
     }
-
-    // Create a new user
     const newUser = new User({
       username,
       password,
       role,
     });
-
-    // Save the user to the database
     await newUser.save();
 
-    // req.flash("message", "User registered successfully");
+    req.session.message = {
+      type: "success",
+      message: "User registered successfully",
+    };
     res.redirect("/admin/allAdmin");
   } catch (error) {
-    // req.flash("message", "Registration failed");
+    req.session.message = {
+      type: "danger",
+      message: "Registration failed",
+    };
     res.redirect("/admin/register");
   }
 };
@@ -58,10 +67,18 @@ const login = async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      req.session.message = {
+        type: "danger",
+        message: "Invalid username or password",
+      };
+      return res.redirect("/login");
     }
     if (user.password !== password) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      req.session.message = {
+        type: "danger",
+        message: "Invalid username or password",
+      };
+      return res.redirect("/login");
     }
     req.session.isAuthenticated = true;
     req.session.user = {
@@ -69,10 +86,13 @@ const login = async (req, res) => {
       username: user.username,
       role: user.role,
     };
-    res.redirect("/admin");
-    // res.status(200).json({ message: "Login successful" });
+    res.redirect("/admin/dashboard");
   } catch (error) {
-    res.status(500).json({ message: "Login failed" });
+    req.session.message = {
+      type: "danger",
+      message: "Login failed",
+    };
+    res.redirect("/login");
   }
 };
 
@@ -80,10 +100,16 @@ const deleteAdmin = async (req, res) => {
   const { id } = req.params;
   try {
     await User.findByIdAndDelete(id);
-    // req.flash("message", "User deleted successfully");
+    req.session.message = {
+      type: "success",
+      message: "User deleted successfully",
+    };
     res.redirect("/admin/allAdmin");
   } catch (error) {
-    // req.flash("message", "Failed to delete user");
+    req.session.message = {
+      type: "danger",
+      message: "Failed to delete user",
+    };
     res.redirect("/admin/allAdmin");
   }
 };
