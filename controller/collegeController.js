@@ -25,8 +25,10 @@ const topclgPage = async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
     const cityId = city._id;
-    const filteredColleges = await College.find({ city: cityId }).populate("city");
-    
+    const filteredColleges = await College.find({ city: cityId }).populate(
+      "city"
+    );
+
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
       const fees = await Fee.find({ collegeId });
@@ -46,10 +48,10 @@ const topclgPage = async (req, res) => {
       });
       return Promise.all(collegePromises);
     });
-    
+
     const tcd = await Promise.all(tcdPromises);
     const flattenedTcd = [].concat(...tcd);
-    
+
     res.render("topclg", {
       title: "selectmycollege",
       city: clickedCity,
@@ -60,7 +62,6 @@ const topclgPage = async (req, res) => {
     res.status(500).json({ error: "Error fetching colleges" });
   }
 };
-
 
 // Controller for getting a specific college by ID
 const viewPage = async (req, res) => {
@@ -390,15 +391,14 @@ const updateCollege = async (req, res) => {
     const {
       name,
       address,
-      stateId,
+      state,
       pinCode,
-      cityId,
+      city,
       url,
       description,
       facilities,
       shortName,
       clgLogo,
-      // images,
     } = req.body;
 
     const college = await College.findById(req.params.id);
@@ -417,10 +417,39 @@ const updateCollege = async (req, res) => {
       new_logo = req.body.old_clgLogo;
     }
 
+    let selectedCity;
+    if (Array.isArray(city)) {
+      const cityName = city[0];
+      selectedCity = await City.findOne({ cityName });
+      if (!selectedCity) {
+        selectedCity = await City.create({ cityName });
+      }
+    } else {
+      selectedCity = await City.findOne({ cityName: city });
+      if (!selectedCity) {
+        selectedCity = await City.create({ cityName: city });
+      }
+    }
+
+    let selectedState;
+    if (Array.isArray(state)) {
+      // Take the first state name from the array
+      const stateName = state[0];
+      selectedState = await State.findOne({ stateName });
+      if (!selectedState) {
+        selectedState = await State.create({ stateName: state });
+      }
+    } else {
+      selectedState = await State.findOne({ stateName: state });
+      if (!selectedState) {
+        selectedState = await State.create({ stateName: state });
+      }
+    }
+
     college.name = name;
     college.address = address;
-    college.state = stateId;
-    college.city = cityId;
+    college.state = selectedState._id;
+    college.city = selectedCity._id;
     college.url = url;
     college.facilities = facilities;
     college.pinCode = pinCode;
@@ -442,6 +471,7 @@ const updateCollege = async (req, res) => {
     res.status(500).json({ error: "Error updating college" });
   }
 };
+
 /** UPDATE COLLEGES ENDS HERE */
 
 /** DELETE COLLEGE START HERE */

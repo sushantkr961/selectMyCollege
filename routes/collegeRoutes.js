@@ -28,6 +28,7 @@ router.get("/colleges/:id", controller.getCollegeById);
 
 // admin page
 router.get("/admin", authMiddleware, controller.adminPage);
+// router.get("/admin/dashboard", authMiddleware, controller.adminPage);
 
 // add colleges
 router
