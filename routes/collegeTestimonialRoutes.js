@@ -15,6 +15,6 @@ router
 router
   .route("/admin/addColleges/next/testimonial/edit/:id/:collegeId")
   .get(controller.editCollegeTestimonialView)
-  .post(controller.editCollegeTestimonial);
+  .post(upload.single("clgLogo"), controller.editCollegeTestimonial);
 
 module.exports = router;

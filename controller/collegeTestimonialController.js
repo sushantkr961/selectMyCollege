@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const College = require("../model/collegeModel");
 const collegeTestimonial = require("../model/collegeTestimonialModel");
 
@@ -101,15 +103,11 @@ const editCollegeTestimonialView = async (req, res) => {
 
 const editCollegeTestimonial = async (req, res) => {
   const { id, collegeId } = req.params;
-  console.log(req.params);
   const { name, designation, message } = req.body;
   try {
-    const testimonial = await collegeTestimonial.findByIdAndUpdate(
-      id,
-      { name, designation, message },
-      { new: true }
-    );
-    if (!testimonial) {
+    const oldTestimonial = await collegeTestimonial.findById(id);
+
+    if (!oldTestimonial) {
       req.session.message = {
         type: "danger",
         message: "Testimonial not found",
@@ -118,6 +116,26 @@ const editCollegeTestimonial = async (req, res) => {
         `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
       );
     }
+
+    // Remove old image file from server
+    const oldImagePath = path.join(
+      __dirname,
+      "../public",
+      oldTestimonial.profileImage
+    );
+    if (fs.existsSync(oldImagePath)) {
+      fs.unlinkSync(oldImagePath);
+    }
+
+    const newProfileImage = "uploads/" + req.file.filename;
+
+    // Update testimonial with new image
+    const testimonial = await collegeTestimonial.findByIdAndUpdate(
+      id,
+      { name, designation, message, profileImage: newProfileImage },
+      { new: true }
+    );
+
     req.session.message = {
       type: "success",
       message: "Testimonial updated successfully",

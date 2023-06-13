@@ -32,18 +32,30 @@
               action="/admin/addColleges/next/testimonial/edit/<%= testimonial._id %>/<%= college._id %>"
               method="POST"
               class="cmxform"
+              enctype="multipart/form-data"
             >
               <fieldset>
                 <div class="form-group">
-                  <div>
-                    <label for="cprofileimage">Profile Image</label>
+                  <label for="cprofileimage">Profile Image</label>
+                  <div class="d-flex">
+                    <img
+                      src="<%=process.env.APP_URL%><%= testimonial.profileImage %>"
+                      width="50"
+                      class="img-thumbnail p-0 rounded-circle me-3"
+                    />
                     <input
                       id="cprofileimage"
                       class="form-control"
-                      name="profileImage"
                       type="file"
+                      name="clgLogo"
                       accept="image/*"
-                      required
+                    />
+                    <input
+                      id="cprofileimage"
+                      class="form-control"
+                      type="hidden"
+                      name="old_clgLogo"
+                      value="<%= testimonial.profileImage %>"
                     />
                   </div>
                 </div>
