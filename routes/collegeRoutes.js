@@ -11,8 +11,8 @@ router.get("/", controller.homePage);
 router.get("/topclg", controller.topclgPage);
 
 // view college page
-router.get("/view", controller.viewPage);
-router.get("/colleges/:id", controller.getCollegeById);
+router.get("/view/:collegeId", controller.viewPage);
+// router.get("/colleges/:id", controller.getCollegeById);
 
 // admin page
 router.get("/admin", authMiddleware, controller.adminRoute);

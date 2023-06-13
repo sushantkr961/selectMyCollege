@@ -8,7 +8,6 @@ const Gallery = require("../model/galleryModel");
 const Alumni = require("../model/alumniModel");
 const Lead = require("../model/leadsModel");
 const Fee = require("../model/feeModel");
-const { log } = require("console");
 
 // index page
 const homePage = async (req, res) => {
@@ -33,12 +32,12 @@ const topclgPage = async (req, res) => {
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
       const fees = await Fee.find({ collegeId });
-      // console.log(fees)
       const collegePromises = fees.map(async (sfee) => {
         const courseId = sfee.courseId;
         const course = await Course.findById(courseId);
         const totalfee = 1000;
         return {
+          college_id: college._id,
           college_name: college.name,
           college_sname: college.shortName,
           college_logo: college.clgLogo,
@@ -67,28 +66,65 @@ const topclgPage = async (req, res) => {
 
 // Controller for getting a specific college by ID
 const viewPage = async (req, res) => {
-  res.render("view", { title: "selectmycollege" });
-};
-
-const getCollegeById = async (req, res) => {
+  const collegeId = req.params.collegeId;
   try {
-    const college = await College.findById(req.params.id);
+    const college = await College.findById(collegeId).populate("city state");
+    console.log(college);
 
     if (!college) {
-      return res.status(404).json({ error: "College not found" });
+      return res.status(404).json({ message: "College not found" });
     }
 
-    // Render the EJS template
-    // res.render("view", {
-    //   college,
-    //   title: "College Details",
-    // });
-    res.status(200).json({ college });
+    const fees = await Fee.find(
+      { collegeId: college._id },
+      "courseId"
+    ).populate("courseId");
+    // console.log(fees);
+    const courses = await Promise.all(
+      fees.map(async (item) => await Course.findById(item.courseId))
+    );
+    // Get all the courses from the populated fee
+    const allCourses = fees.map((fee) => fee.courseId.name);
+    // console.log("all", allCourses);
+
+    const galleryImages = await Gallery.find({ collegeId: college._id });
+
+    // Filter the gallery images to include only images with 'banners' set to true
+    const banners = galleryImages.filter((image) => image.banners === true);
+    // console.log(banners);
+
+    res.render("view", {
+      title: "selectmycollege",
+      college: college,
+      courses: courses,
+      gallery: galleryImages,
+      banners: banners,
+      allCourses: allCourses,
+    });
   } catch (error) {
-    console.error("Error getting college:", error);
-    res.status(500).json({ error: "Error getting college" });
+    console.error("Error fetching college:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+// const getCollegeById = async (req, res) => {
+//   try {
+//     const college = await College.findById(req.params.id);
+
+//     if (!college) {
+//       return res.status(404).json({ error: "College not found" });
+//     }
+//     // Render the EJS template
+//     // res.render("view", {
+//     //   college,
+//     //   title: "College Details",
+//     // });
+//     res.status(200).json({ college });
+//   } catch (error) {
+//     console.error("Error getting college:", error);
+//     res.status(500).json({ error: "Error getting college" });
+//   }
+// };
 
 const adminPage = async (req, res) => {
   try {
@@ -266,15 +302,18 @@ const createImageGallery = async (req, res) => {
         const dimensions = imageSize(file.path);
 
         // Example validation: Check if resolution is less than 1920x1080
-        const maxWidth = 1920;
-        const maxHeight = 1080;
-        if (dimensions.width > maxWidth || dimensions.height > maxHeight) {
+        const targetWidth = 1920;
+        const targetHeight = 1080;
+        if (
+          dimensions.width < targetWidth ||
+          dimensions.height < targetHeight
+        ) {
           // Delete the uploaded file
           fs.unlinkSync(file.path);
           req.session.message = {
             type: "danger",
             message:
-              "Invalid image resolution. Please select an image with a maximum resolution of 1920x1080.",
+              "Invalid image resolution. Please select an image with a minimum resolution of 1920x1080.",
           };
           return res.redirect(
             `/admin/addColleges/next/gallery?collegeId=${collegeId}`
@@ -297,7 +336,6 @@ const createImageGallery = async (req, res) => {
         }
       }
     }
-
     const galleryImages = files.map((file) => ({
       image: "uploads/" + file.filename,
       collegeId: collegeId,
@@ -520,7 +558,7 @@ module.exports = {
   updateCollege,
   updateCollegeView,
   deleteCollege,
-  getCollegeById,
+  // getCollegeById,
   createImageGalleryView,
   createImageGallery,
   deleteImage,
