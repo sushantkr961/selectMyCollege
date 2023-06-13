@@ -47,13 +47,13 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
+            <a
+              class="nav-link"
+              href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
+              data-tab="#tab4"
               >Testimonial</a
             >
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/others" data-tab="#tab5">Others</a>
-          </li> -->
         </ul>
       </nav>
       <!--  -->
@@ -68,8 +68,20 @@
               action="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
               method="POST"
               class="cmxform"
+              enctype="multipart/form-data"
             >
               <fieldset>
+                <div class="form-group">
+                  <label for="cprofileimage">Profile Image</label>
+                  <input
+                    id="cprofileimage"
+                    class="form-control"
+                    name="clgLogo"
+                    type="file"
+                    accept="image/*"
+                    required
+                  />
+                </div>
                 <div class="form-group">
                   <label for="cname">Full Name</label>
                   <input
@@ -110,6 +122,7 @@
                     <thead>
                       <tr>
                         <th>S.No</th>
+                        <th>Profile Image</th>
                         <th>Alumni Name</th>
                         <th>Designation</th>
                         <th>Message</th>
@@ -120,6 +133,14 @@
                       <% testimonials.forEach(function(testimonial, index) { %>
                       <tr>
                         <td><%= index + 1 %></td>
+                        <td>
+                          <img
+                            src="<%=process.env.APP_URL%><%= testimonial.
+                            profileImage %>"
+                            alt="logo"
+                            class="img-thumbnail p-0"
+                          />
+                        </td>
                         <td><%= testimonial.name %></td>
                         <td><%= testimonial.designation %></td>
                         <td><%= testimonial.message %></td>

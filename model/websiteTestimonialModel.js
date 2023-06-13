@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
-const collegeTestimonialSchema = new mongoose.Schema(
+const websiteTestimonialSchema = new mongoose.Schema(
   {
-    collegeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "College",
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -27,9 +22,9 @@ const collegeTestimonialSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const collegeTestimonial = mongoose.model(
-  "Testimonial",
-  collegeTestimonialSchema
+const websiteTestimonial = mongoose.model(
+  "Website Testimonial",
+  websiteTestimonialSchema
 );
 
-module.exports = collegeTestimonial;
+module.exports = websiteTestimonial;

@@ -20,23 +20,19 @@
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 <div class="brand-logo">
-                  <img
-                    src="<%= process.env.APP_URL %>images/logo_2x.png"
-                    alt="logo"
-                  />
+                  <a href="/admin"
+                    ><img
+                      src="<%= process.env.APP_URL %>images/logo_2x.png"
+                      alt="logo"
+                  /></a>
                 </div>
                 <h3 class="text-center fs-3">Login</h3>
                 <% if (message) { %>
                 <div
+                  id="alertMessage"
                   class="alert alert-dismissible fade show alert-<%= message.type %>"
                   role="alert"
                 >
-                  <button
-                    class="btn-close"
-                    type="button"
-                    data-bs-dismiss="alert"
-                    aria-label="close"
-                  ></button>
                   <strong><%= message.message %></strong>
                 </div>
                 <% } %>
@@ -76,5 +72,16 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const alertMessage = document.getElementById("alertMessage");
+        if (alertMessage) {
+          setTimeout(function () {
+            alertMessage.style.display = "none";
+          }, 5000);
+        }
+      });
+    </script>
   </body>
 </html>

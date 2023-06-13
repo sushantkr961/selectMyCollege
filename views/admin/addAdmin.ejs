@@ -20,26 +20,22 @@
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 <div class="brand-logo">
-                  <img
-                    src="<%= process.env.APP_URL %>images/logo_2x.png"
-                    alt="logo"
-                  />
+                  <a href="/admin"
+                    ><img
+                      src="<%= process.env.APP_URL %>images/logo_2x.png"
+                      alt="logo"
+                  /></a>
                 </div>
                 <h3 class="text-center fs-3">Add New Admin</h3>
                 <% if (message) { %>
-                  <div
-                    class="alert alert-dismissible fade show alert-<%= message.type %>"
-                    role="alert"
-                  >
-                    <button
-                      class="btn-close"
-                      type="button"
-                      data-bs-dismiss="alert"
-                      aria-label="close"
-                    ></button>
-                    <strong><%= message.message %></strong>
-                  </div>
-                  <% } %>
+                <div
+                  id="alertMessage"
+                  class="alert alert-dismissible fade show alert-<%= message.type %>"
+                  role="alert"
+                >
+                  <strong><%= message.message %></strong>
+                </div>
+                <% } %>
                 <form class="pt-3" action="/admin/register" method="POST">
                   <div class="form-group">
                     <input
@@ -68,7 +64,7 @@
                       name="adminRole"
                       class="form-check-input"
                     />
-                    <label class="form-check-label" for="checkbox"></label>
+                    <label class="form-check-label" for="checkbox">
                       Register as Admin</label
                     >
                   </div>
@@ -87,5 +83,16 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const alertMessage = document.getElementById("alertMessage");
+        if (alertMessage) {
+          setTimeout(function () {
+            alertMessage.style.display = "none";
+          }, 5000);
+        }
+      });
+    </script>
   </body>
 </html>

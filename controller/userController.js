@@ -46,7 +46,7 @@ const register = async (req, res) => {
 
     req.session.message = {
       type: "success",
-      message: "User registered successfully",
+      message: "Admin Created successfully",
     };
     res.redirect("/admin/allAdmin");
   } catch (error) {

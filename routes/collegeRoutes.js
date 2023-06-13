@@ -1,20 +1,8 @@
 const express = require("express");
 const controller = require("../controller/collegeController");
 const router = express.Router();
-const multer = require("multer");
 const authMiddleware = require("../middleware/authMiddleware");
-
-// Logo image upload Multer configuration for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now() + "-" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
+const upload = require("../middleware/multerConfig");
 
 // Home page
 router.get("/", controller.homePage);

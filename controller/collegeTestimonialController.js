@@ -32,13 +32,13 @@ const collegeTestimonialView = async (req, res) => {
 const createCollegeTestimonial = async (req, res) => {
   const { collegeId } = req.query;
   const { name, designation, message } = req.body;
-
   try {
     const testimonial = await collegeTestimonial.create({
       collegeId,
       name,
       designation,
       message,
+      profileImage: "uploads/" + req.file.filename,
     });
     req.session.message = {
       type: "success",
@@ -48,7 +48,7 @@ const createCollegeTestimonial = async (req, res) => {
   } catch (error) {
     console.error("Error creating testimonial:", error);
     req.session.message = {
-      type: "error",
+      type: "danger",
       message: "Error creating testimonial",
     };
     res.redirect(`/admin/addColleges/next/testimonial?collegeId=${collegeId}`);
@@ -63,14 +63,18 @@ const deleteCollegeTestimonial = async (req, res) => {
       type: "success",
       message: "Testimonial deleted successfully",
     };
-    return res.redirect(`/admin/addColleges/next/testimonial?collegeId=${collegeId}`);
+    return res.redirect(
+      `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
+    );
   } catch (error) {
     console.error(error);
     req.session.message = {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/admin/addColleges/next/testimonial?collegeId=${collegeId}`);
+    return res.redirect(
+      `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
+    );
   }
 };
 
@@ -118,14 +122,18 @@ const editCollegeTestimonial = async (req, res) => {
       type: "success",
       message: "Testimonial updated successfully",
     };
-    return res.redirect(`/admin/addColleges/next/testimonial?collegeId=${collegeId}`);
+    return res.redirect(
+      `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
+    );
   } catch (error) {
     console.error(error);
     req.session.message = {
       type: "danger",
       message: "Internal Server Error",
     };
-    return res.redirect(`/admin/addColleges/next/testimonial?collegeId=${collegeId}`);
+    return res.redirect(
+      `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
+    );
   }
 };
 
