@@ -6,9 +6,10 @@ const createCourseView = async (req, res) => {
   try {
     const { collegeId } = req.query;
     const college = await College.findById(collegeId);
-    const courses = await Course.find({percouid:0});
+    const courses = await Course.find({ percouid: 0 });
+    const subCourses = await Course.find({ percouid: { $ne: 0 } }); // Find subcourses
     const fee = await Fee.find({ collegeId });
-    let collegeName, courseName;
+    let collegeName, courseName, subCourseName;
     const populatedFee = await Promise.all(
       fee.map(async (feeDoc) => {
         const cn = await College.findById(feeDoc.collegeId);
@@ -20,17 +21,25 @@ const createCourseView = async (req, res) => {
         const con = await Course.findById(feeDoc.courseId);
         if (!Array.isArray(con) && con) {
           courseName = con.name;
+          // Find related subcourse name
+          const relatedSubCourse = subCourses.find(
+            (subCourse) => subCourse.percouid.toString() === con._id.toString()
+          );
+          subCourseName = relatedSubCourse ? relatedSubCourse.name : null;
         } else {
           courseName = null;
+          subCourseName = null;
         }
         const totalFee = feeDoc.fees.reduce(
           (sum, [_, value]) => sum + parseFloat(value),
           0
         );
+        // console.log("ghj", subCourseName);
         return {
           ...feeDoc.toObject(),
           collegeName,
           courseName,
+          subCourseName, // Add subCourseName to the data
           totalFee,
         };
       })
@@ -38,6 +47,7 @@ const createCourseView = async (req, res) => {
     res.render("admin/addCollegeTwo", {
       college,
       courses,
+      subCourses, // Pass subCourses to the view
       fee: populatedFee,
       title: "next",
     });
@@ -45,7 +55,7 @@ const createCourseView = async (req, res) => {
     console.error("Error retrieving college, courses, and fees:", error);
     req.session.message = {
       type: "danger",
-      message: "Server Error! Please try agian later.",
+      message: "Server Error! Please try again later.",
     };
     return res.redirect("/allColleges");
   }
@@ -53,48 +63,62 @@ const createCourseView = async (req, res) => {
 
 const getsubcourse = async (req, res) => {
   const coursesid = req.params.id;
-  const tsc = await Course.find({percouid:coursesid});
+  const tsc = await Course.find({ percouid: coursesid });
   let aa = `<option>Select Sub Course</option>`;
-  if(tsc.length > 0){ tsc.map((course) => {
-    aa += `<option class="p-3" value="`+course._id+`">`+course.name+`</option>`
-    })}else{
+  if (tsc.length > 0) {
+    tsc.map((course) => {
+      aa +=
+        `<option class="p-3" value="` +
+        course._id +
+        `">` +
+        course.name +
+        `</option>`;
+    });
+  } else {
     aa += `<option>No Sub Course</option>`;
-    }
-    aa += `<option>Other</option>`;
-    return res.json({haha:aa});
-}
+  }
+  aa += `<option>Other</option>`;
+  return res.json({ haha: aa });
+};
 
 const createCourse = async (req, res) => {
-  const { courseSelect, subCourseSelect, addCourse, addSubCourse, duration, fee } = req.body;
+  const {
+    courseSelect,
+    subCourseSelect,
+    addCourse,
+    addSubCourse,
+    duration,
+    fee,
+  } = req.body;
   const collegeId = req.query.collegeId;
   // console.log(req.body);
   try {
     let courseId;
     if (courseSelect === "Other") {
-    if (subCourseSelect === "Other") {
-      const course = await Course.create({
-        name: addCourse,
-      });
-      let mcourseId = course._id;
-      const subcourse = await Course.create({
-        name: addSubCourse,
-        duration,
-        percouid:mcourseId
-      });
-      courseId = subcourse._id;
-    }else{
-      const course = await Course.create({
-        name: addCourse,
-        duration,
-      });
-      courseId = course._id;
-    }
+      if (subCourseSelect === "Other") {
+        const course = await Course.create({
+          name: addCourse,
+        });
+        let mcourseId = course._id;
+        const subcourse = await Course.create({
+          name: addSubCourse,
+          duration,
+          percouid: mcourseId,
+        });
+        courseId = subcourse._id;
+      } else {
+        const course = await Course.create({
+          name: addCourse,
+          duration,
+        });
+        courseId = course._id;
+      }
     } else {
       if (subCourseSelect === "Other") {
         const course = await Course.create({
           name: addSubCourse,
           duration,
-          percouid:courseSelect
+          percouid: courseSelect,
         });
         courseId = course._id;
       } else if (subCourseSelect === "No Sub Course") {
@@ -162,7 +186,9 @@ const editCollegeCourse = async (req, res) => {
     await updatedFee.save();
 
     req.session.message = "Fee updated successfully";
-    return res.redirect(`/admin/addColleges/next?collegeId=${updatedFee.collegeId}`);
+    return res.redirect(
+      `/admin/addColleges/next?collegeId=${updatedFee.collegeId}`
+    );
   } catch (error) {
     console.error("Error updating college course:", error);
     req.session.message = "Error updating college course";

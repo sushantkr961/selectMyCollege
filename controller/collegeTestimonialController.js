@@ -106,7 +106,7 @@ const editCollegeTestimonial = async (req, res) => {
   const { name, designation, message } = req.body;
   try {
     const oldTestimonial = await collegeTestimonial.findById(id);
-
+    let new_logo = "";
     if (!oldTestimonial) {
       req.session.message = {
         type: "danger",
@@ -116,26 +116,21 @@ const editCollegeTestimonial = async (req, res) => {
         `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
       );
     }
-
-    // Remove old image file from server
-    const oldImagePath = path.join(
-      __dirname,
-      "../public",
-      oldTestimonial.profileImage
-    );
-    if (fs.existsSync(oldImagePath)) {
-      fs.unlinkSync(oldImagePath);
+    if (req.file) {
+      new_logo = "uploads/" + req.file.filename;
+      try {
+        fs.unlinkSync("public/" + req.body.old_clgLogo);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      new_logo = req.body.old_clgLogo;
     }
-
-    const newProfileImage = "uploads/" + req.file.filename;
-
-    // Update testimonial with new image
     const testimonial = await collegeTestimonial.findByIdAndUpdate(
       id,
-      { name, designation, message, profileImage: newProfileImage },
+      { name, designation, message, profileImage: new_logo },
       { new: true }
     );
-
     req.session.message = {
       type: "success",
       message: "Testimonial updated successfully",

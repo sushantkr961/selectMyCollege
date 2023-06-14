@@ -8,6 +8,7 @@ const Gallery = require("../model/galleryModel");
 const Alumni = require("../model/alumniModel");
 const Lead = require("../model/leadsModel");
 const Fee = require("../model/feeModel");
+const collegeTestimonial = require("../model/collegeTestimonialModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -67,9 +68,15 @@ const topclgPage = async (req, res) => {
 // Controller for getting a specific college by ID
 const viewPage = async (req, res) => {
   const collegeId = req.params.collegeId;
+  // Extract page from the request, defaulting to 1 if it's not present
+  const page = parseInt(req.query.page) || 1;
+  // Define how many documents to show on each page
+  const limit = 5;
+  // Calculate how many documents to skip
+  const skip = (page - 1) * limit;
+
   try {
     const college = await College.findById(collegeId).populate("city state");
-    console.log(college);
 
     if (!college) {
       return res.status(404).json({ message: "College not found" });
@@ -83,15 +90,21 @@ const viewPage = async (req, res) => {
     const courses = await Promise.all(
       fees.map(async (item) => await Course.findById(item.courseId))
     );
-    // Get all the courses from the populated fee
     const allCourses = fees.map((fee) => fee.courseId.name);
-    // console.log("all", allCourses);
 
     const galleryImages = await Gallery.find({ collegeId: college._id });
-
-    // Filter the gallery images to include only images with 'banners' set to true
     const banners = galleryImages.filter((image) => image.banners === true);
-    // console.log(banners);
+
+    const testimonials = await collegeTestimonial.find({
+      collegeId: college._id,
+    });
+
+    // Get total count of alumni
+    const totalAlumni = await Alumni.countDocuments({ collegeId: college._id });
+    // Apply limit and skip for pagination
+    const alumni = await Alumni.find({ collegeId: college._id })
+      .limit(limit)
+      .skip(skip);
 
     res.render("view", {
       title: "selectmycollege",
@@ -100,6 +113,10 @@ const viewPage = async (req, res) => {
       gallery: galleryImages,
       banners: banners,
       allCourses: allCourses,
+      testimonials: testimonials,
+      alumni: alumni,
+      currentPage: page, // Pass current page to the view
+      totalPages: Math.ceil(totalAlumni / limit), // Pass total page count to the view
     });
   } catch (error) {
     console.error("Error fetching college:", error);
@@ -444,7 +461,11 @@ const updateCollege = async (req, res) => {
     const college = await College.findById(req.params.id);
     let new_logo = "";
     if (!college) {
-      return res.status(404).json({ error: "College not found" });
+      req.session.message = {
+        type: "danger",
+        message: "College not found",
+      };
+      return res.status(404).json({ error: "" });
     }
     if (req.file) {
       new_logo = "uploads/" + req.file.filename;

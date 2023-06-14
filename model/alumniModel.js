@@ -25,6 +25,6 @@ const alumniSchema = mongoose.Schema(
   }
 );
 
-const Alumni = mongoose.model("Alumni", alumniSchema);
+const Alumni = mongoose.models.Alumni || mongoose.model("Alumni", alumniSchema);
 
 module.exports = Alumni;
