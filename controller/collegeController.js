@@ -66,54 +66,6 @@ const topclgPage = async (req, res) => {
 };
 
 // Controller for getting a specific college by ID
-// const viewPage = async (req, res) => {
-//   const collegeId = req.params.collegeId;
-//   const page = parseInt(req.query.page) || 1;
-//   const limit = 5;
-//   const skip = (page - 1) * limit;
-
-//   try {
-//     const college = await College.findById(collegeId).populate("city state");
-
-//     if (!college) {
-//       return res.status(404).json({ message: "College not found" });
-//     }
-
-//     const fees = await Fee.find(
-//       { collegeId: college._id },
-//       "courseId"
-//     ).populate("courseId");
-
-//     const courses = fees.map((fee) => fee.courseId.percouid);
-//     console.log(courses);
-
-//     const galleryImages = await Gallery.find({ collegeId: college._id });
-//     const banners = galleryImages.filter((image) => image.banners === true);
-
-//     const testimonials = await collegeTestimonial.find({
-//       collegeId: college._id,
-//     });
-
-//     const totalAlumni = await Alumni.countDocuments({ collegeId: college._id });
-//     const alumni = await Alumni.find({ collegeId: college._id })
-//       .limit(limit)
-//       .skip(skip);
-
-//     res.render("view", {
-//       title: "selectmycollege",
-//       college: college,
-//       gallery: galleryImages,
-//       banners: banners,
-//       testimonials: testimonials,
-//       alumni: alumni,
-//       currentPage: page,
-//       totalPages: Math.ceil(totalAlumni / limit),
-//     });
-//   } catch (error) {
-//     console.error("Error fetching college:", error);
-//     return res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };
 
 const viewPage = async (req, res) => {
   const collegeId = req.params.collegeId;
@@ -131,7 +83,7 @@ const viewPage = async (req, res) => {
     const fees = await Fee.find({ collegeId: college._id }).populate(
       "courseId"
     );
-    console.log(fees);
+    // console.log(fees);
 
     // Using map to get an array of the parent course ids (percouid)
     const parentCourseIds = fees.map((fee) => fee.courseId.percouid);
@@ -542,7 +494,7 @@ const updateCollege = async (req, res) => {
       try {
         fs.unlinkSync("public/" + req.body.old_clgLogo);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     } else {
       new_logo = req.body.old_clgLogo;

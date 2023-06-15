@@ -83,7 +83,6 @@ module.exports = {
   createBlog,
   deleteBlog,
   updateBlog,
-  deleteBlog,
   getAllBlogs,
   getBlogById,
 };
