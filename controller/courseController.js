@@ -9,46 +9,43 @@ const createCourseView = async (req, res) => {
     const courses = await Course.find({ percouid: 0 });
     const subCourses = await Course.find({ percouid: { $ne: 0 } }); // Find subcourses
     const fee = await Fee.find({ collegeId });
-    let collegeName, courseName, subCourseName;
-    const populatedFee = await Promise.all(
-      fee.map(async (feeDoc) => {
-        const cn = await College.findById(feeDoc.collegeId);
-        if (!Array.isArray(cn) && cn) {
-          collegeName = cn.name;
-        } else {
-          collegeName = null;
-        }
-        const con = await Course.findById(feeDoc.courseId);
-        if (!Array.isArray(con) && con) {
-          courseName = con.name;
-          // Find related subcourse name
-          const relatedSubCourse = subCourses.find(
-            (subCourse) => subCourse.percouid.toString() === con._id.toString()
-          );
-          subCourseName = relatedSubCourse ? relatedSubCourse.name : null;
-        } else {
-          courseName = null;
-          subCourseName = null;
-        }
-        const totalFee = feeDoc.fees.reduce(
-          (sum, [_, value]) => sum + parseFloat(value),
-          0
-        );
-        // console.log("ghj", subCourseName);
-        return {
-          ...feeDoc.toObject(),
-          collegeName,
-          courseName,
-          subCourseName, // Add subCourseName to the data
-          totalFee,
-        };
-      })
-    );
+    // console.log(fee);
+
+    // let collegeName, courseName, subCourseName;
+    // const populatedFee = await Promise.all(
+    //   fee.map(async (feeDoc) => {
+    //     const cn = await College.findById(feeDoc.collegeId);
+    //     if (!Array.isArray(cn) && cn) {
+    //       collegeName = cn.name;
+    //     } else {
+    //       collegeName = null;
+    //     }
+    //     const con = await Course.findById(feeDoc.courseId);
+    //     if (!Array.isArray(con) && con) {
+    //       courseName = con.name;
+    //       // Find related subcourse name
+    //       const relatedSubCourse = subCourses.find(
+    //         (subCourse) => subCourse.percouid.toString() === con._id.toString()
+    //       );
+    //       subCourseName = relatedSubCourse ? relatedSubCourse.name : null;
+    //     } else {
+    //       courseName = null;
+    //       subCourseName = null;
+    //     }
+    //     // console.log("ghj", subCourseName);
+    //     return {
+    //       ...feeDoc.toObject(),
+    //       collegeName,
+    //       courseName,
+    //       subCourseName, // Add subCourseName to the data
+    //     };
+    //   })
+    // );
     res.render("admin/addCollegeTwo", {
       college,
       courses,
       subCourses, // Pass subCourses to the view
-      fee: populatedFee,
+      fee,
       title: "next",
     });
   } catch (error) {
@@ -127,11 +124,18 @@ const createCourse = async (req, res) => {
         courseId = subCourseSelect;
       }
     }
+    let totalFee = 0;
+    fee.map((feeSum) => {
+      totalFee += Number(feeSum[1]); // Convert string to number before adding
+    });
+
     await Fee.create({
       collegeId,
       courseId,
       fees: fee,
+      totalFee: totalFee, // Save the total fee
     });
+
     return res.redirect(`/admin/addColleges/next?collegeId=${collegeId}`);
   } catch (error) {
     console.error("Error creating college:", error);
@@ -196,9 +200,33 @@ const editCollegeCourse = async (req, res) => {
   }
 };
 
+// const allCoursesView = async (req, res) => {
+//   try {
+//     const courses = await Course.find();
+//     console.log(courses);
+//     res.render("admin/allCourses", { courses, title: "selectMyCollege" });
+//   } catch (error) {
+//     console.error("Error retrieving courses:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// };
+
 const allCoursesView = async (req, res) => {
   try {
-    const courses = await Course.find();
+    const mainCourses = await Course.find({ percouid: 0 });
+    const subCourses = await Course.find({ percouid: { $ne: 0 } });
+
+    const courses = mainCourses.map((course) => {
+      const relatedSubCourses = subCourses.filter(
+        (subCourse) => subCourse.percouid.toString() === course._id.toString()
+      );
+      return {
+        ...course._doc,
+        subCourses: relatedSubCourses,
+      };
+    });
+
+    console.log(courses);
     res.render("admin/allCourses", { courses, title: "selectMyCollege" });
   } catch (error) {
     console.error("Error retrieving courses:", error);
@@ -230,6 +258,23 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+// const updateCourseView = async (req, res) => {
+//   try {
+//     const courseId = req.params.id;
+//     const course = await Course.findById(courseId);
+//     if (!course) {
+//       return res.status(404).json({ message: "Course not found" });
+//     }
+//     res.render("admin/editCourses", {
+//       title: "Update Course",
+//       course,
+//     });
+//   } catch (error) {
+//     console.error("Error retrieving course:", error);
+//     res.redirect(`/allCourses`);
+//   }
+// };
+
 const updateCourseView = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -237,9 +282,13 @@ const updateCourseView = async (req, res) => {
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
+
+    const subCourses = await Course.find({ percouid: courseId });
+
     res.render("admin/editCourses", {
       title: "Update Course",
       course,
+      subCourses,
     });
   } catch (error) {
     console.error("Error retrieving course:", error);

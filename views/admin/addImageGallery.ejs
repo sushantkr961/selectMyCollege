@@ -20,11 +20,12 @@
     <% } %>
     <!-- notification message -->
     <div class="row grid-margin">
-      <nav class="">
+      <!--  -->
+      <nav class="mb-3">
         <ul class="nav nav-tabs" id="myTabs">
           <li class="nav-item">
             <a
-              class="nav-link active"
+              class="nav-link"
               href="/admin/addColleges/next?collegeId=<%= college._id %>"
               data-tab="#tab1"
               >Course</a
@@ -47,13 +48,13 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>" data-tab="#tab4"
+            <a
+              class="nav-link"
+              href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
+              data-tab="#tab4"
               >Testimonial</a
             >
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/others" data-tab="#tab5">Others</a>
-          </li> -->
         </ul>
       </nav>
       <!--  -->
@@ -92,7 +93,8 @@
                 <label for="cbanner" class="fw-bold">Mark as Banner</label>
               </div>
               <input class="btn btn-primary" type="submit" value="Upload" />
-              <a href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
+              <a
+                href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
                 ><button class="btn btn-primary" type="button">Next</button></a
               >
             </form>

@@ -12,10 +12,9 @@ const feeSchema = mongoose.Schema(
       ref: "Course",
     },
     fees: [],
-    // totalFee: {
-    //   type: Number,
-    //   required: true,
-    // },
+    totalFee: {
+      type: Number,
+    },
   },
   { toJSON: { virtuals: true } },
   {
