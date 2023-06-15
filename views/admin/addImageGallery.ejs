@@ -99,9 +99,45 @@
               >
             </form>
             <hr />
+            <h3>College Banner Images:</h3>
+            <div class="row">
+              <% bannersTrue.forEach((image) => { %>
+              <div class="col-md-3">
+                <div class="card">
+                  <img
+                    src="<%= process.env.APP_URL %><%= image.image %>"
+                    class="card-img-top"
+                    alt="Uploaded Image"
+                    width="100"
+                    height="100"
+                  />
+                  <div class="card-body">
+                    <form
+                      id="deleteForm-<%= image._id %>"
+                      action="/admin/addColleges/next/gallery/<%= college._id %>/images/<%= image._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <input type="hidden" name="_method" value="DELETE" />
+                      <button
+                        type="submit"
+                        class="btn btn-danger delete-btn position-absolute p-1 top-0 end-0 rounded-circle"
+                        onclick="return confirm('Are you sure you want to delete this image?');"
+                      >
+                        <i
+                          class="fa-solid fa-xmark fs-5"
+                          style="color: white"
+                        ></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+            <hr />
             <h3>Uploaded Images:</h3>
             <div class="row">
-              <% galleryImages.forEach((image) => { %>
+              <% bannersFalse.forEach((image) => { %>
               <div class="col-md-3">
                 <div class="card">
                   <img

@@ -128,9 +128,9 @@ const viewPage = async (req, res) => {
       return res.status(404).json({ message: "College not found" });
     }
 
-    const fees = await Fee.find(
-      { collegeId: college._id }
-    ).populate("courseId");
+    const fees = await Fee.find({ collegeId: college._id }).populate(
+      "courseId"
+    );
     console.log(fees);
 
     // Using map to get an array of the parent course ids (percouid)
@@ -353,11 +353,15 @@ const createImageGalleryView = async (req, res) => {
       return res.status(404).send("College not found");
     }
     const galleryImages = await Gallery.find({ collegeId });
-
+    const bannersTrue = galleryImages.filter((image) => image.banners === true);
+    const bannersFalse = galleryImages.filter(
+      (image) => image.banners === false
+    );
     res.render("admin/addImageGallery", {
       title: "selectmycollege",
       college,
-      galleryImages,
+      bannersTrue,
+      bannersFalse,
     });
   } catch (err) {
     console.error(err);
