@@ -1,0 +1,90 @@
+<%- include('./header.ejs') %>
+
+<div class="main-panel text-capitalize">
+  <div class="content-wrapper">
+    <% if(message){ %>
+    <div
+      class="alert alert-dismissible fade show alert-<%= message.type %>"
+      role="alert"
+    >
+      <button
+        class="btn-close"
+        type="button"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
+      <strong><%= message.text %></strong>
+    </div>
+    <% } %>
+    <div class="row grid-margin">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title fs-3">Add New Blog</h4>
+            <form
+              class="cmxform"
+              method="post"
+              action="/admin/addColleges/next/blog"
+              enctype="multipart/form-data"
+            >
+              <fieldset>
+                <div class="form-group">
+                  <label for="cname">Author Name</label>
+                  <input
+                    id="cname"
+                    class="form-control"
+                    name="author"
+                    type="text"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="ctitle">Blog Title</label>
+                  <input
+                    id="ctitle"
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="ccontent">Content</label>
+                  <textarea
+                    id="ccontent"
+                    class="form-control"
+                    name="content"
+                    required
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="cdescription">Description</label>
+                  <textarea
+                    id="cdescription"
+                    class="form-control"
+                    name="description"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="cimage">Image</label>
+                  <input
+                    id="cimage"
+                    class="form-control"
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                  />
+                </div>
+                <input class="btn btn-primary" type="submit" value="Next" />
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

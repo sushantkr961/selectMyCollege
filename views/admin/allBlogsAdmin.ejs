@@ -1,0 +1,64 @@
+<%- include('./header.ejs') %>
+
+<!-- partial -->
+<div class="main-panel text-capitalize">
+  <div class="content-wrapper">
+    <!-- notification message -->
+    <% if(message){ %>
+    <div
+      class="alert alert-dismissible fade show alert-<%= message.type %>"
+      role="alert"
+    >
+      <button
+        class="btn-close"
+        type="button"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
+      <strong><%= message.message %></strong>
+    </div>
+    <% } %>
+    <!--  -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">All colleges</h4>
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table id="order-listing" class="table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Author Name</th>
+                    <th>Blog Title</th>
+                    <th>Blog Content</th>
+                    <th>Blog Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%// colleges.forEach(function(college, index) { %>
+                  <tr>
+                    <td>
+                      <img
+                        src="<%=//process.env.APP_URL%><%= //college.clgLogo %>"
+                        alt="logo"
+                        class="img-thumbnail p-0"
+                      />
+                    </td>
+                    <td><%= //college.shortName, %></td>
+                    <td><%= //college.address %></td>
+                    <td><%= //college.city ? college.city.cityName : '' %></td>
+                    <td><%= //college.state ? college.state.stateName : '' %></td>
+                  </tr>
+                  <%// }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

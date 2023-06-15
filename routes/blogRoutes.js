@@ -1,5 +1,6 @@
 const exprss = require("express");
 const controller = require("../controller/blogController");
+const upload = require("../middleware/multerConfig");
 const router = exprss.Router();
 
 // Blogs page
@@ -8,19 +9,20 @@ router.get("/blogs", controller.blogsPage);
 // Blogs Detail page
 router.get("/blogsDetail", controller.blogsDetailPage);
 
-// Create a new blog
-router.post("/admin/blog", controller.createBlog);
-
 // Get all blogs
-router.get("/blog", controller.getAllBlogs);
+router.get("/admin/allblog", controller.getAllBlogs);
 
 // Get a single blog by ID
 router.get("/blog/:id", controller.getBlogById);
 
-// Update a blog
-router.put("/admin/blog/:id", controller.updateBlog);
+router
+  .route("/admin/addColleges/next/blog/:id")
+  .put(controller.updateBlog)
+  .delete(controller.deleteBlog);
 
-// Delete a blog
-router.delete("/admin/blog/:id", controller.deleteBlog);
+router
+  .route("/admin/addColleges/next/blog")
+  .get(controller.createBlogView)
+  .post(upload.single("image"), controller.createBlog);
 
 module.exports = router;
