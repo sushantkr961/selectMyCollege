@@ -9,42 +9,10 @@ const createCourseView = async (req, res) => {
     const courses = await Course.find({ percouid: 0 });
     const subCourses = await Course.find({ percouid: { $ne: 0 } }); // Find subcourses
     const fee = await Fee.find({ collegeId });
-    // console.log(fee);
-
-    // let collegeName, courseName, subCourseName;
-    // const populatedFee = await Promise.all(
-    //   fee.map(async (feeDoc) => {
-    //     const cn = await College.findById(feeDoc.collegeId);
-    //     if (!Array.isArray(cn) && cn) {
-    //       collegeName = cn.name;
-    //     } else {
-    //       collegeName = null;
-    //     }
-    //     const con = await Course.findById(feeDoc.courseId);
-    //     if (!Array.isArray(con) && con) {
-    //       courseName = con.name;
-    //       // Find related subcourse name
-    //       const relatedSubCourse = subCourses.find(
-    //         (subCourse) => subCourse.percouid.toString() === con._id.toString()
-    //       );
-    //       subCourseName = relatedSubCourse ? relatedSubCourse.name : null;
-    //     } else {
-    //       courseName = null;
-    //       subCourseName = null;
-    //     }
-    //     // console.log("ghj", subCourseName);
-    //     return {
-    //       ...feeDoc.toObject(),
-    //       collegeName,
-    //       courseName,
-    //       subCourseName, // Add subCourseName to the data
-    //     };
-    //   })
-    // );
     res.render("admin/addCollegeTwo", {
       college,
       courses,
-      subCourses, // Pass subCourses to the view
+      subCourses,
       fee,
       title: "next",
     });
