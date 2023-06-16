@@ -23,7 +23,7 @@ const websiteTestimonialSchema = new mongoose.Schema(
 );
 
 const websiteTestimonial = mongoose.model(
-  "Website Testimonial",
+  "Website_Testimonial",
   websiteTestimonialSchema
 );
 

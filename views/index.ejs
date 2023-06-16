@@ -1329,15 +1329,6 @@
                 class="sliderRange"
                 id="feeRange"
                 oninput="updateRangeBackground(this)"
-                style="
-                  background: linear-gradient(
-                    to right,
-                    #ff8900,
-                    #ff8900 $ {(value / 500000) * 100}%,
-                    #ebebeb $ {(value / 500000) * 100}%,
-                    #ebebeb
-                  );
-                "
               />
             </div>
             <script>
@@ -1346,11 +1337,10 @@
                 const max = input.max;
                 const percent = (value / max) * 100;
                 input.style.background = `linear-gradient(to right, #ff8900, #ff8900 ${percent}%, #ebebeb ${percent}%, #ebebeb)`;
-                document.getElementById('fee').innerHTML = value;
+                document.getElementById("fee").innerHTML = value;
               }
-              
               // Set the initial background color
-              const rangeInput = document.getElementById('feeRange');
+              const rangeInput = document.getElementById("feeRange");
               updateRangeBackground(rangeInput);
             </script>
 
