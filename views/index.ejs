@@ -1802,49 +1802,25 @@
       Read latest articles
     </h1>
     <div class="row">
+      <% latestBlogs.slice(0, 3).forEach((blog) => { %>
       <div class="col-md-4 mb-3">
-        <div class="mb-2">
+        <div class="mb-2" style="height: 225px">
           <img
             class="rounded-4"
-            src="image/College Images-01.png"
+            src="<%= blog.image %>"
             alt="image"
             width="100%"
             height="100%"
           />
         </div>
-        <h4>Best colleges in India</h4>
-        <p class="lh-1">Published on: 5 May 2023</p>
+        <h4><%= blog.title %></h4>
+        <p class="lh-1">Published on: <%= blog.createdAt.toDateString() %></p>
       </div>
-      <div class="col-md-4 mb-3">
-        <div class="mb-2">
-          <img
-            class="rounded-4"
-            src="image/College Images-01.png"
-            alt="image"
-            width="100%"
-            height="100%"
-          />
-        </div>
-        <h4>Best colleges in India</h4>
-        <p class="lh-1">Published on: 5 May 2023</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="mb-2">
-          <img
-            class="rounded-4"
-            src="image/College Images-01.png"
-            alt="image"
-            width="100%"
-            height="100%"
-          />
-        </div>
-        <h4>Best colleges in India</h4>
-        <p class="lh-1">Published on: 5 May 2023</p>
-      </div>
+      <% }) %>
     </div>
     <div class="d-flex justify-content-center my-3">
-      <a href="/blogs"
-        ><button type="button" class="btn px-5 bg-gr">Show More...</button>
+      <a href="/blogs">
+        <button type="button" class="btn px-5 bg-gr">Show More...</button>
       </a>
     </div>
   </div>

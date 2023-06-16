@@ -9,10 +9,12 @@ const Alumni = require("../model/alumniModel");
 const Lead = require("../model/leadsModel");
 const Fee = require("../model/feeModel");
 const collegeTestimonial = require("../model/collegeTestimonialModel");
+const Blog = require("../model/blogModel");
 
 // index page
 const homePage = async (req, res) => {
-  res.render("index", { title: "selectmycollege" });
+  const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
+  res.render("index", { title: "selectmycollege", latestBlogs: latestBlogs });
 };
 
 const adminRoute = async (req, res) => {
