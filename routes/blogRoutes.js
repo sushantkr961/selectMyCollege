@@ -6,9 +6,6 @@ const router = express.Router();
 // Blogs page
 router.get("/blogs", controller.blogsPage);
 
-// Blogs Detail page
-router.get("/blogsDetail", controller.blogsDetailPage);
-
 // Get a single blog by ID
 router.get("/blog/:id", controller.getBlogById);
 

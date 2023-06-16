@@ -31,10 +31,6 @@ const blogsPage = async (req, res) => {
   }
 };
 
-const blogsDetailPage = async (req, res) => {
-  res.render("blogsDetail", { title: "selectmycollege" });
-};
-
 const createBlogView = async (req, res) => {
   res.render("admin/addBlog", { title: "selectmycollege" });
 };
@@ -79,14 +75,17 @@ const getAllBlogs = async (req, res) => {
 
 // Get a single blog by ID
 const getBlogById = async (req, res) => {
+  const suggestedBlogs = await Blog.find().limit(3);
   try {
     const blog = await Blog.findById(req.params.id);
     if (!blog) {
       req.session.message = { type: "danger", message: "Blog not found" };
-      res.redirect("/blogs");
-    } else {
-      res.status(200).json({ blog });
     }
+    res.render("blogsDetail", {
+      title: "selectmycollege",
+      blog,
+      suggestedBlogs,
+    });
   } catch (error) {
     req.session.message = { type: "danger", message: "Failed to fetch blog" };
     res.redirect("/blogs");
@@ -177,7 +176,6 @@ const deleteBlog = async (req, res) => {
 
 module.exports = {
   blogsPage,
-  blogsDetailPage,
   createBlog,
   deleteBlog,
   updateBlog,
