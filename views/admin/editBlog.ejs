@@ -73,11 +73,11 @@
 <%= blog.description %></textarea
                   >
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label for="clogo">Blog Image</label>
                   <div class="d-flex">
                     <img
-                      src="<%=//process.env.APP_URL%><%=// blog.image %>"
+                      src="<%= process.env.APP_URL%><%= blog.image %>"
                       width="50"
                       class="img-thumbnail p-0 rounded-circle me-3"
                     />
@@ -85,17 +85,17 @@
                       id="clogo"
                       class="form-control"
                       type="file"
-                      name="clgLogo"
+                      name="image"
                     />
                     <input
                       id="clogo"
                       class="form-control"
                       type="hidden"
-                      name="old_clgLogo"
-                      value="<%=// blog.image %>"
+                      name="old_image"
+                      value="<%= blog.image %>"
                     />
                   </div>
-                </div> -->
+                </div>
                 <input class="btn btn-primary" type="submit" value="Next" />
               </fieldset>
             </form>

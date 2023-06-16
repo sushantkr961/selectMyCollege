@@ -127,12 +127,12 @@ const updateBlog = async (req, res) => {
     if (req.file) {
       new_logo = "uploads/" + req.file.filename;
       try {
-        fs.unlinkSync("public/" + req.body.old_clgLogo);
+        fs.unlinkSync("public/" + req.body.old_image);
       } catch (error) {
         console.log(error);
       }
     } else {
-      new_logo = req.body.old_clgLogo;
+      new_logo = req.body.old_image;
     }
     const updatedBlog = await Blog.findByIdAndUpdate(
       id,
