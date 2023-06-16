@@ -217,7 +217,6 @@ const createCollege = async (req, res) => {
       city,
       facilities,
       shortName,
-      clgLogo,
       images,
       description,
     } = req.body;

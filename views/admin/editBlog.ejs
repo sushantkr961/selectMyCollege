@@ -1,0 +1,109 @@
+<%- include('./header.ejs') %>
+
+<div class="main-panel text-capitalize">
+  <div class="content-wrapper">
+    <% if(message){ %>
+    <div
+      class="alert alert-dismissible fade show alert-<%= message.type %>"
+      role="alert"
+    >
+      <button
+        class="btn-close"
+        type="button"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
+      <strong><%= message.text %></strong>
+    </div>
+    <% } %>
+    <div class="row grid-margin">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title fs-3">Add New Blog</h4>
+            <form
+              class="cmxform"
+              method="post"
+              action="/admin/addColleges/next/blog/<%= blog._id %>"
+              enctype="multipart/form-data"
+            >
+              <fieldset>
+                <div class="form-group">
+                  <label for="cname">Author Name</label>
+                  <input
+                    id="cname"
+                    class="form-control"
+                    name="author"
+                    type="text"
+                    autocomplete="off"
+                    required
+                    value="<%= blog.author %>"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="ctitle">Blog Title</label>
+                  <input
+                    id="ctitle"
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    autocomplete="off"
+                    required
+                    value="<%= blog.title %>"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="ccontent">Content</label>
+                  <textarea
+                    id="ccontent"
+                    class="form-control"
+                    name="content"
+                    required
+                  >
+<%= blog.content %></textarea
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="cdescription">Description</label>
+                  <textarea
+                    id="cdescription"
+                    class="form-control"
+                    name="description"
+                  >
+<%= blog.description %></textarea
+                  >
+                </div>
+                <!-- <div class="form-group">
+                  <label for="clogo">Blog Image</label>
+                  <div class="d-flex">
+                    <img
+                      src="<%=//process.env.APP_URL%><%=// blog.image %>"
+                      width="50"
+                      class="img-thumbnail p-0 rounded-circle me-3"
+                    />
+                    <input
+                      id="clogo"
+                      class="form-control"
+                      type="file"
+                      name="clgLogo"
+                    />
+                    <input
+                      id="clogo"
+                      class="form-control"
+                      type="hidden"
+                      name="old_clgLogo"
+                      value="<%=// blog.image %>"
+                    />
+                  </div>
+                </div> -->
+                <input class="btn btn-primary" type="submit" value="Next" />
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

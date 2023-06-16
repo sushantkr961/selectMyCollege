@@ -16,27 +16,26 @@ const createBlogView = async (req, res) => {
 const createBlog = async (req, res) => {
   try {
     const { title, content, author, description } = req.body;
-    const image = req.file.path; // Assuming the uploaded file path is stored in req.file.path
-
+    // const image = req.file.path;
     const newBlog = await Blog.create({
       title,
       content,
       author,
       description,
-      image,
+      image: "uploads/" + req.file.filename,
     });
 
     req.session.message = {
       type: "success",
       message: "Blog created successfully",
     };
-    res.redirect("/admin/allblog"); // Redirect to the blogs page or appropriate route
+    res.redirect("/admin/allblog");
   } catch (error) {
     req.session.message = {
       type: "danger",
       message: "Failed to create blog",
     };
-    res.redirect("/admin/allblog"); // Redirect to the blogs page or appropriate route
+    res.redirect("/admin/allblog");
   }
 };
 
@@ -47,7 +46,7 @@ const getAllBlogs = async (req, res) => {
     res.render("admin/allBlogsAdmin", { title: "selectmycollege", blogs });
   } catch (error) {
     req.session.message = { type: "danger", message: "Failed to fetch blogs" };
-    res.redirect("/admin/allblogsAdmin"); // Redirect to the blogs page or appropriate route
+    res.redirect("/admin/allblog");
   }
 };
 
@@ -57,38 +56,75 @@ const getBlogById = async (req, res) => {
     const blog = await Blog.findById(req.params.id);
     if (!blog) {
       req.session.message = { type: "danger", message: "Blog not found" };
-      res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+      res.redirect("/blogs");
     } else {
       res.status(200).json({ blog });
     }
   } catch (error) {
     req.session.message = { type: "danger", message: "Failed to fetch blog" };
-    res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+    res.redirect("/blogs");
+  }
+};
+
+const updateBlogView = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).send("Blog not found");
+    }
+    res.render("admin/editBlog", {
+      title: "selectmycollege Admin",
+      blog,
+    });
+  } catch (error) {
+    console.error(error);
+    req.session.message = {
+      type: "danger",
+      message: "Internal Server Error",
+    };
+    return res.redirect(`/admin/allblog`);
   }
 };
 
 // Update a blog by ID
 const updateBlog = async (req, res) => {
+  const { id } = req.params;
+  const { title, content, author, description } = req.body;
   try {
-    const { title, content, author, description, image } = req.body;
+    const oldBlog = await Blog.findById(id);
+    let new_logo = "";
+    if (!oldBlog) {
+      req.session.message = { type: "danger", message: "Blog not found" };
+      return res.redirect("/admin/allblog");
+    }
+    if (req.file) {
+      new_logo = "uploads/" + req.file.filename;
+      try {
+        fs.unlinkSync("public/" + req.body.old_clgLogo);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      new_logo = req.body.old_clgLogo;
+    }
     const updatedBlog = await Blog.findByIdAndUpdate(
-      req.params.id,
-      { title, content, author, description, image },
+      id,
+      { title, content, author, description, image: new_logo },
       { new: true }
     );
-    if (!updatedBlog) {
-      req.session.message = { type: "danger", message: "Blog not found" };
-      res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
-    } else {
-      req.session.message = {
-        type: "success",
-        message: "Blog updated successfully",
-      };
-      res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
-    }
+    req.session.message = {
+      type: "success",
+      message: "Blog updated successfully",
+    };
+    return res.redirect("/admin/allblog");
   } catch (error) {
-    req.session.message = { type: "danger", message: "Failed to update blog" };
-    res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+    console.error(error);
+    req.session.message = {
+      type: "danger",
+      message: "Internal Server Error",
+    };
+    return res.redirect("/admin/allblog");
   }
 };
 
@@ -98,17 +134,17 @@ const deleteBlog = async (req, res) => {
     const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
     if (!deletedBlog) {
       req.session.message = { type: "danger", message: "Blog not found" };
-      res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+      res.redirect("/admin/allblog");
     } else {
       req.session.message = {
         type: "success",
         message: "Blog deleted successfully",
       };
-      res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+      res.redirect("/admin/allblog");
     }
   } catch (error) {
     req.session.message = { type: "danger", message: "Failed to delete blog" };
-    res.redirect("/blogs"); // Redirect to the blogs page or appropriate route
+    res.redirect("/admin/allblog");
   }
 };
 
@@ -121,4 +157,5 @@ module.exports = {
   getAllBlogs,
   getBlogById,
   createBlogView,
+  updateBlogView,
 };
