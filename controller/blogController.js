@@ -1,4 +1,6 @@
 const Blog = require("../model/blogModel");
+const fs = require('fs');
+
 
 const blogsPage = async (req, res) => {
   const page = parseInt(req.query.page) || 1;

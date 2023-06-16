@@ -61,7 +61,12 @@
               height="100%"
             />
           </div>
-          <p class="text-wrap text-start"><%= suggestedBlog.title %></p>
+          <a
+            class="text-decoration-none text-black"
+            href="/blog/<%= suggestedBlog._id %>"
+            ><h5 class="text-wrap text-start"><%= suggestedBlog.title %></h5></a
+          >
+          <p class="lh-1">Published on: <%= blog.createdAt.toDateString() %></p>
         </div>
         <% }) %>
       </div>

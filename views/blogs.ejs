@@ -102,18 +102,5 @@
     </div>
   </div>
 </div>
-<script>
-  // Get search input and search button
-  const searchInput = document.getElementById("searchInput");
-  const searchButton = document.getElementById("searchButton");
-
-  // Add event listener to search button
-  searchButton.addEventListener("click", () => {
-    const searchTerm = searchInput.value.trim();
-
-    // Redirect to search results page with the search term
-    window.location.href = `/search?term=${searchTerm}`;
-  });
-</script>
 
 <%- include('foot') %>

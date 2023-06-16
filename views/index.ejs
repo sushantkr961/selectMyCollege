@@ -1319,15 +1319,41 @@
           <div id="step-1">
             <div class="form-group sliderContainer fs-4">
               <label for="feeRange" style="font-size: large"
-                >Fee structure: Rs.<span id="fee">0</span> - 500000</label
+                >Fee structure: Rs.<span id="fee">250000</span> - 500000</label
               >
-              <input type="range" step="5000" max="500000" value="0"
-              class="sliderRange" id="feeRange"
-              oninput="document.getElementById('fee').innerHTML = this.value"
-              style=`background: linear-gradient( to right, #00ff00, #00ff00
-              ${value / 500000 * 100}%, #ebebeb ${value / 500000 * 100}%,
-              #ebebeb);` />
+              <input
+                type="range"
+                step="5000"
+                max="500000"
+                value="200000"
+                class="sliderRange"
+                id="feeRange"
+                oninput="updateRangeBackground(this)"
+                style="
+                  background: linear-gradient(
+                    to right,
+                    #ff8900,
+                    #ff8900 $ {(value / 500000) * 100}%,
+                    #ebebeb $ {(value / 500000) * 100}%,
+                    #ebebeb
+                  );
+                "
+              />
             </div>
+            <script>
+              function updateRangeBackground(input) {
+                const value = input.value;
+                const max = input.max;
+                const percent = (value / max) * 100;
+                input.style.background = `linear-gradient(to right, #ff8900, #ff8900 ${percent}%, #ebebeb ${percent}%, #ebebeb)`;
+                document.getElementById('fee').innerHTML = value;
+              }
+              
+              // Set the initial background color
+              const rangeInput = document.getElementById('feeRange');
+              updateRangeBackground(rangeInput);
+            </script>
+
             <div
               class="form-control input-group col-12 rounded-pill border border-1 mb-3 shadow-md"
             >
@@ -1813,7 +1839,9 @@
             height="100%"
           />
         </div>
-        <h4><%= blog.title %></h4>
+        <a class="text-decoration-none text-black" href="/blog/<%= blog._id %>"
+          ><h4><%= blog.title %></h4></a
+        >
         <p class="lh-1">Published on: <%= blog.createdAt.toDateString() %></p>
       </div>
       <% }) %>
