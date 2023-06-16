@@ -1,7 +1,34 @@
 const Blog = require("../model/blogModel");
 
 const blogsPage = async (req, res) => {
-  res.render("blogs", { title: "selectmycollege" });
+  const page = parseInt(req.query.page) || 1;
+  const limit = 5;
+  const skip = (page - 1) * limit;
+  const searchQuery = req.query.search;
+
+  try {
+    let query = {};
+    if (searchQuery) {
+      query = { title: { $regex: searchQuery, $options: "i" } };
+    }
+
+    const totalBlogs = await Blog.countDocuments(query);
+    const totalPages = Math.ceil(totalBlogs / limit);
+
+    const blogs = await Blog.find(query).skip(skip).limit(limit);
+
+    res.render("blogs", {
+      title: "selectmycollege",
+      blogs,
+      totalPages,
+      currentPage: page,
+      searchQuery,
+    });
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    req.session.message = { type: "danger", text: "Failed to fetch blogs" };
+    res.redirect("/blogs");
+  }
 };
 
 const blogsDetailPage = async (req, res) => {
