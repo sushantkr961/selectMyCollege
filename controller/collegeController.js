@@ -10,11 +10,20 @@ const Lead = require("../model/leadsModel");
 const Fee = require("../model/feeModel");
 const collegeTestimonial = require("../model/collegeTestimonialModel");
 const Blog = require("../model/blogModel");
+const websiteTestimonial = require("../model/websiteTestimonialModel");
+const FAQ = require("../model/websiteFaqModel");
 
 // index page
 const homePage = async (req, res) => {
   const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
-  res.render("index", { title: "selectmycollege", latestBlogs: latestBlogs });
+  const testimonials = await websiteTestimonial.find();
+  const faqs = await FAQ.find();
+  res.render("index", {
+    title: "selectmycollege",
+    latestBlogs: latestBlogs,
+    testimonials: testimonials,
+    faqs,
+  });
 };
 
 const adminRoute = async (req, res) => {

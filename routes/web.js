@@ -11,6 +11,7 @@ const courseRoutes = require("./courseRoutes");
 const collegeTestimonialRoutes = require("./collegeTestimonialRoutes");
 const userRoutes = require("./userRoutes");
 const websiteTestimonialRoutes = require("./websiteTestimonialRoutes");
+const websteFAQs = require("./websiteFaqRoutes");
 
 // college page
 web.use("/", collegeRoutes);
@@ -41,5 +42,8 @@ web.use("/", collegeTestimonialRoutes);
 
 // website testimonial
 web.use("/", websiteTestimonialRoutes);
+
+// Website Faqs
+web.use("/", websteFAQs);
 
 module.exports = web;

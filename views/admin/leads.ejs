@@ -1,7 +1,7 @@
 <%- include('./header.ejs') %>
 
 <!-- partial -->
-<div class="main-panel text-capitalize">
+<div class="main-panel">
   <div class="content-wrapper">
     <!-- notification message -->
     <% if (message) { %>
@@ -39,7 +39,7 @@
                   <% leads.forEach((lead, index) => { %>
                   <tr>
                     <td><%= index + 1 %></td>
-                    <td><%= lead.name %></td>
+                    <td class="text-capitalize"><%= lead.name %></td>
                     <td><%= lead.email %></td>
                     <td><%= lead.phoneNo %></td>
                     <td><%= lead.course %></td>

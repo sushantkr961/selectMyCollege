@@ -1691,7 +1691,11 @@
   </div>
 
   <!-- Testimonials -->
-  <div class="container gtco-testimonials" style="color: #002f26">
+  <div
+    class="container gtco-testimonials"
+    style="color: #002f26"
+    id="testimonials"
+  >
     <h1
       class="fw-bold text-center text-decoration-underline"
       style="margin-bottom: -10px"
@@ -1699,82 +1703,24 @@
       Testimonials
     </h1>
     <div class="owl-carousel owl-carousel1 owl-theme">
+      <% testimonials.forEach(function(testimonial) { %>
       <div>
         <div class="card text-center">
           <img
             class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mnpz5BVcaHtJ3riXgxWaJL12sVSetyt1mA&usqp=CAU"
+            src="<%=process.env.APP_URL%><%= testimonial.profileImage %>"
             alt=""
           />
           <div class="card-body">
             <h5 style="color: #002f26">
-              Nikhil<br />
-              <span> Project Manager </span>
+              <%= testimonial.name %><br />
+              <span> <%= testimonial.designation %> </span>
             </h5>
-            <p class="card-text">
-              Transformative college experience with passionate professors and
-              rewarding coursework
-            </p>
+            <p class="card-text"><%= testimonial.message %></p>
           </div>
         </div>
       </div>
-      <div>
-        <div class="card text-center">
-          <img
-            class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mnpz5BVcaHtJ3riXgxWaJL12sVSetyt1mA&usqp=CAU"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 style="color: #002f26">
-              Atul<br />
-              <span> Engineer </span>
-            </h5>
-            <p class="card-text">
-              Transformative college experience with passionate professors and
-              rewarding coursework
-            </p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="card text-center">
-          <img
-            class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mnpz5BVcaHtJ3riXgxWaJL12sVSetyt1mA&usqp=CAU"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 style="color: #002f26">
-              Somnath<br />
-              <span> Project Manager </span>
-            </h5>
-            <p class="card-text">
-              Transformative college experience with passionate professors and
-              rewarding coursework
-            </p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="card text-center">
-          <img
-            class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mnpz5BVcaHtJ3riXgxWaJL12sVSetyt1mA&usqp=CAU"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 style="color: #002f26">
-              Rachit<br />
-              <span> Project Manager </span>
-            </h5>
-            <p class="card-text">
-              Transformative college experience with passionate professors and
-              rewarding coursework
-            </p>
-          </div>
-        </div>
-      </div>
+      <% }); %>
     </div>
   </div>
   <script>
@@ -1865,13 +1811,13 @@
       border-left: 3px solid #002f26;
     }
 
-    .collapse1 {
+    /* .collapse1 {
       transform: translateY(50%);
     }
 
     .collapse3 {
       transform: translateY(-85%);
-    }
+    } */
 
     .accordion-button:focus {
       border-color: none;
@@ -1883,13 +1829,13 @@
     }
 
     @media (max-width: 990px) {
-      .collapse1 {
+      /* .collapse1 {
         transform: none;
       }
 
       .collapse3 {
         transform: none;
-      }
+      } */
 
       .accordion-item {
         height: auto;
@@ -1904,7 +1850,37 @@
       FAQs
     </h2>
     <div class="accordion" id="accordion-faqs">
-      <div class="accordion-item row border-0">
+      <!--  -->
+        <% faqs.forEach((faq, index) => { %>
+        <div class="accordion-item row border-0">
+          <div class="accordion-header col-lg-5 order-lg-1 order-2" id="heading-<%= index + 1 %>">
+            <button
+              class="accordion-button <%= index === 0 ? '' : 'collapsed' %>"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-<%= index + 1 %>"
+              aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
+              aria-controls="collapse-<%= index + 1 %>"
+            >
+              <%= faq.question %>
+            </button>
+          </div>
+          <div
+            id="collapse-<%= index + 1 %>"
+            class="accordion-collapse collapse <%= index === 0 ? 'show' : '' %> col-lg-7 order-lg-2 order-1"
+            aria-labelledby="heading-<%= index + 1 %>"
+            data-bs-parent="#accordion-faqs"
+          >
+            <div class="accordion-body">
+              <%= faq.answer %>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      
+      
+      <!--  -->
+      <!-- <div class="accordion-item row border-0">
         <h2 class="accordion-header col-lg-5" id="heading-1">
           <button
             class="accordion-button"
@@ -1977,7 +1953,7 @@
             friendly options.
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

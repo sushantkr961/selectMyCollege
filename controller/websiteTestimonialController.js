@@ -81,7 +81,11 @@ const editWebsiteTestimonialView = async (req, res) => {
     const testimonial = await WebsiteTestimonial.findById(id);
 
     if (!testimonial) {
-      return res.status(404).send("Testimonial not found");
+      req.session.message = {
+        type: "danger",
+        message: "Testimonial not found",
+      };
+      return res.redirect("/testimonials");
     }
     res.render("admin/editWebTestimonial", {
       title: "Edit Testimonial",
