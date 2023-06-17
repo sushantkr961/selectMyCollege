@@ -33,11 +33,6 @@ const collegeSchema = mongoose.Schema(
     shortName: {
       type: String,
     },
-    facilities: [
-      {
-        type: String,
-      },
-    ],
     clgLogo: {
       type: String,
     },

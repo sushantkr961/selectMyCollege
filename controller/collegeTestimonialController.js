@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 const College = require("../model/collegeModel");
 const collegeTestimonial = require("../model/collegeTestimonialModel");
 

@@ -72,49 +72,34 @@
             <h4 class="card-title fs-3 py-2">
               <%= college.name %> (<%= college.shortName %>)
             </h4>
-            <h4 class="card-title fs-4">College Alumni</h4>
+            <h4 class="card-title fs-4">College FAQs</h4>
             <form
-              action="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
-              method="POST"
               class="cmxform"
+              method="post"
+              action="/admin/addColleges/next/FAQs?collegeId=<%= college._id %>"
             >
               <fieldset>
                 <div class="form-group">
-                  <label for="cname">Name of the Alumnus</label>
+                  <label for="cquestion">Add Question</label>
                   <input
-                    id="cname"
+                    id="cquestion"
                     class="form-control"
-                    name="name"
                     type="text"
+                    name="question"
+                    autocomplete="off"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="cbatch">Batch</label>
-                  <input
-                    id="cbatch"
+                  <label for="canswer">Add Answer</label>
+                  <textarea
+                    id="canswer"
                     class="form-control"
-                    name="batch"
-                    type="text"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="cpackage">Package</label>
-                  <input
-                    id="cpackage"
-                    class="form-control"
-                    type="text"
-                    name="package"
+                    name="answer"
                     required
-                  />
+                  ></textarea>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a
-                  href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
-                  ><button type="button" class="btn btn-primary">
-                    Next
-                  </button></a
-                >
               </fieldset>
             </form>
             <hr />
@@ -125,29 +110,28 @@
                     <thead>
                       <tr>
                         <th>S.No</th>
-                        <th>Alumni Name</th>
-                        <th>Batch</th>
-                        <th>Package</th>
+                        <th>Question</th>
+                        <th>Answer</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <% alumni.forEach(function(alum, index) { %>
+                      <% faqs.forEach(function(faq, index) { %>
                       <tr>
                         <td><%= index + 1 %></td>
-                        <td><%= alum.name %></td>
-                        <td><%= alum.batch %></td>
-                        <td><%= alum.package %></td>
+
+                        <td><%= faq.question %></td>
+                        <td><%= faq.answer %></td>
                         <td>
                           <a
-                            href="/admin/addColleges/next/alumni/edit/<%= alum._id %>/<%= college._id %>"
+                            href="/admin/addColleges/next/FAQs/<%= faq._id %>/<%= college._id %>"
                             class="btn btn-outline-primary"
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </a>
                           <form
                             class="delete-form"
-                            action="/admin/addColleges/next/alumni/<%= alum._id %>/<%= college._id %>?_method=DELETE"
+                            action="/admin/addColleges/next/FAQs/<%= faq._id %>/<%= college._id %>?_method=DELETE"
                             method="POST"
                           >
                             <button
