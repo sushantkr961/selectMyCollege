@@ -33,7 +33,7 @@ const adminRoute = async (req, res) => {
 const topclgPage = async (req, res) => {
   const clickedCity = req.query.city;
   const page = parseInt(req.query.page) || 1;
-  const pageSize = 10;
+  const pageSize = 1;
   try {
     const city = await City.findOne({ cityName: clickedCity });
     if (!city) {
@@ -68,16 +68,25 @@ const topclgPage = async (req, res) => {
           coursefee: totalfee,
         };
       });
-      return Promise.all(collegePromises);
+      // To filter the colleges based on the city and only display the courses of each college located in that city,
+      const collegeCourses = await Promise.all(collegePromises);
+      return {
+        college_id: college._id,
+        college_name: college.name,
+        college_sname: college.shortName,
+        college_logo: college.clgLogo,
+        college_city: college.city.cityName,
+        college_address: college.address,
+        courses: collegeCourses,
+      };
     });
 
-    const tcd = await Promise.all(tcdPromises);
-    const flattenedTcd = [].concat(...tcd);
+    const collegesWithCourses = await Promise.all(tcdPromises);
 
     res.render("topclg", {
       title: "selectmycollege",
       city: clickedCity,
-      colleges: flattenedTcd,
+      colleges: collegesWithCourses,
       page,
       totalPages,
       pageSize,
@@ -103,22 +112,19 @@ const viewPage = async (req, res) => {
       return res.status(404).json({ message: "College not found" });
     }
 
+    const cityId = college.city._id;
+
     const fees = await Fee.find({ collegeId: college._id }).populate(
       "courseId"
     );
-    // console.log(fees);
 
-    // Using map to get an array of the parent course ids (percouid)
     const parentCourseIds = fees.map((fee) => fee.courseId.percouid);
 
-    // Fetching all parent courses
     const parentCourses = await Course.find({
       _id: { $in: parentCourseIds },
     });
-    // console.log(parentCourses);
 
     const courseNames = parentCourses.map((course) => course.name);
-    // console.log(courseNames);
 
     const galleryImages = await Gallery.find({ collegeId: college._id });
     const banners = galleryImages.filter((image) => image.banners === true);
@@ -127,14 +133,24 @@ const viewPage = async (req, res) => {
       collegeId: college._id,
     });
 
-    const totalAlumni = await Alumni.countDocuments({ collegeId: college._id });
+    const totalAlumni = await Alumni.countDocuments({
+      collegeId: college._id,
+    });
+
     const alumni = await Alumni.find({ collegeId: college._id })
       .limit(limit)
       .skip(skip);
 
+    const filteredColleges = await College.find({
+      city: cityId,
+      _id: { $ne: college._id },
+    }).populate("city state");
+    console.log(filteredColleges);
+
+    const totalPages = Math.ceil(totalAlumni / limit);
+
     const courses = await Promise.all(
       fees.map(async (fee) => {
-        // find parent course of each fee
         const parentCourse = await Course.findOne({
           _id: fee.courseId.percouid,
         });
@@ -145,7 +161,6 @@ const viewPage = async (req, res) => {
         };
       })
     );
-    // console.log(courses);
 
     res.render("view", {
       title: "selectmycollege",
@@ -156,8 +171,9 @@ const viewPage = async (req, res) => {
       alumni: alumni,
       courseNames: courseNames,
       courses: courses,
+      filteredColleges: filteredColleges,
       currentPage: page,
-      totalPages: Math.ceil(totalAlumni / limit),
+      totalPages: totalPages,
     });
   } catch (error) {
     console.error("Error fetching college:", error);

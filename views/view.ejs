@@ -147,57 +147,22 @@
           <a data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor: pointer"
             class="btn text-white">Check Eligibility</a>
           <div class="border border-2 mt-3" style="height: 500px; overflow-y: scroll; overflow-x: hidden">
-            <h2 class="fs-3 text-center p-3">Similar colleges with same fee</h2>
-            <div>
-              <div class="row">
-                <div class="col-4">
-                  <img src="image/clg2.png" alt="img" height="110px" width="100px" />
+            <h2 class="fs-3 text-center p-3">
+              Similar Colleges in the same City
+            </h2>
+            <% filteredColleges.forEach((col)=> { %>
+              <div class="row mb-3">
+                <div class="col-4" style="text-align: center">
+                  <img src="<%= process.env.APP_URL %><%= col.clgLogo %>" alt="img" height="50px" width="60px" />
                 </div>
                 <div class="col-8">
                   <p>
-                    Department of Management Studies IIT Delhi [DMS IITD], New
-                    Delhi
+                    <%= col.name %>, <%= col.city.cityName %>
                   </p>
-                  <p class="smallText">Fee: 2,500,000 Per annum</p>
+                  <!-- <p class="smallText">Fee: <%= //courseNames %> Per annum</p> -->
                 </div>
               </div>
-              <div class="row">
-                <div class="col-4">
-                  <img src="image/clg2.png" alt="img" height="110px" width="100px" />
-                </div>
-                <div class="col-8">
-                  <p>
-                    Department of Management Studies IIT Delhi [DMS IITD], New
-                    Delhi
-                  </p>
-                  <p class="smallText">Fee: 2,500,000 Per annum</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <img src="image/clg2.png" alt="img" height="110px" width="100px" />
-                </div>
-                <div class="col-8">
-                  <p>
-                    Department of Management Studies IIT Delhi [DMS IITD], New
-                    Delhi
-                  </p>
-                  <p class="smallText">Fee: 2,500,000 Per annum</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <img src="image/clg2.png" alt="img" height="110px" width="100px" />
-                </div>
-                <div class="col-8">
-                  <p>
-                    Department of Management Studies IIT Delhi [DMS IITD], New
-                    Delhi
-                  </p>
-                  <p class="smallText">Fee: 2,500,000 Per annum</p>
-                </div>
-              </div>
-            </div>
+              <% }) %>
           </div>
         </div>
       </div>
@@ -363,7 +328,7 @@
       </div>
     </div>
 
-    <!-- Check Eligibility -->
+     <!-- Check Eligibility -->
     <div class="container-fluid p-5" style="background-color: #f0fff7" id="choose_college">
       <h3>Check Eligibility</h3>
       <div class="d-md-flex justify-content-between">
@@ -395,8 +360,8 @@
     <div class="text-center py-5 p-2 p-md-5">
       <h1 class="fw-bold">Other Course Specialisation in same college</h1>
       <h5>
-        Course Specialisation | Department of Management Studies IIT Delhi [DMS
-        IITD], New Delhi
+        Course Specialisation | <%= college.name %> [<%= college.shortName %>]-
+            <%= college.city.cityName %>, <%= college.state.stateName %>
       </h5>
       <div class="table-responsive mt-4">
         <table class="table table-hover">

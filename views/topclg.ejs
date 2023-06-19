@@ -853,15 +853,19 @@
       </div>
       <% })%>
     </div>
-    <% if (page > 1) { %>
-    <a href="?city=<%= city %>&page=<%= page - 1 %>" class="minipara"
-      >Previous Page</a
+    <div
+      class="d-flex my-4 justify-content-md-end justify-content-center w-100"
     >
-    <% } %> <% if (page < totalPages) { %>
-    <a href="?city=<%= city %>&page=<%= page + 1 %>" class="minipara mx-3"
-      >Next Page</a
-    >
-    <% } %>
+      <% if (page > 1) { %>
+      <a href="?city=<%= city %>&page=<%= page - 1 %>" class="minipara"
+        >Previous Page</a
+      >
+      <% } %> <% if (page < totalPages) { %>
+      <a href="?city=<%= city %>&page=<%= page + 1 %>" class="minipara mx-3"
+        >Next Page</a
+      >
+      <% } %>
+    </div>
   </div>
 </div>
 
