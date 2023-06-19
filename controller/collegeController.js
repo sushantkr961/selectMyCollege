@@ -145,7 +145,6 @@ const viewPage = async (req, res) => {
       city: cityId,
       _id: { $ne: college._id },
     }).populate("city state");
-    console.log(filteredColleges);
 
     const totalPages = Math.ceil(totalAlumni / limit);
 
@@ -180,25 +179,6 @@ const viewPage = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-// const getCollegeById = async (req, res) => {
-//   try {
-//     const college = await College.findById(req.params.id);
-
-//     if (!college) {
-//       return res.status(404).json({ error: "College not found" });
-//     }
-//     // Render the EJS template
-//     // res.render("view", {
-//     //   college,
-//     //   title: "College Details",
-//     // });
-//     res.status(200).json({ college });
-//   } catch (error) {
-//     console.error("Error getting college:", error);
-//     res.status(500).json({ error: "Error getting college" });
-//   }
-// };
 
 const adminPage = async (req, res) => {
   try {
