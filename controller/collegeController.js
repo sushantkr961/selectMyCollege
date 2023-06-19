@@ -12,17 +12,20 @@ const collegeTestimonial = require("../model/collegeTestimonialModel");
 const Blog = require("../model/blogModel");
 const websiteTestimonial = require("../model/websiteTestimonialModel");
 const FAQ = require("../model/websiteFaqModel");
+const Banner = require("../model/websiteBannerModel");
 
 // index page
 const homePage = async (req, res) => {
   const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
   const testimonials = await websiteTestimonial.find();
   const faqs = await FAQ.find();
+  const banners = await Banner.find();
   res.render("index", {
     title: "selectmycollege",
     latestBlogs: latestBlogs,
     testimonials: testimonials,
     faqs,
+    banners,
   });
 };
 
