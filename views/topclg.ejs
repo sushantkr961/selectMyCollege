@@ -743,7 +743,10 @@
       <% colleges.map((clg,idx)=> { %>
       <div class="clgInfoBox">
         <div>
-          <a href="/view/<%= clg.college_id %>" class="text-decoration-none text-black">
+          <a
+            href="/view/<%= clg.college_id %>"
+            class="text-decoration-none text-black"
+          >
             <div
               class="border border-1 border-black p-1 p-md-0 row m-auto px-1 px-md-3 justify-content-between"
             >
@@ -850,16 +853,15 @@
       </div>
       <% })%>
     </div>
-    <div
-      class="d-flex my-4 justify-content-md-end justify-content-center w-100"
+    <% if (page > 1) { %>
+    <a href="?city=<%= city %>&page=<%= page - 1 %>" class="minipara"
+      >Previous Page</a
     >
-      <a href="">
-        <p class="minipara">Previous Page</p>
-      </a>
-      <a href="">
-        <p class="minipara mx-3">Next Page</p>
-      </a>
-    </div>
+    <% } %> <% if (page < totalPages) { %>
+    <a href="?city=<%= city %>&page=<%= page + 1 %>" class="minipara mx-3"
+      >Next Page</a
+    >
+    <% } %>
   </div>
 </div>
 

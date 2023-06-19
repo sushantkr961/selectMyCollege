@@ -32,6 +32,8 @@ const adminRoute = async (req, res) => {
 
 const topclgPage = async (req, res) => {
   const clickedCity = req.query.city;
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = 10;
   try {
     const city = await City.findOne({ cityName: clickedCity });
     if (!city) {
@@ -39,7 +41,14 @@ const topclgPage = async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
     const cityId = city._id;
-    const filteredColleges = await College.find({ city: cityId });
+
+    const totalColleges = await College.find({ city: cityId }).countDocuments();
+    const totalPages = Math.ceil(totalColleges / pageSize);
+    const skip = (page - 1) * pageSize;
+
+    const filteredColleges = await College.find({ city: cityId })
+      .skip(skip)
+      .limit(pageSize);
 
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
@@ -47,7 +56,7 @@ const topclgPage = async (req, res) => {
       const collegePromises = fees.map(async (sfee) => {
         const courseId = sfee.courseId;
         const course = await Course.findById(courseId);
-        const totalfee = 1000;
+        const totalfee = sfee.totalFee;
         return {
           college_id: college._id,
           college_name: college.name,
@@ -69,6 +78,9 @@ const topclgPage = async (req, res) => {
       title: "selectmycollege",
       city: clickedCity,
       colleges: flattenedTcd,
+      page,
+      totalPages,
+      pageSize,
     });
   } catch (error) {
     console.error("Error fetching colleges:", error);
