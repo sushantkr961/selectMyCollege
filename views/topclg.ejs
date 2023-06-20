@@ -209,17 +209,18 @@
     style="opacity: 0.7"
   >
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="image/sk-clg1.jpg" class="d-block w-100" alt="image/s1.png" />
+      <% banners.forEach((banner, index) => { %>
+      <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+        <img
+          src="<%= banner.image %>"
+          class="d-block w-100"
+          alt="Banner <%= index + 1 %>"
+        />
       </div>
-      <div class="carousel-item">
-        <img src="image/sk-clg2.jpg" class="d-block w-100" alt="image/s1.png" />
-      </div>
-      <div class="carousel-item">
-        <img src="image/sk-clg3.jpg" class="d-block w-100" alt="image/s1.png" />
-      </div>
+      <% }); %>
     </div>
   </div>
+
   <div class="slider-top d-flex align-items-center">
     <div class="container">
       <div
@@ -256,6 +257,8 @@
             type="text"
             class="form-control mb-0 shadow-none"
             aria-label="search"
+            placeholder="Search Colleges"
+            id="searchInput"
           />
           <span
             class="input-group-text text-white"
@@ -264,6 +267,7 @@
               border: 2px solid #002f26;
               cursor: pointer;
             "
+            onclick="searchColleges()"
           >
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
@@ -274,6 +278,7 @@
               border: 2px solid #002f26;
               cursor: pointer;
             "
+            onclick="searchColleges()"
             >Search</span
           >
         </div>
@@ -307,45 +312,33 @@
               style="cursor: pointer"
             ></i
           ></span>
-          <div class="d-flex my-3 justify-content-between w-100">
-            <div class="w-75">
-              <p class="fw-bold text-start text-md-center">Fee Structure</p>
-              <div class="row gy-1 gx-1 m-auto">
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">1Lpa-2Lpa</p>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">1Lpa-2Lpa</p>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">1Lpa-2Lpa</p>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">1Lpa-2Lpa</p>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">1Lpa-2Lpa</p>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <p class="border m-1 text-center">7Lpa</p>
-                </span>
-              </div>
-            </div>
-            <div>
-              <select
-                class="text-center"
-                style="font-weight: 600"
-                aria-label="Default select example"
-              >
-                <option selected>Short By</option>
-                <option value="1">Popularity</option>
-                <option value="2">High-Low</option>
-                <option value="3">Low-High</option>
-              </select>
+          <div class="my-3 w-100">
+            <p class="fw-bold text-start text-md-center">Fee Structure</p>
+            <div class="row gy-1 gx-1 m-auto">
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">1Lpa-2Lpa</p>
+              </span>
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">1Lpa-2Lpa</p>
+              </span>
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">1Lpa-2Lpa</p>
+              </span>
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">1Lpa-2Lpa</p>
+              </span>
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">1Lpa-2Lpa</p>
+              </span>
+              <span class="col-6 col-md-4 p-0">
+                <p class="border m-1 text-center">7Lpa</p>
+              </span>
             </div>
           </div>
           <div class="my-3">
-            <p class="fw-bold text-start text-md-center">Precentage of Marks</p>
+            <p class="fw-bold text-start text-md-center m-1">
+              Precentage of Marks
+            </p>
             <div class="d-flex justify-content-evenly flex-wrap">
               <span class="border text-center" style="width: 100px">
                 <p>>50%</p>
@@ -365,63 +358,51 @@
             </div>
           </div>
           <div class="d-flex my-3 justify-content-between flex-wrap">
-            <div class="d-flex flex-column align-items-start filterDiv my-3">
+            <div class="d-flex flex-column align-items-center filterDiv my-3">
               <p class="text-start text-md-center w-75 fw-bold">
-                Select near location
+                Filter by Courses
               </p>
-              <select
+              <input
+                list="courseNames"
                 class="text-center w-75 Compare-filter"
-                aria-label="Default select example"
-              >
-                <option selected>None</option>
-                <option value="1">delhi</option>
-                <option value="2">karnatak</option>
-                <option value="3">kolapur</option>
-              </select>
+                placeholder="Choose a course"
+                onchange="window.location.href='?course='+this.value"
+              />
+              <datalist id="courseNames">
+                <option value="None">
+                  <% courses.forEach(function(course){ %>
+                </option>
+                <option value="<%= course %>"><% }); %></option>
+              </datalist>
             </div>
-            <div class="d-flex flex-column align-items-end filterDiv my-3">
-              <p class="text-start text-md-center fw-bold w-75">MBA Type</p>
-              <select
-                class="text-center w-75 Compare-filter mbaOption"
-                style="font-weight: 600"
-                aria-label="Default select example"
-              >
-                <option selected>None</option>
-                <option value="1">MBA</option>
-                <option value="2">MBA/PGDM</option>
-                <option value="2">MBA/PGDM</option>
-              </select>
+            <div class="d-flex flex-column align-items-center filterDiv my-3">
+              <p class="text-start text-md-center w-75 fw-bold">
+                Filter by Location
+              </p>
+              <input
+                list="cityNames"
+                class="text-center w-75 Compare-filter"
+                placeholder="Choose a city"
+              />
+              <datalist id="cityNames">
+                <option value="None">
+                  <% cities.forEach(function(city){ %>
+                </option>
+
+                <option value="<%= city %>"><% }); %></option>
+              </datalist>
             </div>
-          </div>
-          <div class="w-100 my-3">
-            <p class="text-start text-md-center fw-bold">
-              Select MBA Specialisation
-            </p>
-            <select
-              class="text-center w-100 Compare-filter col-md-3 mx-2"
-              style="font-weight: 600"
-              aria-label="Default select example"
-            >
-              <option selected>None</option>
-              <option value="1">Sales & marketing management Business</option>
-              <option value="2">Analytics & operation management</option>
-              <option value="3">
-                Human Resource management Finance management
-              </option>
-            </select>
           </div>
           <div class="d-flex my-3 justify-content-center align-items-center">
             <div class="me-3">
-              <button
-                type="button"
-                value=""
-                class="btn py-2 px-3 mt-0 me-1 bg-light"
-              >
+              <button type="button" class="btn py-2 px-3 mt-0 me-1 bg-light">
                 submit
               </button>
             </div>
             <div class="ms-1">
-              <p>Clear all filter</p>
+              <button class="btn py-2 px-3 mt-0 ms-1 bg-light">
+                Clear all filter
+              </button>
             </div>
           </div>
         </div>
@@ -441,6 +422,12 @@
         filterDiv.classList.remove("show");
       }
     });
+
+    // SEARCH FUNCTIONALITY
+    function searchColleges() {
+      const searchQuery = document.getElementById("searchInput").value;
+      window.location.href = `/topclg?city=<%= city %>&search=${searchQuery}`;
+    }
   </script>
 
   <!-- <div class="row"> -->
@@ -868,6 +855,5 @@
     </div>
   </div>
 </div>
-
 
 <%- include('foot') %>

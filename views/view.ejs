@@ -69,7 +69,7 @@
           onclick="scrollToSection(this, 'college_gallery'); document.getElementById('about_college').style.display='none'; document.getElementById('college_gallery').style.display='block';">
           <i class="fa-regular fa-images"></i> College gallery
         </button>
-        <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'fee_structure')">
+        <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'courses_fees')">
           <i class="fa-solid fa-indian-rupee-sign me-2"></i> College fee
         </button>
         <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'testimonials')">
@@ -357,7 +357,7 @@
       </div>
     </div>
 
-    <div class="text-center py-5 p-2 p-md-5">
+    <div class="text-center py-5 p-2 p-md-5" id="courses_fees">
       <h1 class="fw-bold">Other Course Specialisation in same college</h1>
       <h5>
         Course Specialisation | <%= college.name %> [<%= college.shortName %>]-

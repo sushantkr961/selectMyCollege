@@ -37,8 +37,19 @@ const adminRoute = async (req, res) => {
 
 const topclgPage = async (req, res) => {
   const clickedCity = req.query.city;
+  const feeStructure = req.query.feeStructure;
+  const marksPercentage = req.query.marksPercentage;
+  const courseName = req.query.course;
+  const searchQuery = req.query.search || "";
   const page = parseInt(req.query.page) || 1;
-  const pageSize = 1;
+  const pageSize = 10;
+  const banners = await Banner.find();
+  const cities = (await City.find().select("cityName")).map(
+    (city) => city.cityName
+  );
+  const courses = (await Course.find().select("name")).map(
+    (course) => course.name
+  );
   try {
     const city = await City.findOne({ cityName: clickedCity });
     if (!city) {
@@ -51,9 +62,28 @@ const topclgPage = async (req, res) => {
     const totalPages = Math.ceil(totalColleges / pageSize);
     const skip = (page - 1) * pageSize;
 
-    const filteredColleges = await College.find({ city: cityId })
+    const filteredColleges = await College.find({
+      city: cityId,
+      feeStructure: feeStructure,
+      marksPercentage: marksPercentage,
+      courses: courseName,
+      $or: [
+        { name: { $regex: searchQuery, $options: "i" } },
+        { shortName: { $regex: searchQuery, $options: "i" } },
+      ],
+    })
       .skip(skip)
       .limit(pageSize);
+
+    // const filteredColleges = await College.find({
+    //   city: cityId,
+    //   $or: [
+    //     { name: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search by name
+    //     { shortName: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search by shortName
+    //   ],
+    // })
+    //   .skip(skip)
+    //   .limit(pageSize);
 
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
@@ -73,7 +103,6 @@ const topclgPage = async (req, res) => {
           coursefee: totalfee,
         };
       });
-      // To filter the colleges based on the city and only display the courses of each college located in that city,
       const collegeCourses = await Promise.all(collegePromises);
       return {
         college_id: college._id,
@@ -95,6 +124,9 @@ const topclgPage = async (req, res) => {
       page,
       totalPages,
       pageSize,
+      banners,
+      cities,
+      courses,
     });
   } catch (error) {
     console.error("Error fetching colleges:", error);
