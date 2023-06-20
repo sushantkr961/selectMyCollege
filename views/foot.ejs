@@ -71,6 +71,283 @@
     <p class="text-white text-center mb-4">All right reserved Pantheon Digital @2023 <span> Terms of use | Privacy Policy | Cookie Policy</span></p>
 </div>
 </div>
+
+
+  <!-- Modal for Register -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content py-2 px-3">
+        <div class="d-flex justify-content-end p-3">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <h1 class="modal-title fs-5 fw-bold text-center" id="exampleModalLabel">
+          To apply for this college we need a few details from you
+        </h1>
+        <div class="modal-body">
+          <form>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="fa-solid fa-user"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control m-0 shadow-none rounded-end-2"
+                placeholder="Full Name"
+                aria-label="Full Name"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="d-lg-flex justify-content-start">
+              <div class="input-group mb-3">
+                <span class="input-group-text">+91 </span>
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa-solid fa-phone"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control m-0 shadow-none rounded-end-2"
+                  placeholder="Phone Number"
+                  aria-label="Phone Number"
+                  aria-describedby="basic-addon1"
+                  maxlength="10"
+                />
+              </div>
+              <div
+                id="otp"
+                class="inputs d-flex flex-row justify-content-center ms-3"
+              >
+                <input
+                  class="mx-2 text-center form-control rounded shadow-none"
+                  type="text"
+                  id="first"
+                  style="height: fit-content"
+                  maxlength="1"
+                />
+                <input
+                  class="mx-2 text-center form-control rounded shadow-none"
+                  type="text"
+                  id="second"
+                  style="height: fit-content"
+                  maxlength="1"
+                />
+                <input
+                  class="mx-2 text-center form-control rounded shadow-none"
+                  type="text"
+                  id="third"
+                  style="height: fit-content"
+                  maxlength="1"
+                />
+                <input
+                  class="mx-2 text-center form-control rounded shadow-none"
+                  type="text"
+                  id="fourth"
+                  style="height: fit-content"
+                  maxlength="1"
+                />
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div></div>
+              <div></div>
+              <div class="text-muted">
+                Verify OTP
+                <span
+                  ><i
+                    class="fa-solid fa-circle-check"
+                    style="color: #002f26"
+                  ></i>
+                  <i class="fa-solid fa-circle-xmark" style="color: #f50000"></i
+                ></span>
+              </div>
+              <div><a href="#">Resend OTP</a></div>
+            </div>
+            <div>
+              <div class="d-md-flex justify-content-between">
+                <div class="input-group mb-2">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa-solid fa-envelope"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control m-0 shadow-none rounded-end-2"
+                    placeholder="Email"
+                    aria-label="Email"
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+                <div class="ms-5">
+                  <button
+                    type="button"
+                    class="btn px-5 text-white"
+                    style="background-color: #002f26"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-none d-lg-block" style="color: #002f26">
+          <h3 class="text-center fs-5">
+            How select my college is contributing in student’s higher education
+            and managing budget for parents
+          </h3>
+          <div class="d-block container my-5 text-center">
+            <div class="py-4" style="width: 100%">
+              <div class="skBody">
+                <div class="skSlider">
+                  <div class="skSlide-track">
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk1.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk2.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>College with Budget friendly</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk3.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>College with good Placement</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk4.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Top rated Colleges</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk5.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Genuine Colleges</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk6.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk7.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk8.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Best College Near Home Location</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk1.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk8.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk1.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Free Councelling</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk2.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>College with Budget friendly</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk3.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>College with good Placement</p>
+                    </div>
+                    <div class="skSlide">
+                      <img
+                        src="<%= process.env.APP_URL %>image/sk4.svg"
+                        height="100"
+                        width="100"
+                        alt=""
+                      />
+                      <p>Top rated Colleges</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
