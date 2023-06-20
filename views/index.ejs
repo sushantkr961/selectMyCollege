@@ -156,10 +156,14 @@
       <div class="carousel-inner">
         <div class="carousel-inner">
           <% banners.forEach(function(banner, index) { %>
-            <div class="carousel-item <% if (index === 0) { %>active<% } %>">
-              <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100" alt="Banner" />
-            </div>
-            <% }); %>
+          <div class="carousel-item <% if (index === 0) { %>active<% } %>">
+            <img
+              src="<%= process.env.APP_URL %><%= banner.image %>"
+              class="d-block w-100"
+              alt="Banner"
+            />
+          </div>
+          <% }); %>
         </div>
       </div>
     </div>
@@ -1143,6 +1147,7 @@
   </div>
 
   <!-- check eligibility -->
+
   <div
     class="container border rounded-5 my-5"
     style="
@@ -1170,110 +1175,18 @@
         <div class="skBody">
           <div class="skSlider">
             <div class="skSlide-track">
+              <% colleges.slice(0, 26).forEach((college) => { %>
               <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
+                <img
+                  src="<%= process.env.APP_URL %><%= college.clgLogo %>"
+                  alt=""
+                  loading="lazy"
+                />
+                <a href="/view/<%= college._id %>" class="text-decoration-none text-black"
+                  ><p class="text-center w-75"><%= college.shortName %></p></a
+                >
               </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d1.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
-              <div class="skSlide">
-                <img src="image/d2.png" alt="" />
-                <p>G.I.T.A BBSR</p>
-              </div>
+              <% }); %>
             </div>
           </div>
         </div>
@@ -1830,34 +1743,34 @@
     </h2>
     <div class="accordion" id="accordion-faqs">
       <!--  -->
-        <% faqs.forEach((faq, index) => { %>
-        <div class="accordion-item row border-0">
-          <div class="accordion-header col-lg-5 order-lg-1 order-2" id="heading-<%= index + 1 %>">
-            <button
-              class="accordion-button <%= index === 0 ? '' : 'collapsed' %>"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapse-<%= index + 1 %>"
-              aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
-              aria-controls="collapse-<%= index + 1 %>"
-            >
-              <%= faq.question %>
-            </button>
-          </div>
-          <div
-            id="collapse-<%= index + 1 %>"
-            class="accordion-collapse collapse <%= index === 0 ? 'show' : '' %> col-lg-7 order-lg-2 order-1"
-            aria-labelledby="heading-<%= index + 1 %>"
-            data-bs-parent="#accordion-faqs"
+      <% faqs.forEach((faq, index) => { %>
+      <div class="accordion-item row border-0">
+        <div
+          class="accordion-header col-lg-5 order-lg-1 order-2"
+          id="heading-<%= index + 1 %>"
+        >
+          <button
+            class="accordion-button <%= index === 0 ? '' : 'collapsed' %>"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-<%= index + 1 %>"
+            aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
+            aria-controls="collapse-<%= index + 1 %>"
           >
-            <div class="accordion-body">
-              <%= faq.answer %>
-            </div>
-          </div>
+            <%= faq.question %>
+          </button>
         </div>
-        <% }) %>
-      
-      
+        <div
+          id="collapse-<%= index + 1 %>"
+          class="accordion-collapse collapse <%= index === 0 ? 'show' : '' %> col-lg-7 order-lg-2 order-1"
+          aria-labelledby="heading-<%= index + 1 %>"
+          data-bs-parent="#accordion-faqs"
+        >
+          <div class="accordion-body"><%= faq.answer %></div>
+        </div>
+      </div>
+      <% }) %>
+
       <!--  -->
       <!-- <div class="accordion-item row border-0">
         <h2 class="accordion-header col-lg-5" id="heading-1">

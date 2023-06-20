@@ -20,12 +20,14 @@ const homePage = async (req, res) => {
   const testimonials = await websiteTestimonial.find();
   const faqs = await FAQ.find();
   const banners = await Banner.find();
+  const colleges = await College.find();
   res.render("index", {
     title: "selectmycollege",
     latestBlogs: latestBlogs,
     testimonials: testimonials,
     faqs,
     banners,
+    colleges,
   });
 };
 
