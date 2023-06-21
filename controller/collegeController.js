@@ -75,16 +75,6 @@ const topclgPage = async (req, res) => {
       .skip(skip)
       .limit(pageSize);
 
-    // const filteredColleges = await College.find({
-    //   city: cityId,
-    //   $or: [
-    //     { name: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search by name
-    //     { shortName: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search by shortName
-    //   ],
-    // })
-    //   .skip(skip)
-    //   .limit(pageSize);
-
     const tcdPromises = filteredColleges.map(async (college) => {
       const collegeId = college._id;
       const fees = await Fee.find({ collegeId });
@@ -133,8 +123,6 @@ const topclgPage = async (req, res) => {
     res.status(500).json({ error: "Error fetching colleges" });
   }
 };
-
-// Controller for getting a specific college by ID
 
 const viewPage = async (req, res) => {
   const collegeId = req.params.collegeId;
@@ -241,7 +229,6 @@ const adminPage = async (req, res) => {
   }
 };
 
-/** CREATE COLLEGE STARTS HERE */
 const createCollegeView = async (req, res) => {
   try {
     const citiesPromise = City.find();
@@ -395,19 +382,16 @@ const createImageGallery = async (req, res) => {
         const file = files[i];
         const dimensions = imageSize(file.path);
 
-        // Example validation: Check if resolution is less than 1920x1080
-        const targetWidth = 1920;
-        const targetHeight = 1080;
-        if (
-          dimensions.width < targetWidth ||
-          dimensions.height < targetHeight
-        ) {
+        // Check if the aspect ratio is 3:1
+        const targetRatio = 3.0; // 3:1 ratio
+        const actualRatio = dimensions.width / dimensions.height;
+        if (actualRatio.toFixed(2) != targetRatio.toFixed(2)) {
           // Delete the uploaded file
           fs.unlinkSync(file.path);
           req.session.message = {
             type: "danger",
             message:
-              "Invalid image resolution. Please select an image with a minimum resolution of 1920x1080.",
+              "Invalid image ratio. Please select an image with a ratio of 3:1.",
           };
           return res.redirect(
             `/admin/addColleges/next/gallery?collegeId=${collegeId}`
