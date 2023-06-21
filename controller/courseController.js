@@ -168,22 +168,10 @@ const editCollegeCourse = async (req, res) => {
   }
 };
 
-// const allCoursesView = async (req, res) => {
-//   try {
-//     const courses = await Course.find();
-//     console.log(courses);
-//     res.render("admin/allCourses", { courses, title: "selectMyCollege" });
-//   } catch (error) {
-//     console.error("Error retrieving courses:", error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// };
-
 const allCoursesView = async (req, res) => {
   try {
     const mainCourses = await Course.find({ percouid: 0 });
     const subCourses = await Course.find({ percouid: { $ne: 0 } });
-
     const courses = mainCourses.map((course) => {
       const relatedSubCourses = subCourses.filter(
         (subCourse) => subCourse.percouid.toString() === course._id.toString()
@@ -194,7 +182,6 @@ const allCoursesView = async (req, res) => {
       };
     });
 
-    console.log(courses);
     res.render("admin/allCourses", { courses, title: "selectMyCollege" });
   } catch (error) {
     console.error("Error retrieving courses:", error);
@@ -225,23 +212,6 @@ const deleteCourse = async (req, res) => {
     res.redirect("/allCourses");
   }
 };
-
-// const updateCourseView = async (req, res) => {
-//   try {
-//     const courseId = req.params.id;
-//     const course = await Course.findById(courseId);
-//     if (!course) {
-//       return res.status(404).json({ message: "Course not found" });
-//     }
-//     res.render("admin/editCourses", {
-//       title: "Update Course",
-//       course,
-//     });
-//   } catch (error) {
-//     console.error("Error retrieving course:", error);
-//     res.redirect(`/allCourses`);
-//   }
-// };
 
 const updateCourseView = async (req, res) => {
   try {

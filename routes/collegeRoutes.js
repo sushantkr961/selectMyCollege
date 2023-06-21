@@ -1,6 +1,6 @@
 const express = require("express");
-const controller = require("../controller/collegeController");
 const router = express.Router();
+const controller = require("../controller/collegeController");
 const authMiddleware = require("../middleware/authMiddleware");
 const upload = require("../middleware/multerConfig");
 
@@ -50,6 +50,6 @@ router
 router.delete("/admin/colleges/:id", authMiddleware, controller.deleteCollege);
 
 // all colleges
-router.get("/allColleges", controller.getAllColleges);
+router.get("/admin/allColleges", authMiddleware, controller.getAllColleges);
 
 module.exports = router;
