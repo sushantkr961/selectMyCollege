@@ -1,7 +1,6 @@
 const FAQ = require("../model/collegeFaqModel");
 const College = require("../model/collegeModel");
 
-// Get all FAQs
 const getAllCollegeFAQs = async (req, res) => {
   const { collegeId } = req.query;
   try {
@@ -30,7 +29,6 @@ const getAllCollegeFAQs = async (req, res) => {
   }
 };
 
-// Create a new FAQ
 const createCollegeFAQ = async (req, res) => {
   const { collegeId } = req.query;
   const { question, answer } = req.body;
@@ -51,8 +49,7 @@ const createCollegeFAQ = async (req, res) => {
 const updateCollegeFAQView = async (req, res) => {
   const { id, collegeId } = req.params;
   try {
-    const faq = await FAQ.findById(id);
-    const [faqs, college] = await Promise.all([
+    const [faq, college] = await Promise.all([
       FAQ.findById(id),
       College.findById(collegeId),
     ]);
@@ -66,9 +63,10 @@ const updateCollegeFAQView = async (req, res) => {
         `/admin/addColleges/next/FAQs?collegeId=${collegeId}`
       );
     }
-    res.render("admin/editWebFAQs", {
+    res.render("admin/editCollegeFAQs", {
       title: "Edit faq",
       faq,
+      college,
     });
   } catch (error) {
     console.error(error);
@@ -80,7 +78,6 @@ const updateCollegeFAQView = async (req, res) => {
   }
 };
 
-// Update a FAQ by ID
 const updateCollegeFAQ = async (req, res) => {
   const { id, collegeId } = req.params;
   const { question, answer } = req.body;
@@ -107,7 +104,6 @@ const updateCollegeFAQ = async (req, res) => {
   }
 };
 
-// Delete a FAQ by ID
 const deleteCollegeFAQ = async (req, res) => {
   const { id, collegeId } = req.params;
   try {

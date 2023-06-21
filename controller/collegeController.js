@@ -12,6 +12,7 @@ const collegeTestimonial = require("../model/collegeTestimonialModel");
 const Blog = require("../model/blogModel");
 const websiteTestimonial = require("../model/websiteTestimonialModel");
 const FAQ = require("../model/websiteFaqModel");
+const clgFAQ = require("../model/collegeFaqModel");
 const Banner = require("../model/websiteBannerModel");
 
 // index page
@@ -132,47 +133,35 @@ const viewPage = async (req, res) => {
 
   try {
     const college = await College.findById(collegeId).populate("city state");
-
     if (!college) {
       return res.status(404).json({ message: "College not found" });
     }
-
+    const faqs = await clgFAQ.find({ collegeId });
     const cityId = college.city._id;
-
     const fees = await Fee.find({ collegeId: college._id }).populate(
       "courseId"
     );
-
     const parentCourseIds = fees.map((fee) => fee.courseId.percouid);
-
     const parentCourses = await Course.find({
       _id: { $in: parentCourseIds },
     });
-
     const courseNames = parentCourses.map((course) => course.name);
-
     const galleryImages = await Gallery.find({ collegeId: college._id });
     const banners = galleryImages.filter((image) => image.banners === true);
-
     const testimonials = await collegeTestimonial.find({
       collegeId: college._id,
     });
-
     const totalAlumni = await Alumni.countDocuments({
       collegeId: college._id,
     });
-
     const alumni = await Alumni.find({ collegeId: college._id })
       .limit(limit)
       .skip(skip);
-
     const filteredColleges = await College.find({
       city: cityId,
       _id: { $ne: college._id },
     }).populate("city state");
-
     const totalPages = Math.ceil(totalAlumni / limit);
-
     const courses = await Promise.all(
       fees.map(async (fee) => {
         const parentCourse = await Course.findOne({
@@ -185,7 +174,6 @@ const viewPage = async (req, res) => {
         };
       })
     );
-
     res.render("view", {
       title: "selectmycollege",
       college: college,
@@ -198,6 +186,7 @@ const viewPage = async (req, res) => {
       filteredColleges: filteredColleges,
       currentPage: page,
       totalPages: totalPages,
+      faqs,
     });
   } catch (error) {
     console.error("Error fetching college:", error);

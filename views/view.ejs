@@ -1,54 +1,72 @@
 <%- include('head') %>
-  <style>
-    .btn.active {
-      background-color: #002f26;
-      color: #f7931e;
-    }
-  </style>
+<style>
+  .btn.active {
+    background-color: #002f26;
+    color: #f7931e;
+  }
+</style>
+<div class="body">
+  <!-- Front photo and all -->
   <div class="body">
-    <!-- Front photo and all -->
-    <div class="body">
-      <div class="slider">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <% banners.forEach(function(banner, index) { %>
-                  <div class="carousel-item <% if (index === 0) { %>active<% } %>">
-                    <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100" alt="Banner" />
-                  </div>
-                  <% }); %>
+    <div class="slider">
+      <div
+        id="carouselExampleSlidesOnly"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div
+            id="carouselExampleSlidesOnly"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner">
+              <% banners.forEach(function(banner, index) { %>
+              <div class="carousel-item <% if (index === 0) { %>active<% } %>">
+                <img
+                  src="<%= process.env.APP_URL %><%= banner.image %>"
+                  class="d-block w-100"
+                  alt="Banner"
+                />
               </div>
+              <% }); %>
             </div>
           </div>
         </div>
-        <div class="slider-top d-flex">
-          <div class="container">
-            <div class="d-flex flex-direction-row h-100 justify-content-between">
-              <div class="w-70 mt-5 d-flex align-items-center">
-                <div class="d-flex justify-content-between">
-                  <a class="text-decoration-none" href="javascript:history.back()">
-                    <div class="w-20 mt-5 goBackICon">
-                      <i class="fa-solid fa-3x text-white fa-circle-arrow-left fs-1"></i>
-                      <p class="fw-bold text-white text-center" style="font-size: 12px">
-                        Go Back
-                      </p>
-                    </div>
-                  </a>
-                  <div class="w-70 coursesText" style="width: 90%">
-                    <div>
-                      <p class="fs-2 text-white fw-bold">
-                        <%= college.name %>
-                          <%= college.shortName %> <br />
-                            <%= college.city.cityName %>, <%= college.state.stateName %>
-                      </p>
-                      <p class="text-white fs-4 text-md-white text-black">
-                        <% courseNames.forEach(function(course, index) { %>
-                          <%= course %>
-                            <% if (index < courseNames.length - 1) { %> | <% } %>
-                                <% }); %>
-                      </p>
-                    </div>
+      </div>
+      <div class="slider-top d-flex">
+        <div class="container">
+          <div class="d-flex flex-direction-row h-100 justify-content-between">
+            <div class="w-70 mt-5 d-flex align-items-center">
+              <div class="d-flex justify-content-between">
+                <a
+                  class="text-decoration-none"
+                  href="javascript:history.back()"
+                >
+                  <div class="w-20 mt-5 goBackICon">
+                    <i
+                      class="fa-solid fa-3x text-white fa-circle-arrow-left fs-1"
+                    ></i>
+                    <p
+                      class="fw-bold text-white text-center"
+                      style="font-size: 12px"
+                    >
+                      Go Back
+                    </p>
+                  </div>
+                </a>
+                <div class="w-70 coursesText" style="width: 90%">
+                  <div>
+                    <p class="fs-2 text-white fw-bold">
+                      <%= college.name %> <%= college.shortName %> <br />
+                      <%= college.city.cityName %>, <%= college.state.stateName
+                      %>
+                    </p>
+                    <p class="text-white fs-4 text-md-white text-black">
+                      <% courseNames.forEach(function(course, index) { %> <%=
+                      course %> <% if (index < courseNames.length - 1) { %> | <%
+                      } %> <% }); %>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -57,119 +75,159 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Selection section -->
-    <div class="position-sticky bg-light" id="second-navbar">
-      <div class="d-lg-flex d-none justify-content-center align-items-center border border-1 shadow-sm">
-        <button class="btn rounded-0 shadow-none border-end border-1 active"
-          onclick="scrollToSection(this, 'about_college'); document.getElementById('college_gallery').style.display='none'; document.getElementById('about_college').style.display='block';">
-          <i class="fa-solid fa-building-columns me-2"></i> About College
-        </button>
-        <button class="btn rounded-0 shadow-none"
-          onclick="scrollToSection(this, 'college_gallery'); document.getElementById('about_college').style.display='none'; document.getElementById('college_gallery').style.display='block';">
-          <i class="fa-regular fa-images"></i> College gallery
-        </button>
-        <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'courses_fees')">
-          <i class="fa-solid fa-indian-rupee-sign me-2"></i> College fee
-        </button>
-        <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'testimonials')">
-          <i class="fa-solid fa-user-group me-2"></i> Testimonials
-        </button>
-        <button class="btn rounded-0 shadow-none border-end border-1" onclick="scrollToSection(this, 'alumnus')">
-          <i class="fa-solid fa-user-graduate me-2"></i> Alumnus
-        </button>
-        <button class="btn rounded-0 shadow-none" onclick="scrollToSection(this, 'choose_college')">
-          <i class="fa-solid fa-check me-1"></i> Check eligibility
-        </button>
-      </div>
+  <!-- Selection section -->
+  <div class="position-sticky bg-light" id="second-navbar">
+    <div
+      class="d-lg-flex d-none justify-content-center align-items-center border border-1 shadow-sm"
+    >
+      <button
+        class="btn rounded-0 shadow-none border-end border-1 active"
+        onclick="scrollToSection(this, 'about_college'); document.getElementById('college_gallery').style.display='none'; document.getElementById('about_college').style.display='block';"
+      >
+        <i class="fa-solid fa-building-columns me-2"></i> About College
+      </button>
+      <button
+        class="btn rounded-0 shadow-none"
+        onclick="scrollToSection(this, 'college_gallery'); document.getElementById('about_college').style.display='none'; document.getElementById('college_gallery').style.display='block';"
+      >
+        <i class="fa-regular fa-images"></i> College gallery
+      </button>
+      <button
+        class="btn rounded-0 shadow-none border-end border-1"
+        onclick="scrollToSection(this, 'courses_fees')"
+      >
+        <i class="fa-solid fa-indian-rupee-sign me-2"></i> College fee
+      </button>
+      <button
+        class="btn rounded-0 shadow-none border-end border-1"
+        onclick="scrollToSection(this, 'testimonials')"
+      >
+        <i class="fa-solid fa-user-group me-2"></i> Testimonials
+      </button>
+      <button
+        class="btn rounded-0 shadow-none border-end border-1"
+        onclick="scrollToSection(this, 'alumnus')"
+      >
+        <i class="fa-solid fa-user-graduate me-2"></i> Alumnus
+      </button>
+      <button
+        class="btn rounded-0 shadow-none"
+        onclick="scrollToSection(this, 'choose_college')"
+      >
+        <i class="fa-solid fa-check me-1"></i> Check eligibility
+      </button>
     </div>
-    <script>
-      function scrollToSection(button, id) {
-        // remove active class from all buttons
-        let buttons = document.querySelectorAll(".btn");
-        for (let i = 0; i < buttons.length; i++) {
-          buttons[i].classList.remove("active");
-        }
-
-        // add active class to clicked button
-        button.classList.add("active");
-
-        // scroll to section
-        let section = document.getElementById(id);
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
+  </div>
+  <script>
+    function scrollToSection(button, id) {
+      // remove active class from all buttons
+      let buttons = document.querySelectorAll(".btn");
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("active");
       }
-    </script>
 
-    <!-- about us blog section -->
-    <div class="container my-5">
-      <div class="row">
-        <div class="col-lg-8" id="about_college">
-          <div class="d-flex justify-content-center align-items-center">
-            <p class="fs-3 fw-bold">About the college</p>
-          </div>
-          <div class="border border-1 p-3 mt-2" style="
+      // add active class to clicked button
+      button.classList.add("active");
+
+      // scroll to section
+      let section = document.getElementById(id);
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  </script>
+
+  <!-- about us blog section -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-8" id="about_college">
+        <div class="d-flex justify-content-center align-items-center">
+          <p class="fs-3 fw-bold">About the college</p>
+        </div>
+        <div
+          class="border border-1 p-3 mt-2"
+          style="
             text-align: justify;
             height: 500px;
             overflow-y: scroll;
             overflow-x: hidden;
-          ">
-            <p><%- college.description %></p>
-          </div>
+          "
+        >
+          <p><%- college.description %></p>
         </div>
-        <!-- College Gallery -->
-        <div class="col-lg-8" style="display: none" id="college_gallery">
-          <div class="d-flex justify-content-center align-items-center">
-            <p class="fs-3 fw-bold">College Gallery</p>
-          </div>
-          <div class="container border border-1 mt-2" style="
+      </div>
+      <!-- College Gallery -->
+      <div class="col-lg-8" style="display: none" id="college_gallery">
+        <div class="d-flex justify-content-center align-items-center">
+          <p class="fs-3 fw-bold">College Gallery</p>
+        </div>
+        <div
+          class="container border border-1 mt-2"
+          style="
             text-align: justify;
             height: 500px;
             overflow-y: scroll;
             overflow-x: hidden;
-          ">
-            <div class="row gy-4 my-4 my-md-0">
-              <% gallery.forEach((image, index)=> { %>
-                <div class="col-12 col-md-<%= index % 2 === 0 ? '5' : '7' %>">
-                  <div style="height: 168px">
-                    <img src="<%= process.env.APP_URL %><%= image.image %>" class="card-img-top w-100 h-100"
-                      alt="Gallery image <%= index + 1 %>" />
-                  </div>
-                </div>
-                <% }); %>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 asideBlog d-none d-md-block">
-          <a data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="cursor: pointer"
-            class="btn text-white">Check Eligibility</a>
-          <div class="border border-2 mt-3" style="height: 500px; overflow-y: scroll; overflow-x: hidden">
-            <h2 class="fs-3 text-center p-3">
-              Similar Colleges in the same City
-            </h2>
-            <% filteredColleges.forEach((col)=> { %>
-              <div class="row mb-3">
-                <div class="col-4" style="text-align: center">
-                  <img src="<%= process.env.APP_URL %><%= col.clgLogo %>" alt="img" height="50px" width="60px" />
-                </div>
-                <div class="col-8">
-                  <p>
-                    <%= col.name %>, <%= col.city.cityName %>
-                  </p>
-                  <!-- <p class="smallText">Fee: <%= //courseNames %> Per annum</p> -->
-                </div>
+          "
+        >
+          <div class="row gy-4 my-4 my-md-0">
+            <% gallery.forEach((image, index)=> { %>
+            <div class="col-12 col-md-<%= index % 2 === 0 ? '5' : '7' %>">
+              <div style="height: 168px">
+                <img
+                  src="<%= process.env.APP_URL %><%= image.image %>"
+                  class="card-img-top w-100 h-100"
+                  alt="Gallery image <%= index + 1 %>"
+                />
               </div>
-              <% }) %>
+            </div>
+            <% }); %>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Fee Structure -->
-    <!-- <div class="py-5 p-2 p-md-5" id="fee_structure">
+      <div class="col-lg-4 asideBlog d-none d-md-block">
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"
+          style="cursor: pointer"
+          class="btn text-white"
+          >Check Eligibility</a
+        >
+        <div
+          class="border border-2 mt-3"
+          style="height: 500px; overflow-y: scroll; overflow-x: hidden"
+        >
+          <h2 class="fs-3 text-center p-3">
+            Similar Colleges in the same City
+          </h2>
+          <% filteredColleges.forEach((col)=> { %>
+          <div class="row mb-3">
+            <div class="col-4" style="text-align: center">
+              <img
+                src="<%= process.env.APP_URL %><%= col.clgLogo %>"
+                alt="img"
+                height="50px"
+                width="60px"
+              />
+            </div>
+            <div class="col-8">
+              <p><%= col.name %>, <%= col.city.cityName %></p>
+              <!-- <p class="smallText">Fee: <%= //courseNames %> Per annum</p> -->
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fee Structure -->
+  <!-- <div class="py-5 p-2 p-md-5" id="fee_structure">
       <h3 class="fw-bold">Fee Structure</h3>
       <div class="table-responsive">
         <table class="table table-hover table-striped">
@@ -222,283 +280,311 @@
       </div>
     </div> -->
 
-    <!-- Testimonials -->
-    <div class="container gtco-testimonials" style="color: #002f26" id="testimonials">
-      <h1 class="fw-bold text-center text-decoration-underline" style="margin-bottom: -10px">
-        Testimonials
-      </h1>
-      <div class="owl-carousel owl-carousel1 owl-theme">
-        <% testimonials.forEach(function(testimonial) { %>
-          <div>
-            <div class="card text-center">
-              <img class="card-img-top" src="<%=process.env.APP_URL%><%= testimonial.profileImage %>" alt="" />
-              <div class="card-body">
-                <h5 style="color: #002f26">
-                  <%= testimonial.name %><br />
-                    <span>
-                      <%= testimonial.designation %>
-                    </span>
-                </h5>
-                <p class="card-text">
-                  <%= testimonial.message %>
-                </p>
-              </div>
-            </div>
+  <!-- Testimonials -->
+  <div
+    class="container gtco-testimonials"
+    style="color: #002f26"
+    id="testimonials"
+  >
+    <h1
+      class="fw-bold text-center text-decoration-underline"
+      style="margin-bottom: -10px"
+    >
+      Testimonials
+    </h1>
+    <div class="owl-carousel owl-carousel1 owl-theme">
+      <% testimonials.forEach(function(testimonial) { %>
+      <div>
+        <div class="card text-center">
+          <img
+            class="card-img-top"
+            src="<%=process.env.APP_URL%><%= testimonial.profileImage %>"
+            alt=""
+          />
+          <div class="card-body">
+            <h5 style="color: #002f26">
+              <%= testimonial.name %><br />
+              <span> <%= testimonial.designation %> </span>
+            </h5>
+            <p class="card-text"><%= testimonial.message %></p>
           </div>
-          <% }); %>
+        </div>
       </div>
+      <% }); %>
     </div>
-    <script>
-      (function () {
-        "use strict";
+  </div>
+  <script>
+    (function () {
+      "use strict";
 
-        var carousels = function () {
-          $(".owl-carousel1").owlCarousel({
-            loop: true,
-            center: true,
-            margin: 0,
-            responsiveClass: true,
-            nav: false,
-            responsive: {
-              0: {
-                items: 1,
-                nav: false,
-              },
-              680: {
-                items: 2,
-                nav: false,
-                loop: false,
-              },
-              1000: {
-                items: 3,
-                nav: true,
-              },
+      var carousels = function () {
+        $(".owl-carousel1").owlCarousel({
+          loop: true,
+          center: true,
+          margin: 0,
+          responsiveClass: true,
+          nav: false,
+          responsive: {
+            0: {
+              items: 1,
+              nav: false,
             },
-          });
-        };
+            680: {
+              items: 2,
+              nav: false,
+              loop: false,
+            },
+            1000: {
+              items: 3,
+              nav: true,
+            },
+          },
+        });
+      };
 
-        (function ($) {
-          carousels();
-        })(jQuery);
-      })();
-    </script>
+      (function ($) {
+        carousels();
+      })(jQuery);
+    })();
+  </script>
 
-    <!-- Alumnus -->
-    <div class="py-5 p-2 p-md-5" id="alumnus">
-      <h3 class="fw-bold">Alumnus</h3>
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead>
-            <tr class="text-center">
-              <th scope="col" class="border border-1 text-white" style="background-color: #ff8900">
-                Full Name
-              </th>
-              <th scope="col" class="border border-1 text-white" style="background-color: #fda032">
-                Passing Year
-              </th>
-              <th scope="col" class="border border-1 text-white" style="background-color: #fda032">
-                Placement
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% alumni.forEach(function(alumnus) { %>
-              <tr class="text-center">
-                <td class="border border-1">
-                  <%= alumnus.name %>
-                </td>
-                <td class="border border-1">
-                  <%= alumnus.batch %>
-                </td>
-                <td class="border border-1">
-                  <%= alumnus.package %>
-                </td>
-              </tr>
-              <% }); %>
-          </tbody>
-        </table>
+  <!-- Alumnus -->
+  <div class="py-5 p-2 p-md-5" id="alumnus">
+    <h3 class="fw-bold">Alumnus</h3>
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr class="text-center">
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #ff8900"
+            >
+              Full Name
+            </th>
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #fda032"
+            >
+              Passing Year
+            </th>
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #fda032"
+            >
+              Placement
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% alumni.forEach(function(alumnus) { %>
+          <tr class="text-center">
+            <td class="border border-1"><%= alumnus.name %></td>
+            <td class="border border-1"><%= alumnus.batch %></td>
+            <td class="border border-1"><%= alumnus.package %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between">
+      <% if (currentPage> 1) { %>
+      <a href="?page=<%= currentPage - 1 %>" class="text-black">Previous</a>
+      <% } %> Page <%= currentPage %> of <%= totalPages %> <% if (currentPage <
+      totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>" class="text-black">Next</a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Check Eligibility -->
+  <div
+    class="container-fluid p-5"
+    style="background-color: #f0fff7"
+    id="choose_college"
+  >
+    <h3>Check Eligibility</h3>
+    <div class="d-md-flex justify-content-between">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"
+          ><i class="fa-solid fa-user"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control m-0 shadow-none rounded-0"
+          placeholder="Full Name"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
       </div>
-      <div class="d-flex justify-content-between">
-        <% if (currentPage> 1) { %>
-          <a href="?page=<%= currentPage - 1 %>" class="text-black">Previous</a>
-          <% } %> Page <%= currentPage %> of <%= totalPages %>
-                <% if (currentPage < totalPages) { %>
-                  <a href="?page=<%= currentPage + 1 %>" class="text-black">Next</a>
-                  <% } %>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"
+          ><i class="fa-solid fa-graduation-cap"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control m-0 shadow-none rounded-0"
+          placeholder="Marks (in Percentage /C.G.P.A)"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
       </div>
     </div>
-
-     <!-- Check Eligibility -->
-    <div class="container-fluid p-5" style="background-color: #f0fff7" id="choose_college">
-      <h3>Check Eligibility</h3>
-      <div class="d-md-flex justify-content-between">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-          <input type="text" class="form-control m-0 shadow-none rounded-0" placeholder="Full Name"
-            aria-label="Username" aria-describedby="basic-addon1" />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-graduation-cap"></i></span>
-          <input type="text" class="form-control m-0 shadow-none rounded-0" placeholder="Marks (in Percentage /C.G.P.A)"
-            aria-label="Username" aria-describedby="basic-addon1" />
-        </div>
-      </div>
-      <div class="d-md-flex col-12 justify-content-evenly">
-        <h5 class="col-md-6 col-12">
-          YAY! You’re eligible according to your marks
-        </h5>
-        <button type="button" class="btn text-white btn-lg col-12 col-md-3" style="
+    <div class="d-md-flex col-12 justify-content-evenly">
+      <h5 class="col-md-6 col-12">
+        YAY! You’re eligible according to your marks
+      </h5>
+      <button
+        type="button"
+        class="btn text-white btn-lg col-12 col-md-3"
+        style="
           width: max-content;
           padding: 15px 115px;
           background-color: #002f26;
-        " onclick="document.getElementById('choose_college').scrollIntoView({ behavior: 'smooth',block:'center' });">
-          Check
-        </button>
-      </div>
-    </div>
-
-    <div class="text-center py-5 p-2 p-md-5" id="courses_fees">
-      <h1 class="fw-bold">Other Course Specialisation in same college</h1>
-      <h5>
-        Course Specialisation | <%= college.name %> [<%= college.shortName %>]-
-            <%= college.city.cityName %>, <%= college.state.stateName %>
-      </h5>
-      <div class="table-responsive mt-4">
-        <table class="table table-hover">
-          <thead>
-            <tr class="text-center">
-              <th scope="col" class="border border-1 text-white" style="background-color: #ff8900">
-                Course Name
-              </th>
-              <th scope="col" class="border border-1 text-white" style="background-color: #ff8900">
-                Course Specialisation
-              </th>
-              <th scope="col" class="border border-1 text-white" style="background-color: #ff8900">
-                Course Fee
-              </th>
-            </tr>
-          </thead>
-          <% courses.forEach(function(course) { %>
-            <tbody class="border-1">
-              <tr>
-                <td class="border-0">
-                  <%= course.parentCourse %>
-                </td>
-                <td class="border-0">
-                  <%= course.subCourse %>
-                </td>
-                <td class="border-0">Rs <%= course.fee %>
-                </td>
-              </tr>
-            </tbody>
-            <% }); %>
-        </table>
-      </div>
+        "
+        onclick="document.getElementById('choose_college').scrollIntoView({ behavior: 'smooth',block:'center' });"
+      >
+        Check
+      </button>
     </div>
   </div>
 
- 
-  <!-- FAQs -->
-  <style>
-    .accordion-item {
-      background: none;
-    }
+  <div class="text-center py-5 p-2 p-md-5" id="courses_fees">
+    <h1 class="fw-bold">Other Course Specialisation in same college</h1>
+    <h5>
+      Course Specialisation | <%= college.name %> [<%= college.shortName %>]-
+      <%= college.city.cityName %>, <%= college.state.stateName %>
+    </h5>
+    <div class="table-responsive mt-4">
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-center">
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #ff8900"
+            >
+              Course Name
+            </th>
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #ff8900"
+            >
+              Course Specialisation
+            </th>
+            <th
+              scope="col"
+              class="border border-1 text-white"
+              style="background-color: #ff8900"
+            >
+              Course Fee
+            </th>
+          </tr>
+        </thead>
+        <% courses.forEach(function(course) { %>
+        <tbody class="border-1">
+          <tr>
+            <td class="border-0"><%= course.parentCourse %></td>
+            <td class="border-0"><%= course.subCourse %></td>
+            <td class="border-0">Rs <%= course.fee %></td>
+          </tr>
+        </tbody>
+        <% }); %>
+      </table>
+    </div>
+  </div>
+</div>
 
-    .accordion {
-      --bs-accordion-active-bg: none;
-    }
+<!-- FAQs -->
+<style>
+  .accordion-item {
+    background: none;
+  }
 
-    .accordion-button:not(.collapsed) {
-      box-shadow: none;
-    }
+  .accordion {
+    --bs-accordion-active-bg: none;
+  }
 
-    .accordion-button {
-      background: none;
-    }
+  .accordion-button:not(.collapsed) {
+    box-shadow: none;
+  }
 
-    .accordion-body {
-      border-left: 3px solid #002f26;
-    }
+  .accordion-button {
+    background: none;
+  }
 
+  .accordion-body {
+    border-left: 3px solid #002f26;
+  }
+
+  .collapse1 {
+    transform: translateY(50%);
+  }
+
+  .collapse3 {
+    transform: translateY(-85%);
+  }
+
+  .accordion-button:focus {
+    border-color: none;
+    box-shadow: none;
+  }
+
+  .accordion-item {
+    height: 50px;
+  }
+
+  @media (max-width: 990px) {
     .collapse1 {
-      transform: translateY(50%);
+      transform: none;
     }
 
     .collapse3 {
-      transform: translateY(-85%);
-    }
-
-    .accordion-button:focus {
-      border-color: none;
-      box-shadow: none;
+      transform: none;
     }
 
     .accordion-item {
-      height: 50px;
+      height: auto;
     }
-
-    @media (max-width: 990px) {
-      .collapse1 {
-        transform: none;
-      }
-
-      .collapse3 {
-        transform: none;
-      }
-
-      .accordion-item {
-        height: auto;
-      }
-    }
-  </style>
-  <div class="container border border-1 p-4 rounded-top-5" style="background-color: #fafae5">
-    <h2 class="text-decoration-underline fw-bold" style="color: #002f26">FAQs</h2>
-    <div class="accordion" id="accordion-faqs">
-      <div class="accordion-item row border-0">
-        <h2 class="accordion-header col-lg-5" id="heading-1">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1"
-            aria-expanded="false" aria-controls="collapse-1">
-            What is the best colleges in india
-          </button>
-        </h2>
-        <div id="collapse-1" class="accordion-collapse collapse col-lg-7 collapse1 show" aria-labelledby="heading-1"
-          data-bs-parent="#accordion-faqs">
-          <div class="accordion-body">
-            The best college in India is xyzzy where you will get good campus
-            selection and the college faculties and also good with budget friendly
-            options.
-          </div>
-        </div>
+  }
+</style>
+<div
+  class="container border border-1 p-4 rounded-top-5"
+  style="background-color: #fafae5"
+>
+  <h2 class="text-decoration-underline fw-bold" style="color: #002f26">FAQs</h2>
+  <div class="accordion" id="accordion-faqs">
+    <% faqs.forEach((faq, index) => { %>
+    <div class="accordion-item row border-0">
+      <div
+        class="accordion-header col-lg-5 order-lg-1 order-2"
+        id="heading-<%= index + 1 %>"
+      >
+        <button
+          class="accordion-button <%= index === 0 ? '' : 'collapsed' %>"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapse-<%= index + 1 %>"
+          aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
+          aria-controls="collapse-<%= index + 1 %>"
+        >
+          <%= faq.question %>
+        </button>
       </div>
-      <div class="accordion-item row border-0">
-        <h2 class="accordion-header col-lg-5" id="heading-2">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-            What is the best colleges in india
-          </button>
-        </h2>
-        <div id="collapse-2" class="accordion-collapse collapse col-lg-7" aria-labelledby="heading-2"
-          data-bs-parent="#accordion-faqs">
-          <div class="accordion-body">No. Twilight is a work of fiction.</div>
-        </div>
-      </div>
-      <div class="accordion-item row border-0">
-        <h2 class="accordion-header col-lg-5" id="heading-3">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-            What is the best colleges in india
-          </button>
-        </h2>
-        <div id="collapse-3" class="accordion-collapse collapse col-lg-7 collapse3" aria-labelledby="heading-3"
-          data-bs-parent="#accordion-faqs">
-          <div class="accordion-body">
-            The best college in India is xyzzy where you will get good campus
-            selection and the college faculties and also good with budget friendly
-            options.
-          </div>
-        </div>
+      <div
+        id="collapse-<%= index + 1 %>"
+        class="accordion-collapse collapse <%= index === 0 ? 'show' : '' %> col-lg-7 order-lg-2 order-1"
+        aria-labelledby="heading-<%= index + 1 %>"
+        data-bs-parent="#accordion-faqs"
+      >
+        <div class="accordion-body"><%= faq.answer %></div>
       </div>
     </div>
+    <% }) %>
   </div>
+</div>
 
-  <%- include('foot') %>
+<%- include('foot') %>

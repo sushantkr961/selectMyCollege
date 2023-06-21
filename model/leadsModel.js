@@ -29,6 +29,6 @@ const leadSchema = mongoose.Schema(
   }
 );
 
-const Lead = mongoose.model("Lead", leadSchema);
+const Lead = mongoose.models.Lead || mongoose.model("Lead", leadSchema);
 
 module.exports = Lead;
