@@ -10,7 +10,7 @@ const collegeTestimonialView = async (req, res) => {
       collegeTestimonial.find({ collegeId }),
     ]);
     if (!college) {
-      req.session.message = { type: "error", text: "College not found" };
+      req.session.message = { type: "danger", message: "College not found" };
     }
     res.render("admin/addClgTestimonial", {
       college,
@@ -20,8 +20,8 @@ const collegeTestimonialView = async (req, res) => {
   } catch (error) {
     console.error("Error retrieving testimonials:", error);
     req.session.message = {
-      type: "error",
-      text: "Error retrieving testimonials",
+      type: "danger",
+      message: "Error retrieving testimonials",
     };
     res.render("admin/addClgTestimonial", {
       error: "Error retrieving testimonials",
@@ -87,7 +87,13 @@ const editCollegeTestimonialView = async (req, res) => {
       College.findById(collegeId),
     ]);
     if (!testimonial || !college) {
-      return res.status(404).send("Testimonial or College not found");
+      req.session.message = {
+        type: "danger",
+        message: "Testimonial or College not found",
+      };
+      return res.redirect(
+        `/admin/addColleges/next/testimonial?collegeId=${collegeId}`
+      );
     }
     res.render("admin/editClgTestimonial", {
       title: "Edit Testimonial",

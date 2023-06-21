@@ -30,27 +30,6 @@ const getAllCollegeFAQs = async (req, res) => {
   }
 };
 
-const createCollegeFAQView = async (req, res) => {
-  //   const { id, collegeId } = req.params;
-  //   try {
-  //     const [faqs, college] = await Promise.all([
-  //       FAQ.findById(id),
-  //       College.findById(collegeId),
-  //     ]);
-  //     if (!faqs || !college) {
-  //       return res.status(404).send("FAQs or College not found");
-  //     }
-  //     res.render("", {
-  //       title: "selectmycollege Admin",
-  //       faqs,
-  //       college,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-};
-
 // Create a new FAQ
 const createCollegeFAQ = async (req, res) => {
   const { collegeId } = req.query;
@@ -70,16 +49,22 @@ const createCollegeFAQ = async (req, res) => {
 };
 
 const updateCollegeFAQView = async (req, res) => {
-  const { id } = req.params;
+  const { id, collegeId } = req.params;
   try {
     const faq = await FAQ.findById(id);
+    const [faqs, college] = await Promise.all([
+      FAQ.findById(id),
+      College.findById(collegeId),
+    ]);
 
-    if (!faq) {
+    if (!faq || !college) {
       req.session.message = {
         type: "danger",
-        message: "faq not found",
+        message: "FAQ or College not found",
       };
-      return res.redirect("/faqs");
+      return res.redirect(
+        `/admin/addColleges/next/FAQs?collegeId=${collegeId}`
+      );
     }
     res.render("admin/editWebFAQs", {
       title: "Edit faq",
@@ -91,13 +76,13 @@ const updateCollegeFAQView = async (req, res) => {
       type: "danger",
       message: "Internal Server Error",
     };
-    res.redirect("/faqs");
+    res.redirect(`/admin/addColleges/next/FAQs?collegeId=${collegeId}`);
   }
 };
 
 // Update a FAQ by ID
 const updateCollegeFAQ = async (req, res) => {
-  const { id } = req.params;
+  const { id, collegeId } = req.params;
   const { question, answer } = req.body;
   try {
     const updatedFAQ = await FAQ.findByIdAndUpdate(
@@ -107,18 +92,18 @@ const updateCollegeFAQ = async (req, res) => {
     );
     if (!updatedFAQ) {
       req.session.message = { type: "danger", message: "FAQ not found" };
-      res.redirect("/faqs");
+      res.redirect(`/admin/addColleges/next/FAQs?collegeId=${collegeId}`);
     } else {
       req.session.message = {
         type: "success",
         message: "FAQ updated successfully",
       };
-      res.redirect("/faqs");
+      res.redirect(`/admin/addColleges/next/FAQs?collegeId=${collegeId}`);
     }
   } catch (error) {
     console.error("Failed to update FAQ:", error);
     req.session.message = { type: "danger", message: "Failed to update FAQ" };
-    res.redirect("/faqs");
+    res.redirect(`/admin/addColleges/next/FAQs?collegeId=${collegeId}`);
   }
 };
 
@@ -146,7 +131,6 @@ const deleteCollegeFAQ = async (req, res) => {
 
 module.exports = {
   getAllCollegeFAQs,
-  createCollegeFAQView,
   createCollegeFAQ,
   updateCollegeFAQView,
   updateCollegeFAQ,

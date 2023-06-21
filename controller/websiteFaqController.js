@@ -13,7 +13,7 @@ const getAllFAQs = async (req, res) => {
   } catch (error) {
     console.error("Failed to fetch FAQs:", error);
     req.session.message = { type: "danger", message: "Failed to fetch FAQs" };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   }
 };
 
@@ -32,11 +32,11 @@ const createFAQ = async (req, res) => {
       type: "success",
       message: "FAQ created successfully",
     };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   } catch (error) {
     console.error("Failed to create FAQ:", error);
     req.session.message = { type: "danger", message: "Failed to create FAQ" };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   }
 };
 
@@ -50,7 +50,7 @@ const updateFAQView = async (req, res) => {
         type: "danger",
         message: "faq not found",
       };
-      return res.redirect("/faqs");
+      return res.redirect("/admin/allFaqs");
     }
     res.render("admin/editWebFAQs", {
       title: "Edit faq",
@@ -62,7 +62,7 @@ const updateFAQView = async (req, res) => {
       type: "danger",
       message: "Internal Server Error",
     };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   }
 };
 
@@ -78,18 +78,18 @@ const updateFAQ = async (req, res) => {
     );
     if (!updatedFAQ) {
       req.session.message = { type: "danger", message: "FAQ not found" };
-      res.redirect("/faqs");
+      res.redirect("/admin/allFaqs");
     } else {
       req.session.message = {
         type: "success",
         message: "FAQ updated successfully",
       };
-      res.redirect("/faqs");
+      res.redirect("/admin/allFaqs");
     }
   } catch (error) {
     console.error("Failed to update FAQ:", error);
     req.session.message = { type: "danger", message: "Failed to update FAQ" };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   }
 };
 
@@ -100,18 +100,18 @@ const deleteFAQ = async (req, res) => {
     const deletedFAQ = await FAQ.findByIdAndDelete(id);
     if (!deletedFAQ) {
       req.session.message = { type: "danger", message: "FAQ not found" };
-      res.redirect("/faqs");
+      res.redirect("/admin/allFaqs");
     } else {
       req.session.message = {
         type: "success",
         message: "FAQ deleted successfully",
       };
-      res.redirect("/faqs");
+      res.redirect("/admin/allFaqs");
     }
   } catch (error) {
     console.error("Failed to delete FAQ:", error);
     req.session.message = { type: "danger", message: "Failed to delete FAQ" };
-    res.redirect("/faqs");
+    res.redirect("/admin/allFaqs");
   }
 };
 

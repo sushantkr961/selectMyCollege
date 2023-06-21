@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controller/websiteFaqController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.get("/faqs", controller.getAllFAQs);
+router.get("/admin/allFaqs", authMiddleware, controller.getAllFAQs);
 
 router
   .route("/admin/faqs")
