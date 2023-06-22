@@ -281,31 +281,31 @@
                 <div class="d-flex justify-content-evenly flex-wrap">
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="feeStructure" value="2LPA" class="d-none" />
+                      <input type="radio" name="fees" value="2LPA" class="d-none" />
                       <span>&lt;2LPA</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="feeStructure" value="5LPA" class="d-none" />
+                      <input type="radio" name="fees" value="5LPA" class="d-none" />
                       <span>5LPA</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="feeStructure" value="7LPA" class="d-none" />
+                      <input type="radio" name="fees" value="7LPA" class="d-none" />
                       <span>7LPA</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="feeStructure" value="9LPA" class="d-none" />
+                      <input type="radio" name="fees" value="9LPA" class="d-none" />
                       <span>9LPA</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="feeStructure" value="10LPA" class="d-none" />
+                      <input type="radio" name="fees" value="10LPA" class="d-none" />
                       <span>&gt;10LPA</span>
                     </label>
                   </span>
@@ -319,31 +319,31 @@
                 <div class="d-flex justify-content-evenly flex-wrap">
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <input type="radio" name="marks" value=">50%" class="d-none" />
                       <span>&lt;50%</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <input type="radio" name="marks" value=">50%" class="d-none" />
                       <span>50%-60%</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <input type="radio" name="marks" value=">50%" class="d-none" />
                       <span>60%-70%</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <input type="radio" name="marks" value=">50%" class="d-none" />
                       <span>70%-80%</span>
                     </label>
                   </span>
                   <span class="border text-center" style="width: 100px">
                     <label class="d-block w-100 h-100 m-0 label">
-                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <input type="radio" name="marks" value=">50%" class="d-none" />
                       <span>&gt;80%</span>
                     </label>
                   </span>
@@ -355,11 +355,11 @@
                   <p class="text-start text-md-center w-75 fw-bold">
                     Filter by Courses
                   </p>
-                  <input list="courseNames" name="courseNames" class="text-center w-75 Compare-filter"
+                  <input list="courseNames" name="courseName" class="text-center w-75 Compare-filter"
                     placeholder="Choose a course" />
                   <datalist id="courseNames">
                     <option value="None">
-                      <% courses.forEach(function(course){ %>
+                      <% filtercourses.forEach(function(course){ %>
                     </option>
                     <option value="<%= course %>">
                       <% }); %>
@@ -370,11 +370,11 @@
                   <p class="text-start text-md-center w-75 fw-bold">
                     Filter by Location
                   </p>
-                  <input list="cityNames" name="cityNames" class="text-center w-75 Compare-filter"
+                  <input list="cityNames" name="city" class="text-center w-75 Compare-filter"
                     placeholder="Choose a city" />
                   <datalist id="cityNames">
                     <option value="None">
-                      <% cities.forEach(function(city){ %>
+                      <% filtercities.forEach(function(city){ %>
                     </option>
 
                     <option value="<%= city %>">

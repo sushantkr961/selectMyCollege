@@ -37,18 +37,19 @@ const adminRoute = async (req, res) => {
 };
 
 const topclgPage = async (req, res) => {
-  const clickedCity = req.query.city;
-  const feeStructure = req.query.feeStructure;
-  const marksPercentage = req.query.marksPercentage;
-  const courseName = req.query.course;
-  const searchQuery = req.query.search || "";
+  const clickedCity = req.query.city || 0;
+  const feeStructure = req.query.feeStructure || 0;
+  const marksPercentage = req.query.marksPercentage || 0;
+  const courseName = req.query.course || 0;
+  const searchQuery = req.query.search || 0;
   const page = parseInt(req.query.page) || 1;
   const pageSize = 10;
+
   const banners = await Banner.find();
-  const cities = (await City.find().select("cityName")).map(
+  const filtercities = (await City.find().select("cityName")).map(
     (city) => city.cityName
   );
-  const courses = (await Course.find().select("name")).map(
+  const filtercourses = (await Course.find().select("name")).map(
     (course) => course.name
   );
   try {
@@ -58,15 +59,12 @@ const topclgPage = async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
     const cityId = city._id;
-
     const totalColleges = await College.find({ city: cityId }).countDocuments();
     const totalPages = Math.ceil(totalColleges / pageSize);
     const skip = (page - 1) * pageSize;
-
     const filteredColleges = await College.find({
       city: cityId,
       feeStructure: feeStructure,
-      marksPercentage: marksPercentage,
       courses: courseName,
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },
@@ -116,8 +114,8 @@ const topclgPage = async (req, res) => {
       totalPages,
       pageSize,
       banners,
-      cities,
-      courses,
+      filtercities,
+      filtercourses,
     });
   } catch (error) {
     console.error("Error fetching colleges:", error);
