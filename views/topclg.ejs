@@ -272,150 +272,131 @@
             </div>
           </div>
           <!-- fillter box start-->
-          <div class="border fillterBox shadow-lg rounded p-3 collapse position-absolute" id="fillter">
-            <span data-bs-toggle="collapse" data-bs-target="#fillter" aria-expanded="false" aria-controls="fillter"><i
-                class="fa-solid fa-xmark d-flex justify-content-end" style="cursor: pointer"></i></span>
-            <!-- <div class="my-3 w-100">
-            <p class="fw-bold text-start text-md-center">Fee Structure</p>
-            <div class="row gy-1 gx-1 m-auto">
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">1Lpa-2Lpa</p>
-              </span>
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">1Lpa-2Lpa</p>
-              </span>
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">1Lpa-2Lpa</p>
-              </span>
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">1Lpa-2Lpa</p>
-              </span>
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">1Lpa-2Lpa</p>
-              </span>
-              <span class="col-6 col-md-4 p-0">
-                <p class="border m-1 text-center">7Lpa</p>
-              </span>
-            </div>
-          </div> -->
-            <div class="my-3 w-100">
-              <p class="fw-bold text-start text-md-center">Fee Structure</p>
-              <div class="row gy-1 gx-1 m-auto">
-                <span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label>
-                </span>
-                <span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label> </span><span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label> </span><span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label> </span><span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label> </span><span class="col-6 col-md-4 p-0">
-                  <label class="border m-1 text-center d-block label">
-                    <input type="radio" name="feeStructure" value="1Lpa-2Lpa" class="d-none" />
-                    <span>1Lpa-2Lpa</span>
-                  </label>
-                </span>
+          <form>
+            <div class="border fillterBox shadow-lg rounded p-3 collapse position-absolute" id="fillter">
+              <span data-bs-toggle="collapse" data-bs-target="#fillter" aria-expanded="false" aria-controls="fillter"><i
+                  class="fa-solid fa-xmark d-flex justify-content-end" style="cursor: pointer"></i></span>
+              <div class="my-3 w-100">
+                <p class="fw-bold text-start text-md-center">Fee Structure</p>
+                <div class="d-flex justify-content-evenly flex-wrap">
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="feeStructure" value="2LPA" class="d-none" />
+                      <span>&lt;2LPA</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="feeStructure" value="5LPA" class="d-none" />
+                      <span>5LPA</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="feeStructure" value="7LPA" class="d-none" />
+                      <span>7LPA</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="feeStructure" value="9LPA" class="d-none" />
+                      <span>9LPA</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="feeStructure" value="10LPA" class="d-none" />
+                      <span>&gt;10LPA</span>
+                    </label>
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div class="my-3">
-              <p class="fw-bold text-start text-md-center m-1">
-                Precentage of Marks
-              </p>
-              <div class="d-flex justify-content-evenly flex-wrap">
-                <span class="border text-center" style="width: 100px">
-                  <label class="d-block w-100 h-100 m-0 label">
-                    <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
-                    <span>&lt;50%</span>
-                  </label>
-                </span>
-                <span class="border text-center" style="width: 100px">
-                  <label class="d-block w-100 h-100 m-0 label">
-                    <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
-                    <span>50%-60%</span>
-                  </label>
-                </span>
-                <span class="border text-center" style="width: 100px">
-                  <label class="d-block w-100 h-100 m-0 label">
-                    <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
-                    <span>60%-70%</span>
-                  </label>
-                </span>
-                <span class="border text-center" style="width: 100px">
-                  <label class="d-block w-100 h-100 m-0 label">
-                    <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
-                    <span>70%-80%</span>
-                  </label>
-                </span>
-                <span class="border text-center" style="width: 100px">
-                  <label class="d-block w-100 h-100 m-0 label">
-                    <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
-                    <span>&gt;80%</span>
-                  </label>
-                </span>
-              </div>
-            </div>
-
-            <div class="d-flex my-3 justify-content-between flex-wrap">
-              <div class="d-flex flex-column align-items-center filterDiv my-3">
-                <p class="text-start text-md-center w-75 fw-bold">
-                  Filter by Courses
+              <div class="my-3">
+                <p class="fw-bold text-start text-md-center m-1">
+                  Precentage of Marks
                 </p>
-                <input list="courseNames" class="text-center w-75 Compare-filter" placeholder="Choose a course"
-                  onchange="window.location.href='?course='+this.value" />
-                <datalist id="courseNames">
-                  <option value="None">
-                    <% courses.forEach(function(course){ %>
-                  </option>
-                  <option value="<%= course %>">
-                    <% }); %>
-                  </option>
-                </datalist>
+                <div class="d-flex justify-content-evenly flex-wrap">
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <span>&lt;50%</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <span>50%-60%</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <span>60%-70%</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <span>70%-80%</span>
+                    </label>
+                  </span>
+                  <span class="border text-center" style="width: 100px">
+                    <label class="d-block w-100 h-100 m-0 label">
+                      <input type="radio" name="marksPercentage" value=">50%" class="d-none" />
+                      <span>&gt;80%</span>
+                    </label>
+                  </span>
+                </div>
               </div>
-              <div class="d-flex flex-column align-items-center filterDiv my-3">
-                <p class="text-start text-md-center w-75 fw-bold">
-                  Filter by Location
-                </p>
-                <input list="cityNames" class="text-center w-75 Compare-filter" placeholder="Choose a city" />
-                <datalist id="cityNames">
-                  <option value="None">
-                    <% cities.forEach(function(city){ %>
-                  </option>
 
-                  <option value="<%= city %>">
-                    <% }); %>
-                  </option>
-                </datalist>
+              <div class="d-flex my-3 justify-content-between flex-wrap">
+                <div class="d-flex flex-column align-items-center filterDiv my-3">
+                  <p class="text-start text-md-center w-75 fw-bold">
+                    Filter by Courses
+                  </p>
+                  <input list="courseNames" name="courseNames" class="text-center w-75 Compare-filter"
+                    placeholder="Choose a course" />
+                  <datalist id="courseNames">
+                    <option value="None">
+                      <% courses.forEach(function(course){ %>
+                    </option>
+                    <option value="<%= course %>">
+                      <% }); %>
+                    </option>
+                  </datalist>
+                </div>
+                <div class="d-flex flex-column align-items-center filterDiv my-3">
+                  <p class="text-start text-md-center w-75 fw-bold">
+                    Filter by Location
+                  </p>
+                  <input list="cityNames" name="cityNames" class="text-center w-75 Compare-filter"
+                    placeholder="Choose a city" />
+                  <datalist id="cityNames">
+                    <option value="None">
+                      <% cities.forEach(function(city){ %>
+                    </option>
+
+                    <option value="<%= city %>">
+                      <% }); %>
+                    </option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="d-flex my-3 justify-content-center align-items-center">
+                <div class="me-3">
+                  <button type="submit" class="btn py-2 px-3 mt-0 me-1 bg-light">
+                    Submit
+                  </button>
+                </div>
+                <div class="ms-1">
+                  <button type="reset" class="btn py-2 px-3 mt-0 ms-1 bg-light">
+                    Clear all filter
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="d-flex my-3 justify-content-center align-items-center">
-              <div class="me-3">
-                <button type="button" class="btn py-2 px-3 mt-0 me-1 bg-light">
-                  submit
-                </button>
-              </div>
-              <div class="ms-1">
-                <button class="btn py-2 px-3 mt-0 ms-1 bg-light">
-                  Clear all filter
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- fillter box end -->
+          </form>
         </div>
         <!-- fillter div end -->
       </div>
