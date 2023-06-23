@@ -28,7 +28,7 @@ const collegeTestimonialSchema = new mongoose.Schema(
 );
 
 const collegeTestimonial = mongoose.model(
-  "Testimonial",
+  "College_Testimonial",
   collegeTestimonialSchema
 );
 

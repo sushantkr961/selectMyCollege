@@ -42,9 +42,9 @@ const topclgPage = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const pageSize = 10;
 
-  const AllFee = await Fee.find().populate("collegeId").populate("courseId");
+  // const AllFee = await Fee.find().populate("collegeId").populate("courseId");
   // console.log(AllFee);
-  res.json(AllFee)
+  // res.json(AllFee)
 
   const banners = await Banner.find();
   const cities = (await City.find().select("cityName")).map(
