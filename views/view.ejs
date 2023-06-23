@@ -281,6 +281,11 @@
     </div> -->
 
   <!-- Testimonials -->
+  <style>
+    .testMes::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
   <div
     class="container gtco-testimonials"
     style="color: #002f26"
@@ -306,7 +311,9 @@
               <%= testimonial.name %><br />
               <span> <%= testimonial.designation %> </span>
             </h5>
-            <p class="card-text"><%= testimonial.message %></p>
+            <p class="card-text testMes" style="height: 200px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none;">
+              <%= testimonial.message %>
+            </p>
           </div>
         </div>
       </div>

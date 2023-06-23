@@ -375,7 +375,7 @@ const createImageGallery = async (req, res) => {
         const actualRatio = dimensions.width / dimensions.height;
         if (actualRatio.toFixed(2) != targetRatio.toFixed(2)) {
           // Delete the uploaded file
-          fs.unlinkSync(file.path);
+          files.forEach((file) => fs.unlinkSync(file.path));
           req.session.message = {
             type: "danger",
             message:

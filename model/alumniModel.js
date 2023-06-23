@@ -19,6 +19,9 @@ const alumniSchema = mongoose.Schema(
       ref: "College",
       required: true,
     },
+    avgPackage: {
+      type: String,
+    },
   },
   {
     timestamps: true,
