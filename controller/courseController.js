@@ -54,6 +54,7 @@ const createCourse = async (req, res) => {
     addSubCourse,
     duration,
     fee,
+    eligibility,
   } = req.body;
   const collegeId = req.query.collegeId;
   // console.log(req.body);
@@ -68,6 +69,7 @@ const createCourse = async (req, res) => {
         const subcourse = await Course.create({
           name: addSubCourse,
           duration,
+          eligibility,
           percouid: mcourseId,
         });
         courseId = subcourse._id;
@@ -75,6 +77,7 @@ const createCourse = async (req, res) => {
         const course = await Course.create({
           name: addCourse,
           duration,
+          eligibility,
         });
         courseId = course._id;
       }
@@ -83,6 +86,7 @@ const createCourse = async (req, res) => {
         const course = await Course.create({
           name: addSubCourse,
           duration,
+          eligibility,
           percouid: courseSelect,
         });
         courseId = course._id;

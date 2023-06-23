@@ -12,7 +12,10 @@ const courseSchema = mongoose.Schema(
     percouid: {
       type: String,
       default: 0,
-    }
+    },
+    eligibility: {
+      type: String,
+    },
   },
   {
     timestamps: true,
