@@ -1,4 +1,4 @@
-const Banner = require("../model/websiteBannerModel");
+const Banner = require("../model/bannerModel");
 const imageSize = require("image-size");
 const fs = require("fs");
 

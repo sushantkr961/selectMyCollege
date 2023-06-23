@@ -13,7 +13,7 @@ const Blog = require("../model/blogModel");
 const websiteTestimonial = require("../model/websiteTestimonialModel");
 const FAQ = require("../model/websiteFaqModel");
 const clgFAQ = require("../model/collegeFaqModel");
-const Banner = require("../model/websiteBannerModel");
+const Banner = require("../model/bannerModel");
 
 // index page
 const homePage = async (req, res) => {
@@ -37,19 +37,20 @@ const adminRoute = async (req, res) => {
 };
 
 const topclgPage = async (req, res) => {
-  const clickedCity = req.query.city || 0;
-  const feeStructure = req.query.feeStructure || 0;
-  const marksPercentage = req.query.marksPercentage || 0;
-  const courseName = req.query.course || 0;
-  const searchQuery = req.query.search || 0;
+  const clickedCity = req.query.city || "";
+  const searchQuery = req.query.q || "";
   const page = parseInt(req.query.page) || 1;
   const pageSize = 10;
 
+  const AllFee = await Fee.find().populate("collegeId").populate("courseId");
+  // console.log(AllFee);
+  res.json(AllFee)
+
   const banners = await Banner.find();
-  const filtercities = (await City.find().select("cityName")).map(
+  const cities = (await City.find().select("cityName")).map(
     (city) => city.cityName
   );
-  const filtercourses = (await Course.find().select("name")).map(
+  const courses = (await Course.find().select("name")).map(
     (course) => course.name
   );
   try {
@@ -59,13 +60,13 @@ const topclgPage = async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
     const cityId = city._id;
+
     const totalColleges = await College.find({ city: cityId }).countDocuments();
     const totalPages = Math.ceil(totalColleges / pageSize);
     const skip = (page - 1) * pageSize;
+
     const filteredColleges = await College.find({
       city: cityId,
-      feeStructure: feeStructure,
-      courses: courseName,
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },
         { shortName: { $regex: searchQuery, $options: "i" } },
@@ -114,8 +115,8 @@ const topclgPage = async (req, res) => {
       totalPages,
       pageSize,
       banners,
-      filtercities,
-      filtercourses,
+      cities,
+      courses,
     });
   } catch (error) {
     console.error("Error fetching colleges:", error);
@@ -460,7 +461,7 @@ const getAllColleges = async (req, res) => {
       type: "danger",
       message: "Error getting colleges",
     };
-    return res.redirect("/allColleges");
+    return res.redirect("/admin/allColleges");
   }
 };
 
@@ -573,7 +574,7 @@ const updateCollege = async (req, res) => {
       type: "success",
       message: "College updated successfully!",
     };
-    res.redirect("/allColleges");
+    res.redirect("/admin/allColleges");
     // res.status(200).json({ message: "College updated successfully", college });
   } catch (error) {
     console.error("Error updating college:", error);
@@ -603,14 +604,14 @@ const deleteCollege = async (req, res) => {
       type: "success",
       message: "College Deleted Successfully!",
     };
-    res.redirect("/allColleges");
+    res.redirect("/admin/allColleges");
   } catch (error) {
     console.error("Error deleting college:", error);
     req.session.message = {
       type: "danger",
       message: "Error deleting college",
     };
-    res.redirect("/allColleges");
+    res.redirect("/admin/allColleges");
     // res.status(500).json({ error: "Error deleting college" });
   }
 };

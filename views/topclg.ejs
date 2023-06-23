@@ -355,11 +355,11 @@
                   <p class="text-start text-md-center w-75 fw-bold">
                     Filter by Courses
                   </p>
-                  <input list="courseNames" name="courseName" class="text-center w-75 Compare-filter"
+                  <input list="courseNames" name="course" class="text-center w-75 Compare-filter"
                     placeholder="Choose a course" />
                   <datalist id="courseNames">
                     <option value="None">
-                      <% filtercourses.forEach(function(course){ %>
+                      <% courses.forEach(function(course){ %>
                     </option>
                     <option value="<%= course %>">
                       <% }); %>
@@ -374,7 +374,7 @@
                     placeholder="Choose a city" />
                   <datalist id="cityNames">
                     <option value="None">
-                      <% filtercities.forEach(function(city){ %>
+                      <% cities.forEach(function(city){ %>
                     </option>
 
                     <option value="<%= city %>">
@@ -416,7 +416,7 @@
       // SEARCH FUNCTIONALITY
       function searchColleges() {
         const searchQuery = document.getElementById("searchInput").value;
-        window.location.href = `/topclg?city=<%= city %>&search=${searchQuery}`;
+        window.location.href = `/topclg?city=<%= city %>&q=${searchQuery}`;
       }
     </script>
 
