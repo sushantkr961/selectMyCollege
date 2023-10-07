@@ -370,16 +370,18 @@ const createImageGallery = async (req, res) => {
         const file = files[i];
         const dimensions = imageSize(file.path);
 
-        // Check if the aspect ratio is 3:1
-        const targetRatio = 3.0; // 3:1 ratio
+        // Check if the aspect ratio is 3:2
+        const targetRatio = 1.5; // 3:2 ratio
         const actualRatio = dimensions.width / dimensions.height;
+        console.log(`Image ${i} aspect ratio:`, actualRatio.toFixed(2)); // Debugging print statement
+
         if (actualRatio.toFixed(2) != targetRatio.toFixed(2)) {
           // Delete the uploaded file
           files.forEach((file) => fs.unlinkSync(file.path));
           req.session.message = {
             type: "danger",
             message:
-              "Invalid image ratio. Please select an image with a ratio of 3:1.",
+              "Invalid image ratio. Please select an image with a ratio of 3:2.",
           };
           return res.redirect(
             `/admin/addColleges/next/gallery?collegeId=${collegeId}`
@@ -419,6 +421,71 @@ const createImageGallery = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+// const createImageGallery = async (req, res) => {
+//   const files = req.files;
+//   const { collegeId } = req.query;
+//   const { banners } = req.body;
+//   try {
+//     const college = await College.findById(collegeId);
+//     if (!college) {
+//       return res.status(404).send("College not found");
+//     }
+//     // Perform validation only if the checkbox is checked
+//     if (banners === "true") {
+//       for (let i = 0; i < files.length; i++) {
+//         const file = files[i];
+//         const dimensions = imageSize(file.path);
+
+//         // Check if the aspect ratio is 3:1
+//         const targetRatio = 1.5; // 3:1 ratio
+//         const actualRatio = dimensions.width / dimensions.height;
+//         if (actualRatio.toFixed(2) != targetRatio.toFixed(2)) {
+//           // Delete the uploaded file
+//           files.forEach((file) => fs.unlinkSync(file.path));
+//           req.session.message = {
+//             type: "danger",
+//             message:
+//               "Invalid image ratio. Please select an image with a ratio of 3:1.",
+//           };
+//           return res.redirect(
+//             `/admin/addColleges/next/gallery?collegeId=${collegeId}`
+//           );
+//         }
+
+//         // Example validation: Check if file size is greater than 2MB
+//         const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+//         if (file.size > maxSize) {
+//           // Delete the uploaded file
+//           fs.unlinkSync(file.path);
+//           req.session.message = {
+//             type: "danger",
+//             message:
+//               "Invalid file size. Please select an image with a maximum size of 2MB.",
+//           };
+//           return res.redirect(
+//             `/admin/addColleges/next/gallery?collegeId=${collegeId}`
+//           );
+//         }
+//       }
+//     }
+//     const galleryImages = files.map((file) => ({
+//       image: "uploads/" + file.filename,
+//       collegeId: collegeId,
+//       banners: banners === "true",
+//     }));
+//     const createdImages = await Gallery.create(galleryImages);
+//     college.images = college.images || [];
+//     college.images = college.images.concat(
+//       createdImages.map((image) => image._id)
+//     );
+//     await college.save();
+//     res.redirect(`/admin/addColleges/next/gallery?collegeId=${collegeId}`);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// };
 
 const deleteImage = async (req, res) => {
   const { collegeId, imageId } = req.params;
