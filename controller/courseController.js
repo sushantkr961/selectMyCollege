@@ -110,8 +110,9 @@ const createCourse = async (req, res) => {
 
     return res.redirect(`/admin/addColleges/next?collegeId=${collegeId}`);
   } catch (error) {
-    console.error("Error creating college:", error);
-    res.status(500).json({ error: "Error creating college" });
+    // console.error("Error creating college:", error);
+    // res.status(500).json({ error: "Error creating college" });
+    return res.redirect(`/admin/addColleges/next?collegeId=${collegeId}`);
   }
 };
 
@@ -222,7 +223,12 @@ const updateCourseView = async (req, res) => {
     const courseId = req.params.id;
     const course = await Course.findById(courseId);
     if (!course) {
-      return res.status(404).json({ message: "Course not found" });
+      // return res.status(404).json({ message: "Course not found" });
+      req.session.message = {
+        type: "danger",
+        message: "Course not found",
+      };
+      res.redirect(`/allCourses`);
     }
 
     const subCourses = await Course.find({ percouid: courseId });
@@ -249,17 +255,17 @@ const updateCourse = async (req, res) => {
     );
     if (!updatedCourse) {
       req.session.message = { type: "danger", message: "Course not found" };
-      return res.redirect("/allCourses");
+      return res.redirect("/admin/allCourses");
     }
     req.session.message = {
       type: "success",
       message: "Course updated successfully",
     };
-    res.redirect("/allCourses");
+    res.redirect("/admin/allCourses");
   } catch (error) {
     console.error("Error updating course:", error);
     req.session.message = { type: "danger", message: "Internal Server Error" };
-    res.redirect("/allCourses");
+    res.redirect("/admin/allCourses");
   }
 };
 

@@ -42,10 +42,6 @@ const topclgPage = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const pageSize = 10;
 
-  // const AllFee = await Fee.find().populate("collegeId").populate("courseId");
-  // console.log(AllFee);
-  // res.json(AllFee)
-
   const banners = await Banner.find();
   const cities = (await City.find().select("cityName")).map(
     (city) => city.cityName
@@ -82,6 +78,7 @@ const topclgPage = async (req, res) => {
         const courseId = sfee.courseId;
         const course = await Course.findById(courseId);
         const totalfee = sfee.totalFee;
+        // console.log(totalfee);
         return {
           college_id: college._id,
           college_name: college.name,
@@ -93,6 +90,7 @@ const topclgPage = async (req, res) => {
           coursefee: totalfee,
         };
       });
+
       const collegeCourses = await Promise.all(collegePromises);
       return {
         college_id: college._id,
@@ -106,6 +104,7 @@ const topclgPage = async (req, res) => {
     });
 
     const collegesWithCourses = await Promise.all(tcdPromises);
+    // console.log("aallu", collegesWithCourses.courses);
 
     res.render("topclg", {
       title: "selectmycollege",
