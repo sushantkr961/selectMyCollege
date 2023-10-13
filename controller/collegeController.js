@@ -17,19 +17,34 @@ const Banner = require("../model/bannerModel");
 
 // index page
 const homePage = async (req, res) => {
-  const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
-  const testimonials = await websiteTestimonial.find();
-  const faqs = await FAQ.find();
-  const banners = await Banner.find();
-  const colleges = await College.find();
-  res.render("index", {
-    title: "selectmycollege",
-    latestBlogs: latestBlogs,
-    testimonials: testimonials,
-    faqs,
-    banners,
-    colleges,
-  });
+  try {
+    const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
+    const testimonials = await websiteTestimonial.find();
+    const faqs = await FAQ.find();
+    const banners = await Banner.find();
+    const colleges = await College.find().populate("city");
+    const collegeCounts = {};
+    colleges.forEach((college) => {
+      const city = college.city.cityName;
+      if (collegeCounts[city]) {
+        collegeCounts[city]++;
+      } else {
+        collegeCounts[city] = 1;
+      }
+    });
+    res.render("index", {
+      title: "selectmycollege",
+      latestBlogs: latestBlogs,
+      testimonials: testimonials,
+      faqs,
+      banners,
+      colleges,
+      collegeCounts,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 const adminRoute = async (req, res) => {
@@ -37,7 +52,6 @@ const adminRoute = async (req, res) => {
 };
 
 const topclgPage = async (req, res) => {
-  console.log(req.query);
   const clickedCity = req.query.city || "";
   const searchQuery = req.query.q || "";
   const page = parseInt(req.query.page) || 1;
@@ -50,7 +64,6 @@ const topclgPage = async (req, res) => {
   const courses = (await Course.find().select("name")).map(
     (course) => course.name
   );
-
   try {
     const city = await City.findOne({ cityName: clickedCity });
     if (!city) {
@@ -106,6 +119,7 @@ const topclgPage = async (req, res) => {
     });
 
     const collegesWithCourses = await Promise.all(tcdPromises);
+    // console.log("aallu", collegesWithCourses.courses);
 
     res.render("topclg", {
       title: "selectmycollege",
