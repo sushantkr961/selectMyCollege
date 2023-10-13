@@ -37,6 +37,7 @@ const adminRoute = async (req, res) => {
 };
 
 const topclgPage = async (req, res) => {
+  console.log(req.query);
   const clickedCity = req.query.city || "";
   const searchQuery = req.query.q || "";
   const page = parseInt(req.query.page) || 1;
@@ -49,6 +50,7 @@ const topclgPage = async (req, res) => {
   const courses = (await Course.find().select("name")).map(
     (course) => course.name
   );
+
   try {
     const city = await City.findOne({ cityName: clickedCity });
     if (!city) {
@@ -104,7 +106,6 @@ const topclgPage = async (req, res) => {
     });
 
     const collegesWithCourses = await Promise.all(tcdPromises);
-    // console.log("aallu", collegesWithCourses.courses);
 
     res.render("topclg", {
       title: "selectmycollege",

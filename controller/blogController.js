@@ -19,7 +19,7 @@ const blogsPage = async (req, res) => {
 
     const blogs = await Blog.find(query).skip(skip).limit(limit);
 
-    res.render("blogs", {
+    res.render("blog", {
       title: "selectmycollege",
       blogs,
       totalPages,
@@ -83,7 +83,7 @@ const getBlogById = async (req, res) => {
     if (!blog) {
       req.session.message = { type: "danger", message: "Blog not found" };
     }
-    res.render("blogsDetail", {
+    res.render("blog-single", {
       title: "selectmycollege",
       blog,
       suggestedBlogs,
