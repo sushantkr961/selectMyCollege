@@ -1,5 +1,46 @@
 <%- include('head') %>
-  <section class="hero-wrap" style="background-image: url('<%= process.env.APP_URL %>nd/images/bg_1.jpg');">
+
+  <section id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000" style="max-height: 90vh;">
+        <img src="<%= process.env.APP_URL %>nd/images/bg_1_copy.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000" style="max-height: 90vh;">
+        <img src="<%= process.env.APP_URL %>nd/images/bg_1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" style="max-height: 90vh;">
+        <img src="<%= process.env.APP_URL %>nd/images/bg_1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </section>
+
+  <!-- <section class="hero-wrap" style="background-image: url('<%= process.env.APP_URL %>nd/images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text align-items-center">
@@ -17,7 +58,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
+
   <section class="ftco-section">
     <div class="container-xl">
       <div class="row justify-content-center">
@@ -29,21 +71,25 @@
       <div class="row g-lg-2 justify-content-center">
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100"
           data-aos-duration="1000">
-          <a href="/topclg?city=Delhi NCR" class="services-2">
+          <a href="/topclg?city=Delhi" class="services-2">
             <div class="icon"><span class="flaticon-design"></span></div>
             <div class="text">
-              <h2>Delhi NCR</h2>
-              <span>25 Colleges</span>
+              <h2>Delhi</h2>
+              <span>
+                <%= collegeCounts["Delhi"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200"
           data-aos-duration="1000">
-          <a href="/topclg?city=New Delhi" class="services-2">
+          <a href="/topclg?city=Bangalore" class="services-2">
             <div class="icon"><span class="flaticon-paint-palette"></span></div>
             <div class="text">
-              <h2>New Delhi</h2>
-              <span>25 Colleges</span>
+              <h2>Bangalore</h2>
+              <span>
+                <%= collegeCounts["Bangalore"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -53,7 +99,9 @@
             <div class="icon"><span class="flaticon-computer-science"></span></div>
             <div class="text">
               <h2>Hyderabad</h2>
-              <span>10 Colleges</span>
+              <span>
+                <%= collegeCounts["Hyderabad"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -63,7 +111,9 @@
             <div class="icon"><span class="flaticon-magnifying-glass"></span></div>
             <div class="text">
               <h2>Mumbai</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Mumbai"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -73,7 +123,9 @@
             <div class="icon"><span class="flaticon-engineer"></span></div>
             <div class="text">
               <h2>Pune</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Pune"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -83,7 +135,9 @@
             <div class="icon"><span class="flaticon-algorithm"></span></div>
             <div class="text">
               <h2>Chennai</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Chennai"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -93,7 +147,9 @@
             <div class="icon"><span class="flaticon-dumbbell"></span></div>
             <div class="text">
               <h2>Kolkata</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Kolkata"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -102,8 +158,10 @@
           <a href="/topclg?city=Bangalore" class="services-2">
             <div class="icon"><span class="flaticon-bullhorn"></span></div>
             <div class="text">
-              <h2>Bangalore</h2>
-              <span>15 Colleges</span>
+              <h2>Gurugram</h2>
+              <span>
+                <%= collegeCounts["Gurugram"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -113,27 +171,33 @@
             <div class="icon"><span class="flaticon-vector"></span></div>
             <div class="text">
               <h2>Jaipur</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Jaipur"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400"
           data-aos-duration="1000">
-          <a href="/topclg?city=Uttar Pradesh" class="services-2">
+          <a href="/topclg?city=Noida" class="services-2">
             <div class="icon"><span class="flaticon-musical-notes"></span></div>
             <div class="text">
-              <h2>Uttar Pradesh</h2>
-              <span>25 Colleges</span>
+              <h2>Noida</h2>
+              <span>
+                <%= collegeCounts["Noida"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400"
           data-aos-duration="1000">
-          <a href="/topclg?city=Haryana" class="services-2">
+          <a href="/topclg?city=Meerut" class="services-2">
             <div class="icon"><span class="flaticon-calendar-1"></span></div>
             <div class="text">
-              <h2>Haryana</h2>
-              <span>25 Colleges</span>
+              <h2>Meerut</h2>
+              <span>
+                <%= collegeCounts["Meerut"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>
@@ -143,7 +207,9 @@
             <div class="icon"><span class="flaticon-coding"></span></div>
             <div class="text">
               <h2>Bhopal</h2>
-              <span>25 Colleges</span>
+              <span>
+                <%= collegeCounts["Bhopal"]||0 %> Colleges
+              </span>
             </div>
           </a>
         </div>

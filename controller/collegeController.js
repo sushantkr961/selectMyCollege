@@ -14,28 +14,30 @@ const websiteTestimonial = require("../model/websiteTestimonialModel");
 const FAQ = require("../model/websiteFaqModel");
 const clgFAQ = require("../model/collegeFaqModel");
 const Banner = require("../model/bannerModel");
+const { log } = require("console");
 
 // index page
 const homePage = async (req, res) => {
   try {
-    const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
-    const testimonials = await websiteTestimonial.find();
-    const faqs = await FAQ.find();
-    const banners = await Banner.find();
-    const colleges = await College.find().populate("city");
-    const collegeCounts = {};
-    colleges.forEach((college) => {
+    const [latestBlogs, testimonials, faqs, banners, colleges] =
+      await Promise.all([
+        Blog.find().sort({ createdAt: -1 }).limit(3),
+        websiteTestimonial.find(),
+        FAQ.find(),
+        Banner.find(),
+        College.find().populate("city"),
+      ]);
+
+    const collegeCounts = colleges.reduce((countMap, college) => {
       const city = college.city.cityName;
-      if (collegeCounts[city]) {
-        collegeCounts[city]++;
-      } else {
-        collegeCounts[city] = 1;
-      }
-    });
+      countMap[city] = (countMap[city] || 0) + 1;
+      return countMap;
+    }, {});
+
     res.render("index", {
       title: "selectmycollege",
-      latestBlogs: latestBlogs,
-      testimonials: testimonials,
+      latestBlogs,
+      testimonials,
       faqs,
       banners,
       colleges,
