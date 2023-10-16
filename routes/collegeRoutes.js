@@ -50,6 +50,7 @@ router
 router.delete("/admin/colleges/:id", authMiddleware, controller.deleteCollege);
 
 // all colleges
-router.get("/admin/allColleges", authMiddleware, controller.getAllColleges);
+router.get("/admin/allColleges", authMiddleware, controller.getAllCollegesAdmin);
+router.get("/colleges", controller.getAllColleges);
 
 module.exports = router;

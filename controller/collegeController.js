@@ -531,7 +531,7 @@ const deleteImage = async (req, res) => {
 
 /** GET ALL COLLEGES STARTS HERE */
 
-const getAllColleges = async (req, res) => {
+const getAllCollegesAdmin = async (req, res) => {
   try {
     const colleges = await College.find().populate("city state");
     res.render("admin/allColleges", {
@@ -545,6 +545,22 @@ const getAllColleges = async (req, res) => {
       message: "Error getting colleges",
     };
     return res.redirect("/admin/allColleges");
+  }
+};
+
+const getAllColleges = async (req, res) => {
+  try {
+    const colleges = await College.find().populate("city state");
+    res.render("colleges", {
+      colleges,
+    });
+  } catch (error) {
+    console.error("Error getting colleges:", error);
+    req.session.message = {
+      type: "danger",
+      message: "Error getting colleges",
+    };
+    return res.redirect("/");
   }
 };
 
@@ -707,6 +723,7 @@ module.exports = {
   adminPage,
   createCollege,
   createCollegeView,
+  getAllCollegesAdmin,
   getAllColleges,
   updateCollege,
   updateCollegeView,

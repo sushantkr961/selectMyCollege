@@ -9,21 +9,23 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="10000" style="max-height: 90vh;">
-        <img src="<%= process.env.APP_URL %>nd/images/bg_1_copy.jpg" class="d-block w-100" alt="...">
+        <img src="https://cle.iitb.ac.in/wp-content/uploads/2021/10/IIT-Mumbai-1.jpg" class="d-block w-100"
+          alt="image_1">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>
         </div>
       </div>
       <div class="carousel-item" data-bs-interval="2000" style="max-height: 90vh;">
-        <img src="<%= process.env.APP_URL %>nd/images/bg_1.jpg" class="d-block w-100" alt="...">
+        <img src="<%= process.env.APP_URL %>nd/images/bg_1.jpg" class="d-block w-100" alt="image_2">
         <div class="carousel-caption d-none d-md-block">
           <h5>Second slide label</h5>
           <p>Some representative placeholder content for the second slide.</p>
         </div>
       </div>
       <div class="carousel-item" style="max-height: 90vh;">
-        <img src="<%= process.env.APP_URL %>nd/images/bg_1.jpg" class="d-block w-100" alt="...">
+        <img src="https://th.bing.com/th/id/OIP.NzbrmliGthCQ5EF4hS78DQHaDe?w=317&h=164&c=7&r=0&o=5&dpr=1.5&pid=1.7"
+          class="d-block w-100" alt="image_3">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
           <p>Some representative placeholder content for the third slide.</p>
@@ -216,6 +218,193 @@
       </div>
     </div>
   </section>
+
+  <section class="ftco-section courses-section pt-0">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-10 text center heading-section" data-aos="fade-up">
+          <span class="subheading text-center">Our Colleges</span>
+          <h2 class="mb-5 text-center">Top Colleges from Our Recommendation</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="carousel-courses">
+            <% colleges.slice(0, 10).forEach((college)=> { %>
+              <div class="item">
+                <div class="courses">
+                  <div class="d-flex">
+                    <div class="icon"><img src="<%= college.clgLogo %>" alt="college Icon" class="icon bg-transparent">
+                    </div>
+                    <div class="text">
+                      <h6>
+                        <%= college.name %>
+                      </h6>
+                      <p class="rate">
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span>(5.0)</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <a href="<%= college.link %>" class="btn d-block btn-primary btn-outline-primary py-3">Enroll
+                      Now!</a>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- <section class="ftco-section courses-section pt-0">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-10 text-center heading-section" data-aos="fade-up">
+          <span class="subheading">Our Colleges</span>
+          <h2 class="mb-5">Top Colleges from Our Recommendation</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="carousel-courses">
+            <div class="item">
+              <div class="courses">
+                <div class="d-flex">
+                  <div class="icon"><span class="flaticon-engineer"></span></div>
+                  <div class="text">
+                    <h2>Basic Fundamentals for Software Engineering</h2>
+                    <p class="rate">
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span>(5.0)</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="courses">
+                <div class="d-flex">
+                  <div class="icon"><span class="flaticon-design"></span></div>
+                  <div class="text">
+                    <h2>Enhancing Adobe Photoshop CC 2020 Skills</h2>
+                    <p class="rate">
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span>(5.0)</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="courses">
+                <div class="d-flex">
+                  <div class="icon"><span class="flaticon-algorithm"></span></div>
+                  <div class="text">
+                    <h2>HTML, CSS, and Javascript for Web Developers</h2>
+                    <p class="rate">
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span>(5.0)</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="courses">
+                <div class="d-flex">
+                  <div class="icon"><span class="flaticon-coding"></span></div>
+                  <div class="text">
+                    <h2>Introducing to Programming with WordPress </h2>
+                    <p class="rate">
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span>(5.0)</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- <section class="ftco-section pt-0">
+    <div class="container border rounded-1 my-5" style="
+      height: 200px;
+      background-image: url('image/bg1.2x.png');
+      background-repeat: no-repeat;
+      color: #002f26;
+      ">
+      <div class="position-relative gMmobileView">
+        <div class="position-absolute inner bg-body border rounded-1 p-2">
+          <h2 class="text-center fw-bolder">
+            Top colleges from our recommendation
+          </h2>
+        </div>
+        <div class="d-flex justify-content-around w-100 position-absolute" style="
+          left: 50%;
+          top: 100%;
+          transform: translate(-50%, 50%);
+          height: 125px;
+        ">
+          <div class="skBody">
+            <div class="skSlider">
+              <div class="skSlide-track">
+                <% colleges.slice(0, 26).forEach((college)=> { %>
+                  <div class="skSlide">
+                    <img src="<%= process.env.APP_URL %><%= college.clgLogo %>" alt="" loading="lazy" />
+                    <a href="/view/<%= college._id %>" class="text-decoration-none text-black">
+                      <p class="text-center w-75">
+                        <%= college.shortName %>
+                      </p>
+                    </a>
+                  </div>
+                  <% }); %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
   <section class="register">
     <div class="container-fluid">
       <div class="row row-eq-height">
@@ -226,7 +415,7 @@
               <p class="register_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor
                 nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Aliquam, augue a gravida
                 rutrum, ante nisl fermentum nulla, vitae tempo.</p>
-              <div class="button button_1 register_button mx-auto trans_200"><a href="#">register now</a></div>
+              <div class="button button_1 register_button mx-auto trans_200 w-50"><a href="#">register now</a></div>
             </div>
           </div>
         </div>
@@ -235,12 +424,22 @@
             <div class="search_background" style="background-image:url(images/search_background.jpg);"></div>
             <div class="search_content text-center">
               <h1 class="search_title">Search for your course</h1>
-              <form id="search_form" class="search_form" action="https://preview.colorlib.com/theme/course/post">
-                <input id="search_form_name" class="input_field search_form_name" type="text" placeholder="Course Name"
+              <form id="search_form" action="/admin/leads" method="POST">
+
+                <div class="form-group w-100 fs-4">
+                  <label for="feeRange" class="d-flex align-items-start text-black">Fee: Rs.<span id="fee">250000</span>
+                    - 500000</label>
+                  <input type="range" step="5000" max="500000" value="200000" class="sliderRange input_field"
+                    id="feeRange" oninput="updateRangeBackground(this)" />
+                </div>
+
+                <input id="search_form_name" class="input_field search_form_name" type="text" placeholder="Name"
                   required="required" data-error="Course name is required.">
                 <input id="search_form_category" class="input_field search_form_category" type="text"
-                  placeholder="Category">
-                <input id="search_form_degree" class="input_field search_form_degree" type="text" placeholder="Degree">
+                  placeholder="Contact Number">
+                <input id="search_form_degree" class="input_field search_form_degree" type="text"
+                  placeholder="Course Name">
+                <input id="search_form_degree" class="input_field search_form_degree" type="text" placeholder="Email">
                 <button id="search_submit_button" type="submit" class="search_submit_button trans_200"
                   value="Submit">search course</button>
               </form>
@@ -250,6 +449,7 @@
       </div>
     </div>
   </section>
+
   <section class="ftco-section testimony-section bg-light">
     <div class="container-xl">
       <div class="row justify-content-center pb-4">
@@ -261,106 +461,38 @@
       <div class="row">
         <div class="col-md-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
           <div class="carousel-testimony">
-            <div class="item">
-              <div class="testimony-wrap">
-                <div class="text">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="user-img"
-                      style="background-image: url('<%= process.env.APP_URL %>nd/images/person_1.jpg')">
-                      <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left">
+            <% testimonials.forEach(function(testimonial) { %>
+              <div class="item">
+                <div class="testimony-wrap">
+                  <div class="text">
+                    <div class="d-flex align-items-center mb-4">
+                      <div class="user-img"
+                        style="background-image: url('<%=process.env.APP_URL%><%= testimonial.profileImage %>')">
+                        <div class="icon d-flex align-items-center justify-content-center"><span
+                            class="fa fa-quote-left"></span></div>
+                      </div>
+                      <div class="ps-3 tx">
+                        <p class="name">
+                          <%= testimonial.name %>
+                        </p>
+                        <span class="position">
+                          <%= testimonial.position %>
+                        </span>
                       </div>
                     </div>
-                    <div class="ps-3 tx">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
+                    <p class="mb-4 msg">
+                      <%= testimonial.message %>
+                    </p>
                   </div>
-                  <p class="mb-4 msg">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia, there live the blind texts.</p>
                 </div>
               </div>
-            </div>
-            <div class="item">
-              <div class="testimony-wrap">
-                <div class="text">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="user-img"
-                      style="background-image: url('<%= process.env.APP_URL %>nd/images/person_2.jpg')">
-                      <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left">
-                      </div>
-                    </div>
-                    <div class="ps-3 tx">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                  <p class="mb-4 msg">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia, there live the blind texts.</p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimony-wrap">
-                <div class="text">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="user-img"
-                      style="background-image: url('<%= process.env.APP_URL %>nd/images/person_3.jpg')">
-                      <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left">
-                      </div>
-                    </div>
-                    <div class="ps-3 tx">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                  <p class="mb-4 msg">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia, there live the blind texts.</p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimony-wrap">
-                <div class="text">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="user-img"
-                      style="background-image: url('<%= process.env.APP_URL %>nd/images/person_1.jpg')">
-                      <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left">
-                      </div>
-                    </div>
-                    <div class="ps-3 tx">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                  <p class="mb-4 msg">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia, there live the blind texts.</p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimony-wrap">
-                <div class="text">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="user-img"
-                      style="background-image: url('<%= process.env.APP_URL %>nd/images/person_2.jpg')">
-                      <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left">
-                      </div>
-                    </div>
-                    <div class="ps-3 tx">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                  <p class="mb-4 msg">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia, there live the blind texts.</p>
-                </div>
-              </div>
-            </div>
+              <% }); %>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <section class="ftco-section bg-light ftco-no-pt">
     <div class="container-xl">
       <div class="row justify-content-center mb-5">
@@ -370,49 +502,36 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4 d-flex">
-          <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-            <a href="blog-single.html" class="block-20 img"
-              style="background-image: url('<%= process.env.APP_URL %>nd/images/image_1.jpg');">
-            </a>
-            <div class="text">
-              <p class="meta"><span><i class="fa fa-user me-1"></i>Admin</span> <span><i
-                    class="fa fa-calendar me-1"></i>Jan. 18, 2021</span> <span><a href="#"><i
-                      class="fa fa-comment me-1"></i> 3 Comments</a></span></p>
-              <h3 class="heading mb-3"><a href="#">Build your Dream Software &amp; Engineering Career</a></h3>
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+        <% latestBlogs.slice(0, 3).forEach((blog)=> { %>
+          <div class="col-md-6 col-lg-4 d-flex">
+            <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000"
+              data-aos-delay="100">
+              <a href="<%= blog.link %>" class="block-20 img"
+                style="background-image: url('<%= process.env.APP_URL %><%= blog.image %>');">
+              </a>
+              <div class="text">
+                <% const blogDate=new Date(blog.updatedAt); %>
+                  <p class="meta">
+                    <span><i class="fa fa-user me-1"></i>
+                      <%= blog.author %>
+                    </span>
+                    <span><i class="fa fa-calendar me-1"></i>
+                      <%= blogDate.toLocaleString('default', { month: 'short' }) + '. ' + blogDate.getDate() + ', ' +
+                        blogDate.getFullYear() %>
+                    </span>
+                  </p>
+                  <h3 class="heading mb-3"><a href="<%= blog.link %>">
+                      <%= blog.title %>
+                    </a></h3>
+                  <p>
+                    <%= blog.description %>
+                  </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 col-lg-4 d-flex">
-          <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-            <a href="blog-single.html" class="block-20 img"
-              style="background-image: url('<%= process.env.APP_URL %>nd/images/image_2.jpg');">
-            </a>
-            <div class="text">
-              <p class="meta"><span><i class="fa fa-user me-1"></i>Admin</span> <span><i
-                    class="fa fa-calendar me-1"></i>Jan. 18, 2021</span> <span><a href="#"><i
-                      class="fa fa-comment me-1"></i> 3 Comments</a></span></p>
-              <h3 class="heading mb-3"><a href="#">Build your Dream Software &amp; Engineering Career</a></h3>
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4 d-flex">
-          <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-            <a href="blog-single.html" class="block-20 img"
-              style="background-image: url('<%= process.env.APP_URL %>nd/images/image_3.jpg');">
-            </a>
-            <div class="text">
-              <p class="meta"><span><i class="fa fa-user me-1"></i>Admin</span> <span><i
-                    class="fa fa-calendar me-1"></i>Jan. 18, 2021</span> <span><a href="#"><i
-                      class="fa fa-comment me-1"></i> 3 Comments</a></span></p>
-              <h3 class="heading mb-3"><a href="#">Build your Dream Software &amp; Engineering Career</a></h3>
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            </div>
-          </div>
-        </div>
+          <% }); %>
       </div>
     </div>
   </section>
+
   <%- include('foot') %>
