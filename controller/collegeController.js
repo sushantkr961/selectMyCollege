@@ -548,11 +548,38 @@ const getAllCollegesAdmin = async (req, res) => {
   }
 };
 
+// get all colleges user
 const getAllColleges = async (req, res) => {
   try {
-    const colleges = await College.find().populate("city state");
+    const page = parseInt(req.query.page) || 1;
+    const perPage = 5;
+
+    const [colleges, totalColleges, cities, states, courses] =
+      await Promise.all([
+        College.find({}, "_id name clgLogo")
+          .populate("city", "cityName")
+          .populate("state", "stateName")
+          .skip((page - 1) * perPage)
+          .limit(perPage),
+        College.countDocuments(),
+        City.find({}, "cityName"),
+        State.find({}, "stateName"),
+        Course.find({}, "name"),
+      ]);
+
+    const totalPages = Math.ceil(totalColleges / perPage);
+
+    // colleges.forEach(college => {
+    //   console.log("College ID:", college._id);
+    // });
+
     res.render("colleges", {
       colleges,
+      currentPage: page,
+      totalPages,
+      cities,
+      states,
+      courses,
     });
   } catch (error) {
     console.error("Error getting colleges:", error);
