@@ -939,7 +939,7 @@ textarea.form-control {
   opacity: 0;
 }
 
-.collapse:not(.show) {
+/* .collapse:not(.show) {
   display: none;
 }
 
@@ -956,7 +956,7 @@ textarea.form-control {
     -o-transition: none;
     transition: none;
   }
-}
+} */
 
 .dropup,
 .dropend,
@@ -1289,7 +1289,7 @@ textarea.form-control {
   }
 }
 
-.accordion-button {
+/* .accordion-button {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1403,7 +1403,7 @@ textarea.form-control {
 
 .accordion-body {
   padding: 1rem 1.25rem;
-}
+} */
 
 .alert {
   position: relative;
@@ -2754,7 +2754,7 @@ textarea.form-control {
   color: #fff;
 }
 
-.accordion .accordion-button {
+/* .accordion .accordion-button {
   background: #fff;
   font-weight: 600;
   font-size: 18px;
@@ -2789,7 +2789,7 @@ textarea.form-control {
 .accordion .accordion-collapse {
   background: #fff;
   padding: 20px 10px;
-}
+} */
 
 .block-7 {
   width: 100%;
@@ -3402,10 +3402,10 @@ textarea.form-control {
   }
 }
 .courses .icon {
-  width: 80px;
-  height: 80px;
+  /* width: 80px; */
+  /* height: 80px; */
   border-radius: 50%;
-  background: #1eb2a6;
+  /* background: #1eb2a6; */
   position: relative;
 }
 .courses .icon span {
@@ -3645,8 +3645,8 @@ textarea.form-control {
   color: #000000;
   text-align: center;
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  /* width: 40px; */
+  /* height: 40px; */
   line-height: 40px;
   border-radius: 4px;
   border: 1px solid #e6e6e6;
