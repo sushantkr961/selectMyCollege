@@ -28,13 +28,12 @@ const homePage = async (req, res) => {
       ]);
 
     const collegeCounts = colleges.reduce((countMap, college) => {
-      const city = college.city?.cityName;
+      const city = college.city.cityName;
       countMap[city] = (countMap[city] || 0) + 1;
       return countMap;
     }, {});
 
     res.render("index", {
-      title: "selectmycollege",
       latestBlogs,
       testimonials,
       faqs,
@@ -74,7 +73,7 @@ const topclgPage = async (req, res) => {
         return res.status(404).json({ error: "City not found" });
       }
       const cityId = city._id;
-      colleges = await College.find({ city: cityId }); // Populate 'colleges' within the block.
+      colleges = await College.find({ city: cityId });
     }
 
     if (clickedCourse) {
@@ -100,7 +99,6 @@ const topclgPage = async (req, res) => {
     }
 
     res.render("courses", {
-      title: "selectmycollege",
       city: clickedCity,
       course: clickedCourse,
       colleges,
@@ -170,7 +168,7 @@ const topclgPage = async (req, res) => {
 //     console.log(testimonials);
 
 //     res.render("college-single", {
-//       title: "selectmycollege",
+//
 //       college,
 //       gallery: galleryImages,
 //       banners,
@@ -243,7 +241,6 @@ const viewPage = async (req, res) => {
     console.log(testimonials);
 
     res.render("college-single", {
-      title: "selectmycollege",
       college,
       gallery: galleryImages,
       banners,
@@ -411,7 +408,6 @@ const createImageGalleryView = async (req, res) => {
       (image) => image.banners === false
     );
     res.render("admin/addImageGallery", {
-      title: "selectmycollege",
       college,
       bannersTrue,
       bannersFalse,
