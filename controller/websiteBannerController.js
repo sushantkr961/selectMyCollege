@@ -7,18 +7,18 @@ const uploadBannerImage = async (req, res) => {
   try {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const dimensions = imageSize(file.path);
-      const targetWidth = 1920;
-      const targetHeight = 1080;
-      if (dimensions.width < targetWidth || dimensions.height < targetHeight) {
-        fs.unlinkSync(file.path);
-        req.session.message = {
-          type: "danger",
-          message:
-            "Invalid image resolution. Please select an image with a minimum resolution of 1920x1080.",
-        };
-        return res.redirect(`/admin/banner`);
-      }
+      // const dimensions = imageSize(file.path);
+      // const targetWidth = 1920;
+      // const targetHeight = 1080;
+      // if (dimensions.width < targetWidth || dimensions.height < targetHeight) {
+      //   fs.unlinkSync(file.path);
+      //   req.session.message = {
+      //     type: "danger",
+      //     message:
+      //       "Invalid image resolution. Please select an image with a minimum resolution of 1920x1080.",
+      //   };
+      //   return res.redirect(`/admin/banner`);
+      // }
 
       const maxSize = 4 * 1024 * 1024;
       if (file.size > maxSize) {

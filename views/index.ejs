@@ -11,7 +11,7 @@
       <% banners.forEach(function(banner, index) { %>
         <div class="carousel-item <%= index === 0 ? 'active' : '' %>" data-bs-interval="10000"
           style="max-height: 90vh;">
-          <img src="<%= banner.image %>" class="d-block w-100" alt="Banner <%= index + 1 %>">
+          <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100" alt="Banner <%= index + 1 %>">
           <div class="carousel-caption d-none d-md-block">
             <p class="h3 text-white">
               <%= banner.caption %>
@@ -168,12 +168,12 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200"
           data-aos-duration="1000">
-          <a href="/topclg?city=Bangalore" class="services-2">
+          <a href="/topclg?city=Gurgaon" class="services-2">
             <div class="icon"><span class="flaticon-bullhorn"></span></div>
             <div class="text">
-              <h2>Gurugram</h2>
+              <h2>Gurgaon</h2>
               <span>
-                <%= collegeCounts["Gurugram"]||0 %> Colleges
+                <%= collegeCounts["Gurgaon"]||0 %> Colleges
               </span>
             </div>
           </a>

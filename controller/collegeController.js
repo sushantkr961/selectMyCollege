@@ -64,13 +64,12 @@ const topclgPage = async (req, res) => {
       Course.find().select("name"),
     ]);
 
-    const pipeline = [];
-
     if (clickedCity) {
       const city = await City.findOne({ cityName: clickedCity });
       if (!city) {
         console.error("City not found");
-        return res.status(404).json({ error: "City not found" });
+        // return res.status(404).json({ error: "City not found" });
+        res.redirect("/colleges");
       }
       const cityId = city._id;
       colleges = await College.find({ city: cityId });
@@ -80,7 +79,8 @@ const topclgPage = async (req, res) => {
       const curse = await Course.findOne({ name: clickedCourse }, "name");
       if (!curse) {
         console.error("City not found");
-        return res.status(404).json({ error: "City not found" });
+        // return res.status(404).json({ error: "City not found" });
+        res.redirect("/colleges");
       }
       const courseId = curse._id;
       console.log(courseId);

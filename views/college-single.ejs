@@ -1,80 +1,12 @@
 <%- include('head') %>
-    <style>
-        .carousel,
-        .carousel-inner,
-        .carousel-item,
-        img {
-            height: 100%;
-        }
 
-        .carousel-item img {
-            object-fit: cover;
-        }
-
-        .zind {
-            z-index: 1;
-        }
-
-        .clg_img {
-            width: 200px;
-            height: 200px;
-        }
-
-        .clg_img img {
-            height: 100%;
-            width: 100%;
-            object-fit: fill;
-        }
-
-        .btnty {
-            background: #1eb2a6;
-        }
-
-        .btn:hover {
-            background: #1eb2a6;
-        }
-
-        .btnbo {
-            border: 1px solid #1eb2a6;
-        }
-
-        .nav-link.active {
-            border-bottom: 2px solid #1eb2a6 !important;
-            color: #1eb2a6 !important;
-
-        }
-
-        .nav-link {
-            color: rgba(33, 37, 41, .75);
-            border: 0px !important;
-        }
-
-        .nav-link:hover {
-            border: 0px;
-            color: black;
-        }
-
-        .courses {
-            background: linear-gradient(360deg, #fffcfc 14%, transparent), url('<%= process.env.APP_URL %>nd/images/clg_1.jpg');
-            background-size: cover;
-        }
-
-        .hov {
-            opacity: 0;
-        }
-
-        .galp:hover .hov {
-            opacity: 1;
-            transition: all .3s ease-in;
-        }
-    </style>
     <section class="hero-wrap hero-wrap-2 positon-relative">
         <div class="position-absolute zind" style="top: 31%;">
             <p class="breadcrumbs mx-3 m-2">
                 <span class="me-2"><a href="/"><i class="fa fa-home fs-5 mx-2" aria-hidden="true"></i>Home <i
                             class="fa fa-chevron-right"></i></a></span>
                 <span>
-                    <%= college.shortName %> <i class="fa fa-chevron-right"></i>
+                    <%= college.name %> [<%= college.shortName %>] <i class="fa fa-chevron-right"></i>
                 </span>
             </p>
         </div>
@@ -89,19 +21,17 @@
             <a href="#gallery-tab">
                 <div id="carouselExampleSlidesOnly" class="carousel slide positon-relative" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="1000">
-                            <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item" data-bs-interval="1500">
-                            <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                        </div>
+                        <% banners.forEach((banner, index)=> { %>
+                            <div class="carousel-item<%= index === 0 ? ' active' : '' %>"
+                                data-bs-interval="<%= item.interval %>">
+                                <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100"
+                                    alt="img">
+                            </div>
+                            <% }); %>
                     </div>
-                    <div class="position-absolute bg-dark top-0 start-0 p-2 opacity-50">
+                    <!-- <div class="position-absolute bg-dark top-0 start-0 p-2 opacity-50">
                         <p class="m-0 text-white">3</p>
-                    </div>
+                    </div> -->
                     <div class="position-absolute bottom-0 end-0 p-1 w-100  btnty hov">
                         <p class="m-0 text-white" id="vg">view Gallery</p>
                     </div>
@@ -110,17 +40,15 @@
         </div>
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="<%= process.env.APP_URL %>nd/images/bg_2.jpg" class="d-block w-100" alt="...">
-                </div>
+                <% banners.forEach((banner, index)=> { %>
+                    <div class="carousel-item<%= index === 0 ? ' active' : '' %>">
+                        <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100"
+                            alt="bannerImage">
+                    </div>
+                    <% }); %>
             </div>
         </div>
+
 
     </section>
     <!-- college detail -->
@@ -255,9 +183,11 @@
                                 <% courses.forEach(function(course) { %>
                                     <tbody class="border-1">
                                         <tr>
-                                            <td class="border-0">3<%= course.parentCourse %>
+                                            <td class="border-0">
+                                                <%= course.parentCourse %>
                                             </td>
-                                            <td class="border-0">3<%= course.subCourse %>
+                                            <td class="border-0">
+                                                <%= course.subCourse %>
                                             </td>
                                             <td class="border-0">Rs <%= course.fee %>
                                             </td>
@@ -284,7 +214,8 @@
                                                         style="background-image: url('<%=process.env.APP_URL%><%= testimonial.profileImage %>')">
                                                         <div
                                                             class="icon d-flex align-items-center justify-content-center">
-                                                            <span class="fa fa-quote-left"></span></div>
+                                                            <span class="fa fa-quote-left"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="ps-3 tx">
                                                         <p class="name">

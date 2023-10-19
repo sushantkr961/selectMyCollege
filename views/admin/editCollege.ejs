@@ -1,201 +1,109 @@
 <%- include('./header.ejs') %>
 
-<!-- partial -->
-<div class="main-panel text-capitalize">
-  <div class="content-wrapper">
-    <div class="row grid-margin">
-      <nav class="mb-3">
-        <ul class="nav nav-tabs" id="myTabs">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next?collegeId=<%= college._id %>"
-              data-tab="#tab1"
-              >Course</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
-              data-tab="#tab2"
-              >Gallery</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
-              data-tab="#tab3"
-              >Alumni</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
-              data-tab="#tab4"
-              >Testimonial</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/FAQs?collegeId=<%= college._id %>"
-              data-tab="#tab4"
-              >FAQs</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title fs-3">Update College</h4>
-            <form
-              class="cmxform"
-              method="post"
-              action="/admin/updateCollege/<%= college._id %>?_method=PUT"
-              enctype="multipart/form-data"
-            >
-              <!-- Add the hidden input field with the value "PUT" -->
-              <input type="hidden" name="_method" value="PUT" />
-              <fieldset>
-                <div class="form-group">
-                  <label for="cname">Name of the College</label>
-                  <input
-                    id="cname"
-                    class="form-control"
-                    name="name"
-                    minlength="2"
-                    type="text"
-                    value="<%= college.name %>"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="cname">Short Name of College</label>
-                  <input
-                    id="cname"
-                    class="form-control"
-                    name="shortName"
-                    minlength="2"
-                    type="text"
-                    value="<%= college.shortName %>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="caddress">Address</label>
-                  <input
-                    id="caddress"
-                    class="form-control"
-                    type="text"
-                    name="address"
-                    value="<%= college.address %>"
-                    required
-                  />
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="cityInput">City</label>
-                    <input
-                      id="cityInput"
-                      list="cities"
-                      class="form-control"
-                      type="text"
-                      name="city"
-                      value="<%= college.city.cityName %>"
-                      required
-                    />
-                    <datalist id="cities">
-                      <% cities.forEach(city => { %>
-                      <option value="<%= city.cityName %>"><% }); %></option>
-                    </datalist>
-                    <input
-                      type="hidden"
-                      name="cityId"
-                      value="<%= college.city._id %>"
-                    />
-                    <!-- Add a hidden input field to store the city ID -->
+  <!-- partial -->
+  <div class="main-panel text-capitalize">
+    <div class="content-wrapper">
+      <div class="row grid-margin">
+        <nav class="mb-3">
+          <ul class="nav nav-tabs" id="myTabs">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/addColleges/next?collegeId=<%= college._id %>"
+                data-tab="#tab1">Course</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
+                data-tab="#tab2">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
+                data-tab="#tab3">Alumni</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
+                data-tab="#tab4">Testimonial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/addColleges/next/FAQs?collegeId=<%= college._id %>"
+                data-tab="#tab4">FAQs</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title fs-3">Update College</h4>
+              <form class="cmxform" method="post" action="/admin/updateCollege/<%= college._id %>?_method=PUT"
+                enctype="multipart/form-data">
+                <!-- Add the hidden input field with the value "PUT" -->
+                <input type="hidden" name="_method" value="PUT" />
+                <fieldset>
+                  <div class="form-group">
+                    <label for="cname">Name of the College</label>
+                    <input id="cname" class="form-control" name="name" minlength="2" type="text"
+                      value="<%= college.name %>" required />
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="stateInput">State</label>
-                    <input
-                      id="stateInput"
-                      class="form-control"
-                      type="text"
-                      name="state"
-                      list="states"
-                      value="<%= college.state.stateName %>"
-                      required
-                    />
-                    <datalist id="states">
-                      <% states.forEach(state => { %>
-                      <option value="<%= state.stateName %>"><% }); %></option>
-                    </datalist>
-                    <input
-                      type="hidden"
-                      name="stateId"
-                      value="<%= college.state._id %>"
-                    />
+                  <div class="form-group">
+                    <label for="cname">Short Name of College</label>
+                    <input id="cname" class="form-control" name="shortName" minlength="2" type="text"
+                      value="<%= college.shortName %>" />
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="cpin">Pin Code</label>
-                  <input
-                    id="cpin"
-                    class="form-control"
-                    type="number"
-                    name="pinCode"
-                    value="<%= college.pinCode %>"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="clogo">College Logo</label>
-                  <div class="d-flex">
-                    <img
-                      src="<%=process.env.APP_URL%><%= college.clgLogo %>"
-                      width="50"
-                      class="img-thumbnail p-0 rounded-circle me-3"
-                    />
-                    <input
-                      id="clogo"
-                      class="form-control"
-                      type="file"
-                      name="clgLogo"
-                    />
-                    <input
-                      id="clogo"
-                      class="form-control"
-                      type="hidden"
-                      name="old_clgLogo"
-                      value="<%= college.clgLogo %>"
-                    />
+                  <div class="form-group">
+                    <label for="caddress">Address</label>
+                    <input id="caddress" class="form-control" type="text" name="address" value="<%= college.address %>"
+                      required />
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="curl">College URL</label>
-                  <input
-                    id="curl"
-                    class="form-control"
-                    type="url"
-                    name="url"
-                    value="<%= college.url %>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="ccomment">Description</label>
-                  <textarea
-                    id="ccomment"
-                    class="form-control"
-                    name="description"
-                  >
-<%= college.description %>
-                </textarea
-                  >
-                </div>
-                <!-- <div class="row">
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="cityInput">City</label>
+                      <input id="cityInput" list="cities" class="form-control" type="text" name="city"
+                        value="<%= college.city.cityName %>" required />
+                      <datalist id="cities">
+                        <% cities.forEach(city=> { %>
+                          <option value="<%= city.cityName %>">
+                            <% }); %>
+                          </option>
+                      </datalist>
+                      <input type="hidden" name="cityId" value="<%= college.city._id %>" />
+                      <!-- Add a hidden input field to store the city ID -->
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="stateInput">State</label>
+                      <input id="stateInput" class="form-control" type="text" name="state" list="states"
+                        value="<%= college.state.stateName %>" required />
+                      <datalist id="states">
+                        <% states.forEach(state=> { %>
+                          <option value="<%= state.stateName %>">
+                            <% }); %>
+                          </option>
+                      </datalist>
+                      <input type="hidden" name="stateId" value="<%= college.state._id %>" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cpin">Pin Code</label>
+                    <input id="cpin" class="form-control" type="number" name="pinCode" value="<%= college.pinCode %>"
+                      required />
+                  </div>
+                  <div class="form-group">
+                    <label for="clogo">College Logo</label>
+                    <div class="d-flex">
+                      <img src="<%=process.env.APP_URL%><%= college.clgLogo %>" width="50"
+                        class="img-thumbnail p-0 rounded-circle me-3" />
+                      <input id="clogo" class="form-control" type="file" name="clgLogo" />
+                      <input id="clogo" class="form-control" type="hidden" name="old_clgLogo"
+                        value="<%= college.clgLogo %>" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="curl">College URL</label>
+                    <input id="curl" class="form-control" type="url" name="url" value="<%= college.url %>" />
+                  </div>
+                  <div class="form-group">
+                    <label for="ccomment">Description</label>
+                    <textarea id="ccomment" class="form-control" name="description"><%= college.description %>
+                </textarea>
+                  </div>
+                  <!-- <div class="row">
                   <a
                     href="/admin/addColleges/next?collegeId=<%= //college._id %>"
                     class="text-decoration-none col-md-3"
@@ -221,14 +129,14 @@
                     <span>Manage College Testimonial</span>
                   </a>
                 </div> -->
-                <br />
-                <input class="btn btn-primary" type="submit" value="Update" />
-              </fieldset>
-            </form>
+                  <br />
+                  <input class="btn btn-primary" type="submit" value="Update" />
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<%- include('./footer.ejs') %>
+  <%- include('./footer.ejs') %>
