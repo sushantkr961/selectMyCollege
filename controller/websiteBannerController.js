@@ -20,13 +20,13 @@ const uploadBannerImage = async (req, res) => {
         return res.redirect(`/admin/banner`);
       }
 
-      const maxSize = 2 * 1024 * 1024;
+      const maxSize = 4 * 1024 * 1024;
       if (file.size > maxSize) {
         fs.unlinkSync(file.path);
         req.session.message = {
           type: "danger",
           message:
-            "Invalid file size. Please select an image with a maximum size of 2MB.",
+            "Invalid file size. Please select an image with a maximum size of 4MB.",
         };
         return res.redirect(`/admin/banner`);
       }

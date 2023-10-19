@@ -1,6 +1,37 @@
 <%- include('head') %>
 
-  <section id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <section id="carouselExampleDark" class="carousel carousel-white slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <% for (var i=0; i < banners.length; i++) { %>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="<%= i %>" <% if (i===0) {
+          %>class="active" aria-current="true" <% } %> aria-label="Slide <%= i + 1 %>"></button>
+        <% } %>
+    </div>
+    <div class="carousel-inner">
+      <% banners.forEach(function(banner, index) { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>" data-bs-interval="10000"
+          style="max-height: 90vh;">
+          <img src="<%= banner.image %>" class="d-block w-100" alt="Banner <%= index + 1 %>">
+          <div class="carousel-caption d-none d-md-block">
+            <p class="h3 text-white">
+              <%= banner.caption %>
+            </p>
+          </div>
+        </div>
+        <% }); %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </section>
+
+
+  <!-- <section id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -40,26 +71,6 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </section>
-
-  <!-- <section class="hero-wrap" style="background-image: url('<%= process.env.APP_URL %>nd/images/bg_1.jpg');">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row no-gutters slider-text align-items-center">
-        <div class="col-lg-5">
-          <div class="text mt-5 pt-5" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-            <span class="subheading">Welcome to Select My College</span>
-            <h1 class="mb-4">Find Your College, Shape Your Future. </h1>
-            <p class="mb-4">Empower Your Future : Explore, Compare, and Choose the Right College for You, Your Way, Your
-              Success.</p>
-            <p><a href="#" class="btn btn-primary p-4 py-3">Check Eligibility<span
-                  class="ion-ios-arrow-round-forward"></span></a> <a href="#" class="btn btn-white p-4 py-3">Get Free
-                Councelling
-                <span class="ion-ios-arrow-round-forward"></span></a></p>
-          </div>
-        </div>
-      </div>
-    </div>
   </section> -->
 
   <section class="ftco-section">
@@ -232,34 +243,37 @@
           <div class="carousel-courses">
             <% colleges.slice(0, 10).forEach((college)=> { %>
               <div class="item">
-                <div class="courses">
-                  <div class="d-flex">
-                    <div class="icon"><img src="<%= college.clgLogo %>" alt="college Icon" class="icon bg-transparent">
+                <a href="/view/<%= college._id %>">
+                  <div class="courses">
+                    <div class="d-flex">
+                      <div class="icon"><img src="<%= college.clgLogo %>" alt="college Icon"
+                          class="icon bg-transparent">
+                      </div>
+                      <div class="text">
+                        <h6>
+                          <%= college.name %>
+                        </h6>
+                        <p class="rate">
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                          <span>(5.0)</span>
+                        </p>
+                      </div>
                     </div>
-                    <div class="text">
-                      <h6>
-                        <%= college.name %>
-                      </h6>
-                      <p class="rate">
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span>(5.0)</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="text-center mt-1">
-                    <a href="<%= college.link %>" class="btn d-block btn-primary btn-outline-primary py-3">Enroll
-                      Now!</a>
-                  </div>
+                </a>
+                <div class="text-center mt-1">
+                  <a href="<%= college.link %>" class="btn d-block btn-primary btn-outline-primary py-3">Enroll
+                    Now!</a>
                 </div>
               </div>
-              <% }); %>
           </div>
+          <% }); %>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
