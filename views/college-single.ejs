@@ -334,78 +334,37 @@
             <div class="row">
                 <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
                     <div class="carousel-courses">
-                        <div class="item ">
-                            <div class="courses p-3 text-center">
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <div class="icon rounded-circle overflow-hidden bg-white"><img
-                                            src="<%= process.env.APP_URL %>nd/images/clg_logo.webp" alt=""
-                                            style="height: 100%; width: 100%; object-fit: none;"> </div>
-                                    <div class="ps-0 text">
-                                        <h2>Basic Fundamentals for Software Engineering</h2>
-                                        <p class="rate">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span>(5.0)</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item ">
-                            <div class="courses p-3 text-center shadow-sm">
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <div class="icon rounded-circle overflow-hidden bg-white"><img
-                                            src="<%= process.env.APP_URL %>nd/images/clg_logo.webp" alt=""
-                                            style="height: 100%; width: 100%; object-fit: none;"> </div>
-                                    <div class="ps-0 text">
-                                        <h2>Basic Fundamentals for Software Engineering</h2>
-                                        <p class="rate">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span>(5.0)</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
+                        <% colleges.slice(0, 10).forEach((college)=> { %>
+                            <div class="item">
+                                <a href="/view/<%= college._id %>">
+                                    <div class="courses">
+                                        <div class="d-flex">
+                                            <div class="icon"><img src="<%= college.clgLogo %>" alt="college Icon"
+                                                    class="icon bg-transparent">
+                                            </div>
+                                            <div class="text">
+                                                <h6>
+                                                    <%= college.name %>
+                                                </h6>
+                                                <p class="rate">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span>(5.0)</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                </a>
+                                <div class="text-center mt-1">
+                                    <a href="<%= college.link %>"
+                                        class="btn d-block btn-primary btn-outline-primary py-3">Enroll
+                                        Now!</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="item ">
-                            <div class="courses p-3 text-center shadow-sm">
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <div class="icon rounded-circle overflow-hidden bg-white"><img
-                                            src="<%= process.env.APP_URL %>nd/images/clg_logo.webp" alt=""
-                                            style="height: 100%; width: 100%; object-fit: none;"> </div>
-                                    <div class="ps-0 text">
-                                        <h2>Basic Fundamentals for Software Engineering</h2>
-                                        <p class="rate">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span>(5.0)</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <a href="#" class="btn d-block btn-primary btn-outline-primary py-3">Enroll Now!</a>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
+                    <% }); %>
                 </div>
             </div>
         </div>
