@@ -6,7 +6,11 @@ const viewAlunmi = async (req, res) => {
   try {
     const college = await College.findById(collegeId);
     if (!college) {
-      return res.status(404).send("College not found");
+      req.session.message = {
+        type: "danger",
+        message: "College Not Found!",
+      };
+      res.redirect("/admin/addColleges/next/alumni");
     }
     const alumni = await Alumni.find({ collegeId });
     res.render("admin/addAlumni", {
@@ -27,19 +31,17 @@ const viewAlunmi = async (req, res) => {
 const createAlum = async (req, res) => {
   const { name, batch, package } = req.body;
   const collegeId = req.query.collegeId;
+  console.log(req);
   try {
-    // Create new alumni
-    const alum = await Alumni.create({
+    let alum = await Alumni.create({
       name,
       batch,
       package,
       collegeId,
     });
-
-    // Find all alumni of the specific college
+    // console.log(alum);
     const alumni = await Alumni.find({ collegeId: collegeId });
 
-    // Calculate average package
     let avgPackage = 0;
     if (alumni.length > 0) {
       const totalPackage = alumni.reduce(
@@ -49,7 +51,6 @@ const createAlum = async (req, res) => {
       avgPackage = (totalPackage / alumni.length).toFixed(2);
     }
 
-    // Update avgPackage field for all alumni in the college
     await Alumni.updateMany(
       { collegeId: collegeId },
       { avgPackage: avgPackage }

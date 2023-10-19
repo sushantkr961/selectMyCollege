@@ -5,13 +5,10 @@
   width: 100%;
 }
 
-.skSlide img{
+.skSlide img {
   height: 100px;
   width: 100px;
 }
-
-/* .skSlide p{
-} */
 
 @-webkit-keyframes scroll {
   0% {
@@ -79,12 +76,12 @@
   width: 150px;
 }
 
-@media screen and (max-width: 768px){
-  .skSlide img{
+@media screen and (max-width: 768px) {
+  .skSlide img {
     height: 70px;
     width: 70px;
   }
-  .skSlide p{
+  .skSlide p {
     font-size: 12px;
     padding: 0 5px 0 5px;
   }
@@ -92,7 +89,7 @@
     height: 100px;
     width: 100px;
   }
-  .skSlider{
+  .skSlider {
     height: 105px;
   }
 }

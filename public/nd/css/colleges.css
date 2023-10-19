@@ -1,0 +1,472 @@
+.selection {
+  background: #fdfdfd;
+  margin: 1px 5px 1px 5px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px 10px;
+  min-width: fit-content;
+  max-width: 151px;
+  box-shadow: 0px 0px 1px;
+  font-size: small;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollable-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollable-section {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-button {
+  border: none;
+  background: none;
+  font-size: smaller;
+}
+
+/* Colleges.ejs  */
+#myInput,
+#state,
+#course {
+  background-image: url("/css/searchicon.png");
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL,
+#std,
+#crd {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+body {
+  background-color: #eee;
+}
+
+.t-products {
+  background-image: linear-gradient(
+    to right top,
+    #5629c0,
+    #5625cb,
+    #5620d5,
+    #551ae0,
+    #5412eb
+  );
+  color: #fff;
+  border-radius: 3px;
+}
+
+.processor {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  max-height: 40rem;
+  /* min-height: 50vh; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.processor #myInput {
+  position: sticky;
+  top: 0;
+  box-shadow: 1px 22px 12px #ffffff;
+}
+
+.brand {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.type {
+  background-color: #fff;
+}
+
+.product {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.about span {
+  color: #5629c0;
+  font-size: 16px;
+}
+
+.cart-button button {
+  font-size: 12px;
+  color: #fff;
+  background-color: #5629c0;
+  height: 38px;
+}
+
+.cart-button button:focus,
+button:active {
+  font-size: 12px;
+  color: #fff;
+  background-color: #5629c0;
+  box-shadow: none;
+}
+
+.product_fav i {
+  line-height: 40px;
+  color: #5629c0;
+  font-size: 15px;
+}
+
+.product_fav {
+  display: inline-block;
+  width: 36px;
+  height: 39px;
+  background: #ffffff;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 11%;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 3px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.product_fav:hover {
+  background: #5629c0;
+}
+
+.product_fav:hover i {
+  color: #fff;
+}
+
+.about {
+  margin-top: 12px;
+}
+
+.off {
+  position: absolute;
+  left: 65%;
+  top: 6%;
+  width: 80px;
+  text-align: center;
+  height: 30px;
+  line-height: 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.selection {
+  background: #fdfdfd;
+  margin: 1px 5px 1px 5px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px 10px;
+  min-width: fit-content;
+  max-width: 151px;
+  box-shadow: 0px 0px 1px;
+  font-size: small;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollable-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollable-section {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-button {
+  border: none;
+  background: none;
+  font-size: smaller;
+}
+
+.processor::-webkit-scrollbar {
+  width: 10px;
+}
+
+.processor::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.processor::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+}
+
+/* college-single.ejs */
+.carousel,
+.carousel-inner,
+.carousel-item,
+img {
+  height: 100%;
+}
+
+.carousel-item img {
+  object-fit: cover;
+}
+
+.zind {
+  z-index: 1;
+}
+
+.clg_img {
+  width: 200px;
+  height: 200px;
+}
+
+.clg_img img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.btnty {
+  background: #1eb2a6;
+}
+
+.btn:hover {
+  background: #1eb2a6;
+}
+
+.btnbo {
+  border: 1px solid #1eb2a6;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #1eb2a6 !important;
+  color: #1eb2a6 !important;
+}
+
+.nav-link {
+  color: rgba(33, 37, 41, 0.75);
+  border: 0px !important;
+}
+
+.nav-link:hover {
+  border: 0px;
+  color: black;
+}
+
+.courses {
+  background: linear-gradient(360deg, #fffcfc 14%, transparent),
+    url("<%= process.env.APP_URL %>nd/images/clg_1.jpg");
+  background-size: cover;
+}
+
+.hov {
+  opacity: 0;
+}
+
+.galp:hover .hov {
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+/* Courses.ejs */
+#myInput,
+#state,
+#course {
+  background-image: url("/css/searchicon.png");
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL,
+#std,
+#crd {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+
+/* body {
+  background-color: #eee
+} */
+
+.t-products {
+  background-image: linear-gradient(
+    to right top,
+    #5629c0,
+    #5625cb,
+    #5620d5,
+    #551ae0,
+    #5412eb
+  );
+  color: #fff;
+  border-radius: 3px;
+}
+
+.processor {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  max-height: 40rem;
+  /* min-height: 50vh; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.processor #myInput {
+  position: sticky;
+  top: 0;
+  box-shadow: 1px 22px 12px #ffffff;
+}
+
+.brand {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.type {
+  background-color: #fff;
+}
+
+.product {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.about span {
+  color: #5629c0;
+  font-size: 16px;
+}
+
+.cart-button button {
+  font-size: 12px;
+  color: #fff;
+  background-color: #5629c0;
+  height: 38px;
+}
+
+.cart-button button:focus,
+button:active {
+  font-size: 12px;
+  color: #fff;
+  background-color: #5629c0;
+  box-shadow: none;
+}
+
+.product_fav i {
+  line-height: 40px;
+  color: #5629c0;
+  font-size: 15px;
+}
+
+.product_fav {
+  display: inline-block;
+  width: 36px;
+  height: 39px;
+  background: #ffffff;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 11%;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 3px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.product_fav:hover {
+  background: #5629c0;
+}
+
+.product_fav:hover i {
+  color: #fff;
+}
+
+.about {
+  margin-top: 12px;
+}
+
+.off {
+  position: absolute;
+  left: 65%;
+  top: 6%;
+  width: 80px;
+  text-align: center;
+  height: 30px;
+  line-height: 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.selection {
+  background: #fdfdfd;
+  margin: 1px 5px 1px 5px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px 10px;
+  min-width: fit-content;
+  max-width: 151px;
+  box-shadow: 0px 0px 1px;
+  font-size: small;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollable-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollable-section {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-button {
+  border: none;
+  background: none;
+  font-size: smaller;
+}
+
+.processor::-webkit-scrollbar {
+  width: 10px;
+}
+
+.processor::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.processor::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+}

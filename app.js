@@ -53,3 +53,7 @@ const start = async () => {
   }
 };
 start();
+
+// PORT=8080
+// MONGO_URI=mongodb+srv://sushantpantheon:Sushant123@cluster0.uqswkar.mongodb.net/selectMyCollege?retryWrites=true&w=majority
+// APP_URL=http://localhost:8080/
