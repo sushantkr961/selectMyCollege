@@ -201,6 +201,7 @@ const viewPage = async (req, res) => {
     }
 
     const faqs = await clgFAQ.find({ collegeId });
+    const colleges = await College.find({});
     const fees = await Fee.find({ collegeId: collegeId }).populate("courseId");
     const galleryImages = await Gallery.find({ collegeId: collegeId });
     const testimonials = await collegeTestimonial.find({
@@ -210,7 +211,7 @@ const viewPage = async (req, res) => {
       .limit(limit)
       .skip(skip);
 
-    console.log(college);
+    // console.log(college);
 
     const cityId = college.city._id;
     const banners = galleryImages.filter((image) => image.banners === true);
@@ -238,10 +239,11 @@ const viewPage = async (req, res) => {
       };
     });
 
-    console.log(testimonials);
+    // console.log(college);
 
     res.render("college-single", {
       college,
+      colleges,
       gallery: galleryImages,
       banners,
       testimonials,
