@@ -241,7 +241,7 @@
       <div class="row">
         <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
           <div class="carousel-courses">
-            <% colleges.slice(0, 10).forEach((college)=> { %>
+            <% colleges.slice(0, 5).forEach((college)=> { %>
               <div class="item">
                 <a href="/view/<%= college._id %>">
                   <div class="courses">
@@ -273,33 +273,22 @@
           <% }); %>
         </div>
       </div>
-    </div>
-    </div>
   </section>
 
   <section class="register">
     <div class="container-fluid">
-      <div class="row row-eq-height">
-        <div class="col-lg-6 nopadding">
-          <div class="register_section d-flex flex-column align-items-center justify-content-center">
-            <div class="register_content text-center">
-              <h1 class="register_title">Register now and get a discount <span>50%</span> discount</h1>
-              <p class="register_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor
-                nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Aliquam, augue a gravida
-                rutrum, ante nisl fermentum nulla, vitae tempo.</p>
-              <div class="button button_1 register_button mx-auto trans_200 w-50"><a href="#">register now</a></div>
-            </div>
-          </div>
+      <div class="row row-eq-height" style="    background: linear-gradient(271deg, #ececec 49%, transparent 20%),url(https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      background-size: cover; background-repeat: no-repeat;">
+        <div class="col-md-6 d-sm-none d-md-block bg-transparent nopadding">
         </div>
-        <div class="col-lg-6 nopadding">
+        <div class="col-md-6 col-sm-12 nopadding">
           <div class="search_section d-flex flex-column align-items-center justify-content-center">
-            <div class="search_background" style="background-image:url(images/search_background.jpg);"></div>
-            <div class="search_content text-center">
+            <div class="px-5 text-center">
               <h1 class="search_title">Search for your course</h1>
               <form id="search_form" action="/admin/leads" method="POST">
 
                 <div class="form-group w-100 fs-4">
-                  <label for="feeRange" class="d-flex align-items-start text-black">Fee: Rs.<span id="fee">250000</span>
+                  <label for="feeRange" class="d-flex align-items-start text-black fs-6">Fee: Rs.<span id="fee">250000</span>
                     - 500000</label>
                   <input type="range" step="5000" max="500000" value="200000" class="sliderRange input_field"
                     id="feeRange" oninput="updateRangeBackground(this)" />

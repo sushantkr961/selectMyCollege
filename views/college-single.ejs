@@ -323,18 +323,18 @@
 
     </div>
     <!-- top colleges -->
-    <section class="ftco-section courses-section ftco-no-pb overflow-hidden py-5 my-3">
+    <section class="ftco-section courses-section pt-0">
         <div class="container">
             <div class="row justify-content-center pb-4">
-                <div class="col-md-10 text-center heading-section" data-aos="fade-up">
-                    <span class="subheading">Our Courses</span>
-                    <h2 class="mb-5">Explore Our Popular colleges</h2>
+                <div class="col-md-10 text center heading-section" data-aos="fade-up">
+                    <span class="subheading text-center">Our Colleges</span>
+                    <h2 class="mb-5 text-center">Top Colleges from Our Recommendation</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
                     <div class="carousel-courses">
-                        <% colleges.slice(0, 10).forEach((college)=> { %>
+                        <% colleges.slice(0, 5).forEach((college)=> { %>
                             <div class="item">
                                 <a href="/view/<%= college._id %>">
                                     <div class="courses">
@@ -367,10 +367,9 @@
                     <% }); %>
                 </div>
             </div>
-        </div>
     </section>
     <!-- top courses -->
-    <section class="ftco-section">
+    <section class="ftco-section pt-3">
         <div class="container-xl">
             <div class="row justify-content-center">
                 <div class="col-md-8 heading-section text-center mb-5" data-aos="fade-up" data-aos-duration="1000">
