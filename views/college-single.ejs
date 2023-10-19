@@ -23,7 +23,7 @@
                     <div class="carousel-inner">
                         <% banners.forEach((banner, index)=> { %>
                             <div class="carousel-item<%= index === 0 ? ' active' : '' %>"
-                                data-bs-interval="<%= item.interval %>">
+                                data-bs-interval="<%= banner.interval %>">
                                 <img src="<%= process.env.APP_URL %><%= banner.image %>" class="d-block w-100"
                                     alt="img">
                             </div>
