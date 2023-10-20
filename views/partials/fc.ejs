@@ -1,0 +1,98 @@
+<% colleges.forEach(college=> { %>
+  <div class="row g-2">
+    <div class="col-md-12 mb-4">
+      <div class="item product p-4">
+        <div class="courses mb-0 item product py-4">
+          <a href="/view/<%= college._id %>">
+            <div class="row">
+              <div class="icon col-md-2"><img src="<%= college.clgLogo %>" alt="college Icon"
+                  class="icon bg-transparent w-100">
+              </div>
+              <div class="col-md-8" style="color: #000000cc;">
+                <h6>
+                  <%= college.name %>
+                </h6>
+                <p>
+                  <%= college.city.cityName %>, <%= college.state.stateName %>
+                </p>
+              </div>
+              <div class="text-center col-md-2">
+                <span class="d-block btn btn-primary">4.5/<span class="ms-0" style="font-size: 12px;">11<i
+                      class="fa fa-user" aria-hidden="true"></i></span></span>
+              </div>
+            </div>
+          </a>
+
+          <div class="container row p-0" style="margin: 15px 0 15px 0">
+            <h6 style="color: #000000cc;">Offered Courses</h6>
+            <div class="col-md-12 d-flex p-0 align-items-center" style="overflow: auto; user-select: none;">
+              <button class="scroll-button left-button" onclick="scrollContainer.scrollBy(-200, 0)"
+                style="flex-shrink: 0">
+                <i class="fa fa-chevron-left"></i>
+              </button>
+              <div class="d-flex justify-content-between scrollable-section" style="overflow-x: auto; flex-grow: 1"
+                id="scrollContainer">
+                <div class="selection">
+                  <p class="m-0">New Delhi</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">Connaught Place</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">1Lpa - 2Lpa</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">70 - 80%</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">MBA</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">MBA/PGDM</p>
+                </div>
+                <div class="selection">
+                  <p class="m-0">Sales & marketing management</p>
+                </div>
+              </div>
+              <button class="scroll-button right-button" onclick="scrollContainer.scrollBy(200, 0)"
+                style="flex-shrink: 0">
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class=" row mb-3 justify-content-between">
+            <button class="col-6 btn btn-primary btn-outline-primary py-3">Download Broucher </button>
+            <button class="col-5 btn btn-primary btn-outline-primary py-3">Apply Now</button>
+          </div>
+
+          <div class="text-center gap-2 justify-content-between">
+            <a href="/view/<%= college._id %>">
+              <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa fa-book" aria-hidden="true"></i>
+                Courses &amp; Fees</button></a>
+            <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa fa-picture-o" aria-hidden="true"></i>
+              Gallery</button>
+            <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa-solid fa-phone"
+                aria-hidden="true"></i> Contact</button>
+            <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa-solid fa-graduation-cap"
+                aria-hidden="true"></i> Eligibility</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+    <!-- <div class="row mt-5">
+      <div class="col text-center">
+        <div class="block-27">
+          <ul>
+            <%// if (currentPage> 1) { %>
+              <li><a href="?page=<%=// currentPage - 1 %>" class="px-3">Prev</a></li>
+              <%// } %>
+                <%// if (currentPage < totalPages) { %>
+                  <li><a href="?page=<%=// currentPage + 1 %>" class="px-3">Next</a></li>
+                  <%// } %>
+          </ul>
+        </div>
+      </div>
+    </div> -->
