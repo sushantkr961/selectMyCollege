@@ -7,7 +7,14 @@
         <div class="col-md-9 pt-5 mt-5 text-center">
           <p class="breadcrumbs">
             <span class="me-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span>
-            <span>All Colleges <i class="fa fa-chevron-right"></i></span>
+            <span>
+              <% if (city) { %>
+                <%= city %>
+                  <% } %>
+                    <% if (course) { %>
+                      <%= course %>
+                        <% } %> <i class="fa fa-chevron-right"></i>
+            </span>
           </p>
           <h1 class="mb-0 bread">Explore Colleges</h1>
         </div>
@@ -30,7 +37,6 @@
             <div class="icon"><span class="flaticon-design"></span></div>
             <div class="text">
               <h2>MBA</h2>
-              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -42,7 +48,6 @@
             </div>
             <div class="text">
               <h2>B.Tech</h2>
-              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -54,7 +59,6 @@
             </div>
             <div class="text">
               <h2>MEDICAL</h2>
-              <!-- <span>10 Courses</span> -->
             </div>
           </a>
         </div>
@@ -66,7 +70,6 @@
             </div>
             <div class="text">
               <h2>BCA</h2>
-              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -76,7 +79,6 @@
             <div class="icon"><span class="flaticon-engineer"></span></div>
             <div class="text">
               <h2>MCA</h2>
-              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -86,7 +88,6 @@
             <div class="icon"><span class="flaticon-algorithm"></span></div>
             <div class="text">
               <h2>M.Tech</h2>
-              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -99,7 +100,14 @@
       <div class="row justify-content-center">
         <div class="col-md-8 heading-section text-center mb-5" data-aos="fade-up" data-aos-duration="1000">
           <span class="subheading">Colleges</span>
-          <h2 class="mb-4">Browse All Colleges</h2>
+          <h2 class="mb-4">
+            <% if (city) { %>
+              Top Colleges from <%= city %>
+                <% } %>
+                  <% if (course) { %>
+                    Top <%= course %> Colleges in India
+                      <% } %>
+          </h2>
         </div>
       </div>
 
@@ -121,9 +129,9 @@
                     <ul id="crd" class="myUL px-3">
                       <% courses.forEach(course=> { %>
                         <li>
-                          <input class="form-check-input" type="checkbox" name="course" value="<%= course.name %>">
+                          <input class="form-check-input" type="checkbox" name="course" value="<%= course.value %>">
                           <label class="form-check-label" for="flexCheckDefault">
-                            <%= course.name %>
+                            <%= course.displayName %>
                           </label>
                         </li>
                         <% }); %>
@@ -169,8 +177,95 @@
 
 
       <div class="col-md-7">
-        <div id="fcd"></div>
-        <!-- <div class="row mt-5">
+        <% colleges.forEach(college=> { %>
+          <div class="row g-2">
+            <div class="col-md-12 mb-4">
+              <div class="item product p-4">
+                <div class="courses mb-0 item product py-4">
+                  <a href="/view/<%= college._id %>">
+                    <div class="row">
+                      <div class="icon col-md-2"><img src="<%= college.clgLogo %>" alt="college Icon"
+                          class="icon bg-transparent w-100">
+                      </div>
+                      <div class="col-md-8" style="color: #000000cc;">
+                        <h6>
+                          <%= college.name %>
+                        </h6>
+                        <p>
+                          <%= college.city.cityName %>, <%= college.state.stateName %>
+                        </p>
+                      </div>
+                      <div class="text-center col-md-2">
+                        <span class="d-block btn btn-primary">4.5/<span class="ms-0" style="font-size: 12px;">11<i
+                              class="fa fa-user" aria-hidden="true"></i></span></span>
+                      </div>
+                    </div>
+                  </a>
+
+                  <div class="container row p-0" style="margin: 15px 0 15px 0">
+                    <h6 style="color: #000000cc;">Offered Courses</h6>
+                    <div class="col-md-12 d-flex p-0 align-items-center" style="overflow: auto; user-select: none;">
+                      <button class="scroll-button left-button" onclick="scrollContainer.scrollBy(-200, 0)"
+                        style="flex-shrink: 0">
+                        <i class="fa fa-chevron-left"></i>
+                      </button>
+                      <div class="d-flex justify-content-between scrollable-section"
+                        style="overflow-x: auto; flex-grow: 1" id="scrollContainer">
+                        <div class="selection">
+                          <p class="m-0">New Delhi</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">Connaught Place</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">1Lpa - 2Lpa</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">70 - 80%</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">MBA</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">MBA/PGDM</p>
+                        </div>
+                        <div class="selection">
+                          <p class="m-0">Sales & marketing management</p>
+                        </div>
+                      </div>
+                      <button class="scroll-button right-button" onclick="scrollContainer.scrollBy(200, 0)"
+                        style="flex-shrink: 0">
+                        <i class="fa fa-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class=" row mb-3 justify-content-between">
+                    <button class="col-6 btn btn-primary btn-outline-primary py-3" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal" data-bs-whatever="@mdo">Download Broucher </button>
+                    <button class="col-5 btn btn-primary btn-outline-primary py-3" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal" data-bs-whatever="@mdo">Apply Now</button>
+                  </div>
+
+                  <div class="text-center gap-2 justify-content-between">
+                    <a href="/view/<%= college._id %>">
+                      <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa fa-book"
+                          aria-hidden="true"></i>
+                        Courses &amp; Fees</button></a>
+                    <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa fa-picture-o"
+                        aria-hidden="true"></i>
+                      Gallery</button>
+                    <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa-solid fa-phone"
+                        aria-hidden="true"></i> Contact</button>
+                    <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa-solid fa-graduation-cap"
+                        aria-hidden="true"></i> Eligibility</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+            <!-- <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
