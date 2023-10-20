@@ -25,10 +25,16 @@ const createLead = async (req, res) => {
       marks,
       city,
     });
-    res.status(201).json({ message: "Lead created successfully", lead });
+    // req.session.message = {
+    //   type: "error",
+    //   text: "Submitted Successfully!",
+    // };
+    // res.status(201).json({ message: "Lead created successfully", lead });
+    return res.redirect("/colleges");
   } catch (error) {
     console.error("Error creating lead:", error);
-    res.status(500).json({ error: "Error creating lead" });
+    // res.status(500).json({ error: "Error creating lead" });
+    return res.redirect("/colleges");
   }
 };
 
