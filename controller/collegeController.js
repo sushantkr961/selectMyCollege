@@ -527,32 +527,84 @@ const getAllCollegesAdmin = async (req, res) => {
 };
 
 // get all colleges user
+// const getAllColleges = async (req, res) => {
+//   try {
+//     const page = parseInt(req.query.page) || 1;
+//     const perPage = 5;
+
+//     const [colleges, totalColleges, cities, states, courses] =
+//       await Promise.all([
+//         College.find({}, "_id name clgLogo")
+//           .populate("city", "cityName")
+//           .populate("state", "stateName")
+//           .skip((page - 1) * perPage)
+//           .limit(perPage),
+//         College.countDocuments(),
+//         City.find({}, "cityName"),
+//         State.find({}, "stateName"),
+//         Course.find({ percouid: { $ne: 0 } }, "name"),
+//       ]);
+
+//     const totalPages = Math.ceil(totalColleges / perPage);
+
+//     res.render("colleges", {
+//       // colleges,
+//       currentPage: page,
+//       totalPages,
+//       cities,
+//       states,
+//       courses,
+//     });
+//   } catch (error) {
+//     console.error("Error getting colleges:", error);
+//     req.session.message = {
+//       type: "danger",
+//       message: "Error getting colleges",
+//     };
+//     return res.redirect("/");
+//   }
+// };
+
 const getAllColleges = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const perPage = 5;
 
-    const [colleges, totalColleges, cities, states, courses] =
-      await Promise.all([
-        College.find({}, "_id name clgLogo")
-          .populate("city", "cityName")
-          .populate("state", "stateName")
-          .skip((page - 1) * perPage)
-          .limit(perPage),
-        College.countDocuments(),
-        City.find({}, "cityName"),
-        State.find({}, "stateName"),
-        Course.find({ percouid: { $ne: 0 } }, "name"),
-      ]);
+    const [colleges, totalColleges, cities, subCourses] = await Promise.all([
+      College.find({}, "_id name clgLogo")
+        .populate("city", "cityName")
+        .populate("state", "stateName")
+        .skip((page - 1) * perPage)
+        .limit(perPage),
+      College.countDocuments(),
+      City.find({}, "cityName"),
+      Course.find({ percouid: { $ne: "0" } }).populate({
+        path: "percouid",
+        model: "Course",
+        select: "name",
+      }),
+    ]);
+    const courses = subCourses.map((subCourse) => {
+      if (subCourse.percouid && subCourse.percouid.name) {
+        return {
+          displayName: `${subCourse.percouid.name} - ${subCourse.name}`,
+          value: subCourse.name,
+        };
+      }
+      return {
+        displayName: subCourse.name,
+        value: subCourse.name,
+      };
+    });
+
+    console.log(courses);
 
     const totalPages = Math.ceil(totalColleges / perPage);
 
     res.render("colleges", {
-      // colleges,
       currentPage: page,
       totalPages,
       cities,
-      states,
       courses,
     });
   } catch (error) {
@@ -569,6 +621,7 @@ const fc = async (req, res) => {
   try {
     const cityfil = req.query.city ? req.query.city.split(",") : [];
     const coursefil = req.query.course ? req.query.course.split(",") : [];
+    console.log(coursefil);
     // const page = parseInt(req.query.page);
     // const perPage = 1;
     // console.log("page",req.query);
@@ -597,9 +650,9 @@ const fc = async (req, res) => {
 
     const colleges = await College.find(query, "_id name clgLogo")
       .populate("city", "cityName")
-      .populate("state", "stateName")
-      // .skip((page - 1) * perPage)
-      // .limit(perPage);
+      .populate("state", "stateName");
+    // .skip((page - 1) * perPage)
+    // .limit(perPage);
 
     res.render("partials/fc", {
       colleges,

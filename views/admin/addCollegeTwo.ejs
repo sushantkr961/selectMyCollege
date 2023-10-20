@@ -1,300 +1,230 @@
 <%- include('./header.ejs') %>
 
-<!-- partial -->
-<div class="main-panel text-capitalize">
-  <div class="content-wrapper">
-    <!-- notification message -->
-    <% if(message){ %>
-    <div
-      class="alert alert-dismissible fade show alert-<%= message.type %>"
-      role="alert"
-    >
-      <button
-        class="btn-close"
-        type="button"
-        data-bs-dismiss="alert"
-        aria-label="close"
-      ></button>
-      <strong><%= message.message %></strong>
-    </div>
-    <% } %>
-    <!-- notification message -->
-    <div class="row grid-margin">
-      <!--  -->
-      <nav class="mb-3">
-        <ul class="nav nav-tabs" id="myTabs">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next?collegeId=<%= college._id %>"
-              data-tab="#tab1"
-              >Course</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
-              data-tab="#tab2"
-              >Gallery</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
-              data-tab="#tab3"
-              >Alumni</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
-              data-tab="#tab4"
-              >Testimonial</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="/admin/addColleges/next/FAQs?collegeId=<%= college._id %>"
-              data-tab="#tab4"
-              >FAQs</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <!--  -->
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title fs-3 py-2">
-              <%= college.name %> (<%= college.shortName %>)
-            </h4>
-            <form class="cmxform" method="post">
-              <fieldset>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="course-select">Select Course</label>
-                      <select
-                        id="course-select"
-                        class="form-select p-3"
-                        name="courseSelect"
-                        onchange="coursea(this)"
-                      >
-                        <option>Select Course</option>
-                        <% courses.map((course) => { %>
-                        <option class="p-3" value="<%= course._id %>">
-                          <%= course.name %>
-                        </option>
-                        <% })%>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="subcourse-select">Select Sub Course</label>
-                      <select
-                        id="subcourse-select"
-                        class="form-select p-3"
-                        name="subCourseSelect"
-                        onchange="subcoursea(this)"
-                      >
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="addCourse" class="col-form-label py-0"
-                        >Add New Course</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="addCourse"
-                        name="addCourse"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="addCourse" class="col-form-label py-0"
-                        >Add Sub Course</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="addSubCourse"
-                        name="addSubCourse"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="courseDuration" class="col-form-label py-0"
-                        >Course Duration</label
-                      >
-                      <input
-                        type="text"
-                        name="duration"
-                        placeholder="Course Duration in Years/Months"
-                        class="form-control"
-                        id="courseDuration"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div id="feebox" class="row">
-                  <div class="col-md-5">
-                    <div class="form-group row m-0">
-                      <label class="col-form-label py-0">Add Semester</label>
-                      <input type="text" class="form-control" name="fee[0][]" />
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group row">
-                      <label class="col-form-label py-0"
-                        >Add Fee / semester</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="fee[0][]"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-2 d-flex align-items-center">
-                    <button
-                      class="btn btn-primary"
-                      type="button"
-                      onclick="feefun()"
-                    >
-                      ADD +
-                    </button>
-                  </div>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Submit" />
-                <!-- <a
+  <!-- partial -->
+  <div class="main-panel text-capitalize">
+    <div class="content-wrapper">
+      <!-- notification message -->
+      <% if(message){ %>
+        <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+          <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+          <strong>
+            <%= message.message %>
+          </strong>
+        </div>
+        <% } %>
+          <!-- notification message -->
+          <div class="row grid-margin">
+            <!--  -->
+            <nav class="mb-3">
+              <ul class="nav nav-tabs" id="myTabs">
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addColleges/next?collegeId=<%= college._id %>"
+                    data-tab="#tab1">Course</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addColleges/next/gallery?collegeId=<%= college._id %>"
+                    data-tab="#tab2">Gallery</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addColleges/next/alumni?collegeId=<%= college._id %>"
+                    data-tab="#tab3">Alumni</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addColleges/next/testimonial?collegeId=<%= college._id %>"
+                    data-tab="#tab4">Testimonial</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addColleges/next/FAQs?collegeId=<%= college._id %>"
+                    data-tab="#tab4">FAQs</a>
+                </li>
+              </ul>
+            </nav>
+            <!--  -->
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title fs-3 py-2">
+                    <%= college.name %> (<%= college.shortName %>)
+                  </h4>
+                  <form class="cmxform" method="post">
+                    <fieldset>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="course-select">Select Course</label>
+                            <select id="course-select" class="form-select p-3" name="courseSelect"
+                              onchange="coursea(this)">
+                              <option>Select Course</option>
+                              <% courses.map((course)=> { %>
+                                <option class="p-3" value="<%= course._id %>">
+                                  <%= course.name %>
+                                </option>
+                                <% })%>
+                                  <option>Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="subcourse-select">Select Sub Course</label>
+                            <select id="subcourse-select" class="form-select p-3" name="subCourseSelect"
+                              onchange="subcoursea(this)">
+                              <option>Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="addCourse" class="col-form-label py-0">Add New Course</label>
+                            <input type="text" class="form-control" id="addCourse" name="addCourse" disabled />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="addCourse" class="col-form-label py-0">Add Sub Course</label>
+                            <input type="text" class="form-control" id="addSubCourse" name="addSubCourse" disabled />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="courseDuration" class="col-form-label py-0">Course Duration</label>
+                            <input type="text" name="duration" placeholder="Course Duration in Years/Months"
+                              class="form-control" id="courseDuration" disabled />
+                          </div>
+                        </div>
+                      </div>
+                      <div id="feebox" class="row">
+                        <div class="col-md-5">
+                          <div class="form-group row m-0">
+                            <label class="col-form-label py-0">Add Semester</label>
+                            <input type="text" class="form-control" name="fee[0][]" />
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group row">
+                            <label class="col-form-label py-0">Add Fee / semester</label>
+                            <input type="number" class="form-control" name="fee[0][]" />
+                          </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center">
+                          <button class="btn btn-primary" type="button" onclick="feefun()">
+                            ADD +
+                          </button>
+                        </div>
+                      </div>
+                      <input class="btn btn-primary" type="submit" value="Submit" />
+                      <!-- <a
                   href="/admin/addColleges/next/gallery?collegeId=<%= //college._id %>"
                   ><button type="button" class="btn btn-primary">
                     Next
                   </button></a
                 > -->
-              </fieldset>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12 mt-3">
-        <div class="row">
-          <% fee.forEach(async fe => { %> <% let course = courses.find(crs =>
-          crs._id.toString() === fe.courseId.toString()); let subCourseName =
-          ''; if(!course) { // If not found in main courses, check in subcourses
-          course = subCourses.find(sub => sub._id.toString() ===
-          fe.courseId.toString()); if(course) { const mainCourse =
-          courses.find(crs => crs._id.toString() ===
-          course.percouid.toString()); if(mainCourse) { subCourseName = ' - ' +
-          course.name; course = mainCourse; } } } %>
-          <div class="col-lg-3 col-md-3 col-sm-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-center">
-                  <%= course ? course.name : '' %> <%= subCourseName %>
-                </h5>
-                <h6 class="text-center">Total Fee: ₹ <%= fe.totalFee %></h6>
-                <div class="d-flex justify-content-around">
-                  <a
-                    href="/admin/editCollegeCouresView/<%= fe._id %>"
-                    class="btn me-2"
-                  >
-                    <i class="fa-solid fa-pen-to-square text-primary"></i>
-                  </a>
-                  <form
-                    action="/admin/deletecolleges/<%= college._id %>/courses/<%= fe._id %>/?_method=DELETE"
-                    method="POST"
-                  >
-                    <button type="submit" class="btn me-2">
-                      <i class="fa-solid fa-trash text-danger"></i>
-                    </button>
+                    </fieldset>
                   </form>
                 </div>
               </div>
             </div>
+            <div class="col-lg-12 mt-3">
+              <div class="row">
+                <% fee.forEach(async fe=> { %> <% let course=courses.find(crs=>
+                    crs._id.toString() === fe.courseId.toString()); let subCourseName =
+                    ''; if(!course) { 
+                    course = subCourses.find(sub => sub._id.toString() ===
+                    fe.courseId.toString()); if(course) { const mainCourse =
+                    courses.find(crs => crs._id.toString() ===
+                    course.percouid.toString()); if(mainCourse) { subCourseName = ' - ' +
+                    course.name; course = mainCourse; } } } %>
+                    <div class="col-lg-3 col-md-3 col-sm-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">
+                            <%= course ? course.name : '' %>
+                              <%= subCourseName %>
+                          </h5>
+                          <h6 class="text-center">Total Fee: ₹ <%= fe.totalFee %>
+                          </h6>
+                          <div class="d-flex justify-content-around">
+                            <a href="/admin/editCollegeCouresView/<%= fe._id %>" class="btn me-2">
+                              <i class="fa-solid fa-pen-to-square text-primary"></i>
+                            </a>
+                            <form
+                              action="/admin/deletecolleges/<%= college._id %>/courses/<%= fe._id %>/?_method=DELETE"
+                              method="POST">
+                              <button type="submit" class="btn me-2">
+                                <i class="fa-solid fa-trash text-danger"></i>
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% }); %>
+              </div>
+            </div>
           </div>
-          <% }); %>
-        </div>
-      </div>
     </div>
-  </div>
-  <%- include('./footer.ejs') %>
-  <script>
-    var yo = 1;
-    function feefun(id = 0) {
-      if (id == 0) {
-        $("#feebox").append(
-          `<div class="row" id="y_` +
-            yo +
-            `">
+    <%- include('./footer.ejs') %>
+      <script>
+        var yo = 1;
+        function feefun(id = 0) {
+          if (id == 0) {
+            $("#feebox").append(
+              `<div class="row" id="y_` +
+              yo +
+              `">
                   <div class="col-md-5">
                     <div class="form-group row">
                       <label class="col-form-label py-0"
                         >Add Semester</label>
                         <input type="text" class="form-control" name="fee[` +
-            yo +
-            `][]" />
+              yo +
+              `][]" />
                     </div>
                   </div>
                   <div class="col-md-5">
                     <div class="form-group row">
                       <label class="col-form-label py-0">Add Fee / semester</label>
                         <input type="text" class="form-control" name="fee[` +
-            yo +
-            `][]" />
+              yo +
+              `][]" />
                     </div>
                   </div>
                   <div class="col-md-2 d-flex align-items-center">
                     <button class="btn btn-primary" type="button" onclick="feefun('` +
-            yo +
-            `')">Minus -</button>
+              yo +
+              `')">Minus -</button>
                   </div>
                 </div>`
-        );
-        yo++;
-      } else {
-        $("#y_" + id).remove();
-      }
-    }
-    function coursea(v) {
-      var val = $(v).val();
-      if (val == "Other") {
-        $("#addCourse").removeAttr("disabled");
-        $("#addSubCourse").removeAttr("disabled");
-        $("#courseDuration").removeAttr("disabled");
-      } else {
-        $("#addCourse").prop("disabled", true);
-        $("#addSubCourse").prop("disabled", true);
-        $("#courseDuration").prop("disabled", true);
-        $.get("/getsubcourse/" + $(v).val(), function (data, status) {
-          $("#subcourse-select").html(data.haha);
-        });
-      }
-    }
-    function subcoursea(v) {
-      var val = $(v).val();
-      if (val == "Other") {
-        $("#addSubCourse").removeAttr("disabled");
-        $("#courseDuration").removeAttr("disabled");
-      } else {
-        $("#addSubCourse").prop("disabled", true);
-        $("#courseDuration").prop("disabled", true);
-      }
-    }
-  </script>
-</div>
+            );
+            yo++;
+          } else {
+            $("#y_" + id).remove();
+          }
+        }
+        function coursea(v) {
+          var val = $(v).val();
+          if (val == "Other") {
+            $("#addCourse").removeAttr("disabled");
+            $("#addSubCourse").removeAttr("disabled");
+            $("#courseDuration").removeAttr("disabled");
+          } else {
+            $("#addCourse").prop("disabled", true);
+            $("#addSubCourse").prop("disabled", true);
+            $("#courseDuration").prop("disabled", true);
+            $.get("/getsubcourse/" + $(v).val(), function (data, status) {
+              $("#subcourse-select").html(data.haha);
+            });
+          }
+        }
+        function subcoursea(v) {
+          var val = $(v).val();
+          if (val == "Other") {
+            $("#addSubCourse").removeAttr("disabled");
+            $("#courseDuration").removeAttr("disabled");
+          } else {
+            $("#addSubCourse").prop("disabled", true);
+            $("#courseDuration").prop("disabled", true);
+          }
+        }
+      </script>
+  </div>
