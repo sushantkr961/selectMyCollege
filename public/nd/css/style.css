@@ -1879,9 +1879,9 @@ textarea.form-control {
   z-index: 1020;
 }
 
-.d-block {
+/* .d-block {
   display: block !important;
-}
+} */
 
 .d-flex {
   display: -webkit-box !important;
@@ -3132,7 +3132,7 @@ textarea.form-control {
 @media (max-width: 991.98px) {
   .heading-section h2,
   .heading-section .h2 {
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 
@@ -3407,6 +3407,15 @@ textarea.form-control {
   border-radius: 50%;
   /* background: #1eb2a6; */
   position: relative;
+}
+@media (max-width:575px) {
+  .courses .icon {
+    width: 80px !important;
+    height: 80px;
+    border-radius: 50%;
+    /* background: #1eb2a6; */
+    position: relative;
+  }
 }
 .courses .icon span {
   font-size: 50px;

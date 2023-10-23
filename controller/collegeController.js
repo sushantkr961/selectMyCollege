@@ -57,64 +57,45 @@ const topclgPage = async (req, res) => {
   const searchQuery = req.query.q || "";
 
   let colleges = [];
-
   try {
-    const [cities, subCourses] = await Promise.all([
+    const [cities, states, courses] = await Promise.all([
       City.find().select("cityName"),
-      Course.find({ percouid: { $ne: "0" } }).populate({
-        path: "percouid",
-        model: "Course",
-        select: "name",
-      }),
+      State.find().select("stateName"),
+      Course.find().select("name"),
     ]);
-    const courses = subCourses.map((subCourse) => {
-      if (subCourse.percouid && subCourse.percouid.name) {
-        return {
-          displayName: `${subCourse.percouid.name} - ${subCourse.name}`,
-          value: subCourse.name,
-        };
-      }
-      return {
-        displayName: subCourse.name,
-        value: subCourse.name,
-      };
-    });
 
     if (clickedCity) {
-      const cit = await City.findOne({ cityName: clickedCity }, "_id");
-      if (cit) {
-        colleges = await College.find({ city: cit._id }, "_id name clgLogo")
-          .populate("city", "cityName")
-          .populate("state", "stateName");
+      const city = await City.findOne({ cityName: clickedCity });
+      if (!city) {
+        console.error("City not found");
+        // return res.status(404).json({ error: "City not found" });
+        res.redirect("/colleges");
       }
+      const cityId = city._id;
+      colleges = await College.find({ city: cityId });
     }
 
     if (clickedCourse) {
-      const mainCourse = await Course.findOne({ name: clickedCourse }, "_id");
-
-      if (mainCourse) {
-        const relatedSubCourses = await Course.find(
-          {
-            percouid: mainCourse._id.toString(),
-          },
-          "_id"
-        );
-
-        const relatedSubCourseIds = relatedSubCourses.map(
-          (subCourse) => subCourse._id
-        );
-
-        const feess = await Fee.find(
-          {
-            courseId: { $in: relatedSubCourseIds },
-          },
-          "collegeId"
-        );
-        const feeclgIds = feess.map((fee) => fee.collegeId);
-        colleges = await College.find({ _id: feeclgIds }, "_id name clgLogo")
-          .populate("city", "cityName")
-          .populate("state", "stateName");
+      const curse = await Course.findOne({ name: clickedCourse }, "name");
+      if (!curse) {
+        console.error("City not found");
+        // return res.status(404).json({ error: "City not found" });
+        res.redirect("/colleges");
       }
+      const courseId = curse._id;
+      console.log(courseId);
+      Fee.find({ courseId }, "collegeId")
+        .then((feeIds) => {
+          const collegeIds = feeIds.map((fee) => fee.collegeId);
+          console.log(collegeIds);
+          return College.find({ _id: { $in: collegeIds } });
+        })
+        .then((colleges) => {
+          console.log(colleges);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
 
     res.render("courses", {
@@ -122,6 +103,7 @@ const topclgPage = async (req, res) => {
       course: clickedCourse,
       colleges,
       cities,
+      states,
       courses,
     });
   } catch (error) {
@@ -133,6 +115,77 @@ const topclgPage = async (req, res) => {
     return res.redirect("/");
   }
 };
+
+// const viewPage = async (req, res) => {
+//   const collegeId = req.params.collegeId;
+//   const page = parseInt(req.query.page) || 1;
+//   const limit = 5;
+//   const skip = (page - 1) * limit;
+
+//   try {
+//     const [college, faqs, fees, galleryImages, testimonials, alumni] =
+//       await Promise.all([
+//         College.findById(collegeId).populate("city state"),
+//         clgFAQ.find({ collegeId }),
+//         Fee.find({ collegeId: collegeId }).populate("courseId"),
+//         Gallery.find({ collegeId: collegeId }),
+//         collegeTestimonial.find({ collegeId: collegeId }),
+//         Alumni.find({ collegeId: collegeId }).limit(limit).skip(skip),
+//       ]);
+//     console.log(college);
+
+//     if (!college) {
+//       return res.status(404).json({ message: "College not found" });
+//     }
+
+//     const cityId = college.city._id;
+//     const banners = galleryImages.filter((image) => image.banners === true);
+//     const totalAlumni = await Alumni.countDocuments({ collegeId: college._id });
+
+//     const parentCourseIds = fees.map((fee) => fee.courseId.percouid);
+//     const parentCourses = await Course.find({ _id: { $in: parentCourseIds } });
+//     const courseNames = parentCourses.map((course) => course.name);
+
+//     const filteredColleges = await College.find({
+//       city: cityId,
+//       _id: { $ne: college._id },
+//     }).populate("city state");
+//     const totalPages = Math.ceil(totalAlumni / limit);
+
+//     const courses = await Promise.all(
+//       fees.map(async (fee) => {
+//         const parentCourse = parentCourses.find(
+//           (course) => course._id.toString() === fee.courseId.percouid.toString()
+//         );
+//         return {
+//           parentCourse: parentCourse.name,
+//           subCourse: fee.courseId.name,
+//           fee: fee.totalFee,
+//         };
+//       })
+//     );
+
+//     console.log(testimonials);
+
+//     res.render("college-single", {
+//
+//       college,
+//       gallery: galleryImages,
+//       banners,
+//       testimonials,
+//       alumni,
+//       courseNames,
+//       courses,
+//       filteredColleges,
+//       currentPage: page,
+//       totalPages,
+//       faqs,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching college:", error);
+//     return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };
 
 const viewPage = async (req, res) => {
   const collegeId = req.params.collegeId;
@@ -157,6 +210,8 @@ const viewPage = async (req, res) => {
     const alumni = await Alumni.find({ collegeId: collegeId })
       .limit(limit)
       .skip(skip);
+
+    // console.log(college);
 
     const cityId = college.city._id;
     const banners = galleryImages.filter((image) => image.banners === true);
@@ -183,6 +238,8 @@ const viewPage = async (req, res) => {
         fee: fee.totalFee,
       };
     });
+
+    // console.log(college);
 
     res.render("college-single", {
       college,
@@ -544,89 +601,34 @@ const getAllCollegesAdmin = async (req, res) => {
   }
 };
 
+// get all colleges user
 const getAllColleges = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const perPage = 5;
 
-    const [colleges, totalColleges, cities, subCourses] = await Promise.all([
-      College.find({}, "_id name clgLogo")
-        .populate("city", "cityName")
-        .populate("state", "stateName")
-        .skip((page - 1) * perPage)
-        .limit(perPage),
-      College.countDocuments(),
-      City.find({}, "cityName"),
-      Course.find({ percouid: { $ne: "0" } }).populate({
-        path: "percouid",
-        model: "Course",
-        select: "name",
-      }),
-    ]);
-    const courses = subCourses.map((subCourse) => {
-      if (subCourse.percouid && subCourse.percouid.name) {
-        return {
-          displayName: `${subCourse.percouid.name} - ${subCourse.name}`,
-          value: subCourse.name,
-        };
-      }
-      return {
-        displayName: subCourse.name,
-        value: subCourse.name,
-      };
-    });
-
-    // console.log(courses);
+    const [colleges, totalColleges, cities, states, courses] =
+      await Promise.all([
+        College.find({}, "_id name clgLogo")
+          .populate("city", "cityName")
+          .populate("state", "stateName")
+          .skip((page - 1) * perPage)
+          .limit(perPage),
+        College.countDocuments(),
+        City.find({}, "cityName"),
+        State.find({}, "stateName"),
+        Course.find({}, "name"),
+      ]);
 
     const totalPages = Math.ceil(totalColleges / perPage);
 
     res.render("colleges", {
+      colleges,
       currentPage: page,
       totalPages,
       cities,
+      states,
       courses,
-    });
-  } catch (error) {
-    console.error("Error getting colleges:", error);
-    req.session.message = {
-      type: "danger",
-      message: "Error getting colleges",
-    };
-    return res.redirect("/");
-  }
-};
-
-const fc = async (req, res) => {
-  try {
-    const cityfil = req.query.city ? req.query.city.split(",") : [];
-    const coursefil = req.query.course ? req.query.course.split(",") : [];
-    // console.log(coursefil);
-
-    const query = {};
-
-    if (cityfil.length > 0) {
-      const cities = await City.find({ cityName: { $in: cityfil } }, "_id");
-      const cityIds = cities.map((city) => city._id);
-      query.city = { $in: cityIds };
-    }
-
-    if (coursefil.length > 0) {
-      const corse = await Course.find({ name: { $in: coursefil } }, "_id");
-      const corseIds = corse.map((co) => co._id);
-      const feess = await Fee.find(
-        { courseId: { $in: corseIds } },
-        "collegeId"
-      );
-      const feeclgIds = feess.map((cl) => cl.collegeId);
-      query._id = { $in: feeclgIds };
-    }
-
-    const colleges = await College.find(query, "_id name clgLogo")
-      .populate("city", "cityName")
-      .populate("state", "stateName");
-
-    res.render("partials/fc", {
-      colleges,
     });
   } catch (error) {
     console.error("Error getting colleges:", error);
@@ -807,5 +809,4 @@ module.exports = {
   createImageGallery,
   deleteImage,
   adminRoute,
-  fc,
 };

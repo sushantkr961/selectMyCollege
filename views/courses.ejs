@@ -8,12 +8,7 @@
           <p class="breadcrumbs">
             <span class="me-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span>
             <span>
-              <% if (city) { %>
-                <%= city %>
-                  <% } %>
-                    <% if (course) { %>
-                      <%= course %>
-                        <% } %> <i class="fa fa-chevron-right"></i>
+              <%= city %><%= course %> <i class="fa fa-chevron-right"></i>
             </span>
           </p>
           <h1 class="mb-0 bread">Explore Colleges</h1>
@@ -37,6 +32,7 @@
             <div class="icon"><span class="flaticon-design"></span></div>
             <div class="text">
               <h2>MBA</h2>
+              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -48,6 +44,7 @@
             </div>
             <div class="text">
               <h2>B.Tech</h2>
+              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -59,6 +56,7 @@
             </div>
             <div class="text">
               <h2>MEDICAL</h2>
+              <!-- <span>10 Courses</span> -->
             </div>
           </a>
         </div>
@@ -70,6 +68,7 @@
             </div>
             <div class="text">
               <h2>BCA</h2>
+              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -79,6 +78,7 @@
             <div class="icon"><span class="flaticon-engineer"></span></div>
             <div class="text">
               <h2>MCA</h2>
+              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -88,6 +88,7 @@
             <div class="icon"><span class="flaticon-algorithm"></span></div>
             <div class="text">
               <h2>M.Tech</h2>
+              <!-- <span>25 Courses</span> -->
             </div>
           </a>
         </div>
@@ -100,34 +101,102 @@
       <div class="row justify-content-center">
         <div class="col-md-8 heading-section text-center mb-5" data-aos="fade-up" data-aos-duration="1000">
           <span class="subheading">Colleges</span>
-          <h2 class="mb-4">
-            <% if (city) { %>
-              Top Colleges from <%= city %>
-                <% } %>
-                  <% if (course) { %>
-                    Top <%= course %> Colleges in India
-                      <% } %>
-          </h2>
+          <h2 class="mb-4">Browse All Colleges</h2>
         </div>
       </div>
 
-      <div class="col-md-3">
-        <div style="position: sticky; top: 100px;">
-          <div class="rounded-1 bg-white shadow-md">
-            <div class="heading d-flex justify-content-between align-items-center p-3">
-              <h6 class="text-uppercase">Latest News</h6>
+      <form class="col-md-3">
+        <div class="sticky-top">
+
+
+          <div class="accordion accordion-flush " id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                  City
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0">
+                  <div class="processor">
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."
+                      title="Type in a name">
+                    <ul id="myUL" class="px-3">
+                      <% cities.forEach(city=> { %>
+                        <li>
+                          <label><input class="form-check-input" type="checkbox" name="city">
+                            <%= city.cityName %>
+                          </label>
+                        </li>
+                        <% }); %>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="">
-              <div class="d-flex justify-content-between m-2">
-                <div class="form-check">
-                  <label class="form-check-label" for="flexCheckDefault"> News Latest </label>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  State
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0">
+                  <div class="processor">
+
+                    <input type="text" id="state" onkeyup="myFunction1()" placeholder="Search for names.."
+                      title="Type in a name">
+                    <ul id="std" class="myUL px-3">
+                      <% states.forEach(state=> { %>
+                        <li>
+                          <input class="form-check-input" type="checkbox" name="state" value="<%= state.stateName %>">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            <%= state.stateName %>
+                          </label>
+                        </li>
+                        <% }); %>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Course
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0">
+                  <div class="processor">
+                    <input type="text" id="course" onkeyup="myFunction2()" placeholder="Search for names.."
+                      title="Type in a name">
+                    <ul id="crd" class="myUL px-3">
+                      <% courses.forEach(course=> { %>
+                        <li>
+                          <input class="form-check-input" type="checkbox" name="state" value="<%= course.name %>">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            <%= course.name %>
+                          </label>
+                        </li>
+                        <% }); %>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="my-3">
+            <input type="submit" value="Filter">
+            <button type="reset" class="btn" style="background-color: #dde1d5;">Clear</button>
+          </div>
         </div>
-      </div>
-
+      </form>
 
       <div class="col-md-7">
         <% colleges.forEach(college=> { %>
@@ -145,7 +214,7 @@
                           <%= college.name %>
                         </h6>
                         <p>
-                          <%= college.city.cityName %>, <%= college.state.stateName %>
+                          <%= college.address %>
                         </p>
                       </div>
                       <div class="text-center col-md-2">
@@ -155,9 +224,9 @@
                     </div>
                   </a>
 
+                  <h6 style="color: #000000cc;" class="mt-3">Offered Courses</h6>
                   <div class="container row p-0" style="margin: 15px 0 15px 0">
-                    <h6 style="color: #000000cc;">Offered Courses</h6>
-                    <div class="col-md-12 d-flex p-0 align-items-center" style="overflow: auto; user-select: none;">
+                    <div class="col-md-12 d-flex p-0 align-items-center" style="overflow: hidden; user-select: none;">
                       <button class="scroll-button left-button" onclick="scrollContainer.scrollBy(-200, 0)"
                         style="flex-shrink: 0">
                         <i class="fa fa-chevron-left"></i>
@@ -194,20 +263,15 @@
                   </div>
 
                   <div class=" row mb-3 justify-content-between">
-                    <button class="col-6 btn btn-primary btn-outline-primary py-3" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal" data-bs-whatever="@mdo">Download Broucher </button>
-                    <button class="col-5 btn btn-primary btn-outline-primary py-3" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal" data-bs-whatever="@mdo">Apply Now</button>
+                    <button class="col-6 btn btn-primary btn-outline-primary py-3">Download Broucher </button>
+                    <button class="col-5 btn btn-primary btn-outline-primary py-3">Apply Now</button>
                   </div>
 
-                  <div class="text-center gap-2 justify-content-between">
-                    <a href="/view/<%= college._id %>">
-                      <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa fa-book"
-                          aria-hidden="true"></i>
-                        Courses &amp; Fees</button></a>
+                  <div class="row text-center gap-2 justify-content-between">
+                    <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa fa-book"
+                        aria-hidden="true"></i> Courses &amp; Fees</button>
                     <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa fa-picture-o"
-                        aria-hidden="true"></i>
-                      Gallery</button>
+                        aria-hidden="true"></i> Gallery</button>
                     <button class="col-2 btn btn-primary btn-outline-primary"><i class="fa-solid fa-phone"
                         aria-hidden="true"></i> Contact</button>
                     <button class="col-3 btn btn-primary btn-outline-primary"><i class="fa-solid fa-graduation-cap"
@@ -218,31 +282,21 @@
             </div>
           </div>
           <% }); %>
-            <!-- <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <%// if (currentPage> 1) { %>
-                  <li><a href="?page=<%=// currentPage - 1 %>" class="px-3">Prev</a></li>
-                  <%// } %>
-                    <%// if (currentPage < totalPages) { %>
-                      <li><a href="?page=<%=// currentPage + 1 %>" class="px-3">Next</a></li>
-                      <%// } %>
-              </ul>
-            </div>
-          </div>
-        </div> -->
+
+            <!-- Pagination -->
+
+
       </div>
 
       <div class="col-md-2">
-        <div class="rounded-1 bg-white shadow-md" style="position: sticky; top: 100px;">
+        <div class="rounded-1 bg-white shadow-md">
           <div class="heading d-flex justify-content-between align-items-center p-3">
             <h6 class="text-uppercase">Latest News</h6>
           </div>
           <div class="">
             <div class="d-flex justify-content-between m-2">
               <div class="form-check">
-                <label class="form-check-label" for="flexCheckDefault"> News Latest </label>
+                <label class="form-check-label" for="flexCheckDefault"> Latest News </label>
               </div>
             </div>
           </div>
@@ -255,7 +309,7 @@
           <div class="">
             <div class="d-flex justify-content-between m-2">
               <div class="form-check">
-                <label class="form-check-label" for="flexCheckDefault"> News Latest </label>
+                <label class="form-check-label" for="flexCheckDefault"> Intel Core i7 </label>
               </div>
             </div>
           </div>
@@ -268,7 +322,7 @@
           <div class="">
             <div class="d-flex justify-content-between m-2">
               <div class="form-check">
-                <label class="form-check-label" for="flexCheckDefault"> News Latest </label>
+                <label class="form-check-label" for="flexCheckDefault"> Intel Core i7 </label>
               </div>
             </div>
           </div>
@@ -278,7 +332,7 @@
 
     </div>
   </section>
-  <script>
+  <SCRipt>
     function myFunction() {
       var input, filter, ul, li, label, i, txtValue;
       input = document.getElementById("myInput");
@@ -333,46 +387,5 @@
         }
       }
     }
-  </script>
+  </SCRipt>
   <%- include('foot') %>
-    <script>
-      function fetchd(pra = '') {
-        console.log("http://localhost:8080/fc?" + pra);
-        $.ajax({
-          "url": "http://localhost:8080/fc?" + pra,
-        }).done(function (response) {
-          $('#fcd').html(response);
-        });
-      }
-      window.onload = function () {
-        fetchd();
-      }
-
-      function fil() {
-        var course = [];
-        var city = [];
-
-        // Collect the selected values for course and city
-        $("input[name='course']:checked").each(function () {
-          course.push($(this).val());
-        });
-        $("input[name='city']:checked").each(function () {
-          city.push($(this).val());
-        });
-
-        var query = '';
-        if (city.length > 0) {
-          query += "city=" + city.join(',') + '&';
-        }
-        if (course.length > 0) {
-          query += "course=" + course.join(',') + '&';
-        }
-
-        // Remove the trailing '&' if it exists
-        if (query.endsWith('&')) {
-          query = query.slice(0, -1);
-        }
-        fetchd(query);
-      }
-
-    </script>

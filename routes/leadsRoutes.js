@@ -6,6 +6,6 @@ const router = exprss.Router();
 router
   .route("/admin/leads")
   .get(authMiddleware, controller.leadsPage)
-  .post(controller.createLead);
+  .post(authMiddleware, controller.createLead);
 
 module.exports = router;
