@@ -21,6 +21,6 @@ const clgFaqSchema = new mongoose.Schema(
   }
 );
 
-const FAQ = mongoose.model("College_FAQ", clgFaqSchema);
+const FAQc = mongoose.model("College_FAQ", clgFaqSchema);
 
-module.exports = FAQ;
+module.exports = FAQc;

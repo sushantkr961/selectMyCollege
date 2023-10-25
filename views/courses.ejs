@@ -33,7 +33,7 @@
       <div class="row g-lg-2 justify-content-center">
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100"
           data-aos-duration="1000">
-          <a href="/topclg?course=MBA" class="services-2">
+          <a href="/colleges?course=MBA" class="services-2">
             <div class="icon"><span class="flaticon-design"></span></div>
             <div class="text">
               <h2>MBA</h2>
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200"
           data-aos-duration="1000">
-          <a href="/topclg?course=B.Tech" class="services-2">
+          <a href="/colleges?course=B.Tech" class="services-2">
             <div class="icon">
               <span class="flaticon-paint-palette"></span>
             </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300"
           data-aos-duration="1000">
-          <a href="/topclg?course=Medical" class="services-2">
+          <a href="/colleges?course=Medical" class="services-2">
             <div class="icon">
               <span class="flaticon-computer-science"></span>
             </div>
@@ -64,7 +64,7 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400"
           data-aos-duration="1000">
-          <a href="/topclg?course=BCA" class="services-2">
+          <a href="/colleges?course=BCA" class="services-2">
             <div class="icon">
               <span class="flaticon-magnifying-glass"></span>
             </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400"
           data-aos-duration="1000">
-          <a href="/topclg?course=MCA" class="services-2">
+          <a href="/colleges?course=MCA" class="services-2">
             <div class="icon"><span class="flaticon-engineer"></span></div>
             <div class="text">
               <h2>MCA</h2>
@@ -84,7 +84,7 @@
         </div>
         <div class="col-md-3 col-xl-2 text-center d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400"
           data-aos-duration="1000">
-          <a href="/topclg?course=M.Tech" class="services-2">
+          <a href="/colleges?course=M.Tech" class="services-2">
             <div class="icon"><span class="flaticon-algorithm"></span></div>
             <div class="text">
               <h2>M.Tech</h2>
@@ -278,101 +278,5 @@
 
     </div>
   </section>
-  <script>
-    function myFunction() {
-      var input, filter, ul, li, label, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      ul = document.getElementById("myUL");
-      li = ul.getElementsByTagName("li");
 
-      for (i = 0; i < li.length; i++) {
-        label = li[i].getElementsByTagName("label")[0];
-        txtValue = label.textContent || label.innerText;
-
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
-        }
-      }
-    }
-    function myFunction1() {
-      var input, filter, ul, li, label, i, txtValue;
-      input = document.getElementById("state");
-      filter = input.value.toUpperCase();
-      ul = document.getElementById("std");
-      li = ul.getElementsByTagName("li");
-
-      for (i = 0; i < li.length; i++) {
-        label = li[i].getElementsByTagName("label")[0];
-        txtValue = label.textContent || label.innerText;
-
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
-        }
-      }
-    }
-    function myFunction2() {
-      var input, filter, ul, li, label, i, txtValue;
-      input = document.getElementById("course");
-      filter = input.value.toUpperCase();
-      ul = document.getElementById("crd");
-      li = ul.getElementsByTagName("li");
-
-      for (i = 0; i < li.length; i++) {
-        label = li[i].getElementsByTagName("label")[0];
-        txtValue = label.textContent || label.innerText;
-
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
-        }
-      }
-    }
-  </script>
   <%- include('foot') %>
-    <script>
-      function fetchd(pra = '') {
-        console.log("http://localhost:8080/fc?" + pra);
-        $.ajax({
-          "url": "http://localhost:8080/fc?" + pra,
-        }).done(function (response) {
-          $('#fcd').html(response);
-        });
-      }
-      window.onload = function () {
-        fetchd();
-      }
-
-      function fil() {
-        var course = [];
-        var city = [];
-
-        // Collect the selected values for course and city
-        $("input[name='course']:checked").each(function () {
-          course.push($(this).val());
-        });
-        $("input[name='city']:checked").each(function () {
-          city.push($(this).val());
-        });
-
-        var query = '';
-        if (city.length > 0) {
-          query += "city=" + city.join(',') + '&';
-        }
-        if (course.length > 0) {
-          query += "course=" + course.join(',') + '&';
-        }
-
-        // Remove the trailing '&' if it exists
-        if (query.endsWith('&')) {
-          query = query.slice(0, -1);
-        }
-        fetchd(query);
-      }
-
-    </script>

@@ -86,11 +86,10 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/colleges">All Colleges</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=MBA">MBA</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=B.Tech">Engineering</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=Medical">Medical</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=BCA">BCA</a></li>
-          <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=MBA">MBA</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=B.Tech">Engineering</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=Medical">Medical</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=BCA">BCA</a></li>
         </ul>
       </div>
     </div>
@@ -106,18 +105,17 @@
       </button>
       <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
         <a class="navbar-brand align-items-center" href="/">
-          <img src="http://localhost:8080/images/logo_2x.png" alt="Logo" style="max-height: 40px; width: auto">
+          <img src="<%= process.env.APP_URL %>images/logo_2x.png" alt="Logo" style="max-height: 40px; width: auto">
           <!-- Select My College
             <span>Online Education &amp; Learning</span> -->
         </a>
         <ul class="navbar-nav  mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/colleges">All Colleges</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=MBA">MBA</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=B.Tech">Engineering</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=Medical">Medical</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=BCA">BCA</a></li>
-          <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=MBA">MBA</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=B.Tech">Engineering</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=Medical">Medical</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges?course=BCA">BCA</a></li>
         </ul>
       </div>
     </div>
@@ -138,3 +136,4 @@
       }
     })
   </script>
+  
