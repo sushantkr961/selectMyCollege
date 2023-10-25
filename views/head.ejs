@@ -106,10 +106,54 @@
           <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/colleges">All Colleges</a></li>
           <li class="nav-item"><a class="nav-link" href="/topclg?course=MBA">MBA</a></li>
-          <li class="nav-item"><a class="nav-link" href="/topclg?course=B.Tech">B.Tech</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topclg?course=B.Tech">Engineering</a></li>
           <li class="nav-item"><a class="nav-link" href="/topclg?course=Medical">Medical</a></li>
           <li class="nav-item"><a class="nav-link" href="/topclg?course=BCA">BCA</a></li>
         </ul>
       </div>
     </div>
   </nav>
+  <!-- navigation on scroll -->
+  <nav class="navbar navbar-expand-lg hidenav ftco-navbar-light" id="snos">
+    <div class="container-xl">
+
+      <a href="#" class="btn-custom order-lg-last">Check Eligibility</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+        <a class="navbar-brand align-items-center" href="/">
+          <img src="http://localhost:8080/images/logo_2x.png" alt="Logo" style="max-height: 40px; width: auto">
+          <!-- Select My College
+            <span>Online Education &amp; Learning</span> -->
+        </a>
+        <ul class="navbar-nav  mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/colleges">All Colleges</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topclg?course=MBA">MBA</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topclg?course=B.Tech">Engineering</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topclg?course=Medical">Medical</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topclg?course=BCA">BCA</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <script>
+    // new nav on scroll
+    window.addEventListener('scroll', function () {
+      const showNav = document.getElementById('snos')
+      var scg = window.scrollY;
+      // console.log(scg)
+      if (scg > 150) {
+        showNav.classList.add('showN')
+        showNav.classList.remove('hidenav')
+      }
+      else {
+        showNav.classList.add('hidenav')
+        showNav.classList.remove('showN')
+      }
+    })
+  </script>
+  
+
